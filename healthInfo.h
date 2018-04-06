@@ -11,11 +11,16 @@ public:
 //Constructor
 Calories()
 {
+<<<<<<< HEAD
     int age=0;
+=======
+    int age=0; 
+>>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
     int height=0;
     int weight=0;
 }
 //Age
+<<<<<<< HEAD
 int  getAge() const
 {
     return(age);
@@ -49,6 +54,41 @@ char  getGender()
 }
 void setGender( int G)
 {
+=======
+int  getAge() const 
+{ 
+    return(age);
+}
+void setAge(const int A) 
+{ 
+    age = A;
+}
+//Height // Inches
+int  getHeight() const 
+{ 
+    return(height);
+}
+void setHeight(const int H) 
+{ 
+    height = H;
+}
+//Weight //Pounds
+int  getWeight() 
+{ 
+    return(age);
+}
+void setWeight(int W) 
+{ 
+    weight = W;
+}
+//Gender
+char  getGender() 
+{ 
+    return(gender);
+}
+void setGender( int G) 
+{ 
+>>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
     gender = G;
 }
 //Birthday
@@ -63,6 +103,7 @@ int womenBMR()
 }
 int menBMR()
 {
+<<<<<<< HEAD
     return 66 + (6.23*weight)+(12.7*height)-(6.8*age);
 }
 /*
@@ -128,14 +169,25 @@ cout<<"1: Sedentary tending to spend much time seated; somewhat inactive.\n"
 
 
 }
+=======
+    return 66 + (6.23*weight)+(12.7*height)-(6.8*age);  
+}
+
+>>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
 
 
 
 private:
     int age;
+<<<<<<< HEAD
     int weight;
     int height;
     int choice;
+=======
+int weight;
+    int height;
+    bool active;
+>>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
     char gender;
     int womenRate;
     int menRate;

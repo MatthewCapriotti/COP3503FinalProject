@@ -11,16 +11,14 @@ public:
 //Constructor
 Calories()
 {
-<<<<<<< HEAD
+
     int age=0;
-=======
-    int age=0; 
->>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
     int height=0;
     int weight=0;
 }
 //Age
-<<<<<<< HEAD
+
+
 int  getAge() const
 {
     return(age);
@@ -54,41 +52,7 @@ char  getGender()
 }
 void setGender( int G)
 {
-=======
-int  getAge() const 
-{ 
-    return(age);
-}
-void setAge(const int A) 
-{ 
-    age = A;
-}
-//Height // Inches
-int  getHeight() const 
-{ 
-    return(height);
-}
-void setHeight(const int H) 
-{ 
-    height = H;
-}
-//Weight //Pounds
-int  getWeight() 
-{ 
-    return(age);
-}
-void setWeight(int W) 
-{ 
-    weight = W;
-}
-//Gender
-char  getGender() 
-{ 
-    return(gender);
-}
-void setGender( int G) 
-{ 
->>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
+
     gender = G;
 }
 //Birthday
@@ -103,12 +67,12 @@ int womenBMR()
 }
 int menBMR()
 {
-<<<<<<< HEAD
+
     return 66 + (6.23*weight)+(12.7*height)-(6.8*age);
 }
-/*
+
 //Calories Needed to lose weight based on active state
-void askActive(int choice, char gender){
+void caloriesCut(int choice, char gender){
     //1: Sedentary tending to spend much time seated; somewhat inactive.
     //2: Lightly active (light exercise one to three days a week)
     //3: Moderately active (moderate exercise three to five days per week):
@@ -117,12 +81,13 @@ void askActive(int choice, char gender){
     switch(choice){
 case 1:
     if(gender == 'M'){
-        menRate = menBMR() x 1.2;
+       menRate = (menBMR() * 1.2);
     }
     else if(gender == 'F')
     {
-        womenRate = womenBMR() x 1.2;
+        womenRate = womenBMR() * 1.2;
     }
+    break;
 case 2:
     if(gender == 'M'){
         menRate = menBMR() * 1.375;
@@ -131,6 +96,7 @@ case 2:
     {
         womenRate = womenBMR() * 1.375;
     }
+    break;
 case 3:
     if(gender == 'M'){
         menRate = menBMR() * 1.55;
@@ -139,27 +105,36 @@ case 3:
     {
         womenRate = womenBMR() * 1.55;
     }
+    break;
 case 4:
     if(gender == 'M'){
         menRate = menBMR() * 1.725;
     }
     else if(gender == 'F')
     {
-       menRate = menBMR() * 1.725;
+ womenRate = womenBMR() * 1.725;
     }
+    break;
 case 5:
     if(gender == 'M'){
         menRate = menBMR() * 1.9;
     }
     else if(gender == 'F')
     {
-        menRate = menBMR() * 1.9;
+        womenRate = womenBMR() * 1.9;
     }
+    break;
 
 
-*/
+    }
+    if(gender=='M'){
+        cout<< "Calories needed to cut is: "<< menRate<<endl;
+    }else if(gender=='F'){
+    cout<<" Calories needed to cut is : "<< womenRate<<endl;
+    }
+}
 void activeMenu(){
-    cout<<"How active are you?\n";
+    cout<<"How active are you?\n"<<endl;
 cout<<"1: Sedentary tending to spend much time seated; somewhat inactive.\n"
     "2: Lightly active (light exercise one to three days a week)\n"
     "3: Moderately active (moderate exercise three to five days per week):\n"
@@ -169,25 +144,23 @@ cout<<"1: Sedentary tending to spend much time seated; somewhat inactive.\n"
 
 
 }
-=======
-    return 66 + (6.23*weight)+(12.7*height)-(6.8*age);  
-}
 
->>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
+
+
+
+
 
 
 
 private:
     int age;
-<<<<<<< HEAD
+
     int weight;
     int height;
     int choice;
-=======
-int weight;
-    int height;
-    bool active;
->>>>>>> f9e04dce31655ac93a07a51cb644672892893ceb
+
+
+
     char gender;
     int womenRate;
     int menRate;

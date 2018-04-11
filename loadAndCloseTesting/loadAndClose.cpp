@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void loadUser(const string username)
+void loadUser(const string username, string password)
 {
     ifstream inFS ("save.txt");             // Input stream
     string line;                            // Current line in the text document
@@ -23,12 +23,14 @@ void loadUser(const string username)
     map<string,bool> exercisesIsCardioMap;  // Contains the "isCardio" bool with its associated exercise (by name at this stage)
     map<string,string> exercisesMuscleMap;  // Contains the string for the muscle the associated exercise targets
 
-    string userHistory;                     // Set as a string for organization at this early stage
-
     // TO BE USED WHEN "Exercise" BECOMES AVAILABLE
     string exerciseName;
     string muscleTargeted;
     bool isCardio;
+
+    // TO BE USED WHEN "Workout" BECOMES AVAILABLE
+    int workoutTime;    // In minutes
+    string date;        // Example: "02192018" = February 19, 2018
 
 
     // Sets "line" to the string contained in the current line of the text document.
@@ -44,6 +46,15 @@ void loadUser(const string username)
             if(line.substr(9) == username)
             {
                 foundUser = true;
+                inFS >> line;
+                if(line.substr(9) == password)
+                {
+                    // I'm assuming somewhere here there will be statements such as:
+                    //
+                    // isAuthenticated = true;
+                }
+                else
+                    return void();
             }
         }
 
@@ -89,7 +100,7 @@ void loadUser(const string username)
             if(line == "beginExercises")
             {
                 inFS >> line; // Moves to next line to prevent "beginExercises" from being processed as an exercise
-                while(line != "endExercises")
+                while(line != "endExercises" && !inFS.eof())
                 {
                     // The scopes of the following declarations are limited to this loop for clarity
                     size_t exNameEndIndex = 0;
@@ -136,6 +147,139 @@ void loadUser(const string username)
                 }
             }
 
+            // Begins checking workouts, line by line. ALL workout info will be placed into each item
+            // in the vector, and will be parsed when the Exercise and Workout classes become available.
+            if(line == "beginWorkouts")
+            {
+                inFS >> line; // Moves file stream forward
+                // Will stop if the "endWorkouts" keyword is detected or if the last line in the file
+                while(line != "endWorkouts" && !inFS.eof())
+                {
+                    // The following char indicators will determine what information it relates to in the file
+                    //
+                    // ! - follows the date of the workout
+                    // ? - follows the total time of the workout
+                    // $ - follows the name of the type of the particular exercise
+                    // # - follows the numSets of the particular exercise
+                    // % - follows the list of reps per set of the particular exercise
+                    // , - separate each number of reps per set of the particular exercise
+                    // & - follows the total time of the particular exercise done
+                    // | - follows the end of the particular exercise
+                    // ~ - indicates the end of the workout
+
+
+                    size_t currIndex = 0;                       // Used for misc tracking in the line
+                    size_t endOfWorkoutTimeIndex = 0;           // Index for the end of the total time of the workout
+                    size_t endOfDateIndex = 0;                  // Index for the end of the date of the workout
+                    size_t currExerciseStartIndex = 0;          // Index for the start of the current particular exercise
+                    size_t endOfExerciseNameIndex = 0;          // Index for the end of the exercise name
+                    size_t endOfNumSetsIndex = 0;               // Index for the end of the number of sets of the particular exercise
+                    size_t endOfRepsListIndex = 0;              // Index for the end of the list of reps per set
+                    size_t endOfExerciseTimeIndex = 0;          // Index for the end of the total time of the particular exercise
+                    size_t endOfExerciseIndex = 0;              // Index for the end of the current exercise
+                    size_t endOfWorkoutIndex = 0;               // Index for the end of the workout
+
+                    // Detects the end of the workout from the beginning
+                    if(line.find('~') != string::npos)
+                        endOfWorkoutIndex = line.find('~');
+
+                    // Resetting for each line
+                    workoutTime = 0;
+                    date = "";
+                    exerciseName = "";
+
+                    // New Declarations needed to create Workout instance and each reset per line
+                    int numSets = 0;
+                    vector<int> reps;
+                    int exerciseTime = 0;
+                    bool endOfExercise = false;
+                    bool endOfWorkout = false;
+
+                    // I'm assuming there will be statements such as:
+                    //
+                    // vector<ExerciseAction> exAVector;
+                    //
+                    // somewhere else that is publicly declared outside of this method.
+
+                    // Iterates through the entire line
+                    // Put into a loop for organization, although it does not function as such
+                    while(!endOfWorkout)
+                    {
+                        endOfExercise = false;
+
+                        // Setting the date of the workout
+                        if(line.find('!',0) != string::npos)
+                            date = line.substr(0,line.find('!',0));
+
+                        // Setting the total time of the workout (in minutes)
+                        if(line.find('?', 0) != string::npos)
+                            workoutTime = stoi(line.substr(currIndex,line.find('?',0)));
+
+                        // Setting the beginning of the first exercise
+                        if(line.find('?', currIndex) != string::npos)
+                            currExerciseStartIndex = line.find('?', currIndex)+1;
+
+                        // Put into a loop for organization, although it does not function as such
+                        while(!endOfExercise)
+                        {
+                            endOfExerciseIndex = line.find('|', currExerciseStartIndex);
+                            endOfExerciseNameIndex = line.find('$', currExerciseStartIndex);
+                            endOfRepsListIndex = line.find('%', currExerciseStartIndex);
+                            endOfNumSetsIndex = line.find('#',currExerciseStartIndex);
+                            endOfExerciseTimeIndex = endOfExerciseIndex; // At the same spot
+
+                            // The name of the exercise is between the starting point of the exercise and the '$'
+                            exerciseName = line.substr(currExerciseStartIndex, line.find('$',currExerciseStartIndex)-currExerciseStartIndex);
+
+                            // Acquiring the number of sets of the exercise done
+                            numSets = stoi(line.substr(line.find("$",currExerciseStartIndex)+1,endOfNumSetsIndex-endOfExerciseNameIndex-1));
+
+                            // Adding to reps vector
+                            while(currIndex < endOfRepsListIndex)
+                            {
+                                if(currIndex == 0)
+                                    currIndex = line.find('#',currExerciseStartIndex)+1;
+
+                                reps.push_back(stoi(line.substr(currIndex, 2)));
+
+                                currIndex += 3;
+                            }
+
+                            // Finds the exercise time
+                            exerciseTime = stoi(line.substr(endOfRepsListIndex+1,endOfExerciseTimeIndex-endOfRepsListIndex-1));
+
+                            currIndex = endOfExerciseIndex;
+
+                            break;
+                        }
+
+
+
+                        // I'm assuming somewhere here there will be statements such as:
+                        //
+                        // Exercise exType;
+                        //
+                        // for(Exercise *exPtr : exercisePtrVector)
+                        // {
+                        //   if(exPtr->getName() == exerciseName)
+                        //       exType = *exPtr;
+                        // }
+                        // exAVector.push_back(exerciseName, exType, numSets, reps, exerciseTime);
+
+                        // Determines if at the end of the line
+                        if(currIndex == line.find('~',0)-1)
+                            break;
+                    }
+
+                    // I'm assuming somewhere here there will be statements such as:
+                    //
+                    // userHistory.push_back(new Workout(workoutDate, workoutTime, exAVector));
+
+                    inFS >> line;
+                }
+            }
+
+
             // Moves stream forward
             inFS >> line;
 
@@ -151,9 +295,9 @@ void loadUser(const string username)
     // Just for testing
     for(string str : exercisesVector)
     {
-        cout << str << " ";
-        cout << exercisesIsCardioMap[str] << " ";
-        cout << exercisesMuscleMap[str] << endl;
+        //cout << str << " ";
+        //cout << exercisesIsCardioMap[str] << " ";
+        //cout << exercisesMuscleMap[str] << endl;
     }
 
     inFS.close(); // File is closed
@@ -162,7 +306,7 @@ void loadUser(const string username)
 int main()
 {
 
-    loadUser("test");
+    loadUser("test", "ps");
 
 
     return 0;

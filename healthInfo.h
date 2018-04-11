@@ -81,59 +81,103 @@ void caloriesCut(int choice, char gender){
     switch(choice){
 case 1:
     if(gender == 'M'){
-       menRate = (menBMR() * 1.2);
+       menCutRate = (menBMR() * 1.2);
     }
     else if(gender == 'F')
     {
-        womenRate = womenBMR() * 1.2;
+        womenCutRate = womenBMR() * 1.2;
     }
     break;
 case 2:
     if(gender == 'M'){
-        menRate = menBMR() * 1.375;
+        menCutRate = menBMR() * 1.375;
     }
     else if(gender == 'F')
     {
-        womenRate = womenBMR() * 1.375;
+        womenCutRate = womenBMR() * 1.375;
     }
     break;
 case 3:
     if(gender == 'M'){
-        menRate = menBMR() * 1.55;
+        menCutRate = menBMR() * 1.55;
     }
     else if(gender == 'F')
     {
-        womenRate = womenBMR() * 1.55;
+        womenCutRate = womenBMR() * 1.55;
     }
     break;
 case 4:
     if(gender == 'M'){
-        menRate = menBMR() * 1.725;
+        menCutRate = menBMR() * 1.725;
     }
     else if(gender == 'F')
     {
- womenRate = womenBMR() * 1.725;
+ womenCutRate = womenBMR() * 1.725;
     }
     break;
 case 5:
     if(gender == 'M'){
-        menRate = menBMR() * 1.9;
+        menCutRate = menBMR() * 1.9;
     }
     else if(gender == 'F')
     {
-        womenRate = womenBMR() * 1.9;
+        womenCutRate = womenBMR() * 1.9;
     }
     break;
 
 
     }
     if(gender=='M'){
-        cout<< "Calories needed to cut is: "<< menRate<<endl;
+        cout<< "Calories needed to cut is: "<< menCutRate<<endl;
     }else if(gender=='F'){
-    cout<<" Calories needed to cut is : "<< womenRate<<endl;
+    cout<<" Calories needed to cut is : "<< womenCutRate<<endl;
     }
 }
-void activeMenu(){
+//Calorie Bulk
+void calorieBulk(int choice, char gender){
+    //1: Sedentary tending to spend much time seated; somewhat inactive.
+    //2: active (light exercise two to three days a week)
+    //3: Moderately active (moderate exercise four to six days per week):
+    //http://www.healthylivingheavylifting.com/how-to-calculate-macros-for-bulking/
+    //http://www.shapeyourenergy.com/how-to-calculate-your-calories-formula/
+    switch(choice){
+case 1:
+    if(gender == 'M'){
+       menBulkRate = (weight * 18);
+    }
+    else if(gender == 'F')
+    {
+        womenBulkRate = weight * 16;
+    }
+    break;
+case 2:
+    if(gender == 'M'){
+        menBulkRate = weight*20;
+    }
+    else if(gender == 'F')
+    {
+        womenBulkRate = weight * 17;
+    }
+    break;
+case 3:
+    if(gender == 'M'){
+        menBulkRate = weight * 22;
+    }
+    else if(gender == 'F')
+    {
+        womenBulkRate = weight * 18;
+    }
+    break;
+
+
+    }
+   if(gender=='M'){
+        cout<< "Calories needed to Bulk is: "<< menBulkRate+500<<endl;
+    }else if(gender=='F'){
+    cout<<" Calories needed to Bulk is : "<< womenBulkRate+500<<endl;
+    }
+}
+void activeCutMenu(){
     cout<<"How active are you?\n"<<endl;
 cout<<"1: Sedentary tending to spend much time seated; somewhat inactive.\n"
     "2: Lightly active (light exercise one to three days a week)\n"
@@ -141,6 +185,15 @@ cout<<"1: Sedentary tending to spend much time seated; somewhat inactive.\n"
     "4: Very active (vigorous exercise six to seven days a week):\n"
     "5: Extremely active (intense exercise or sports training six to seven days per week:\n";
     cout<<"\nEnter 1-5 what you scale is: ";
+
+
+}
+void activeBulkMenu(){
+    cout<<"How active are you?\n"<<endl;
+cout<< "1: Sedentary tending to spend much time seated; somewhat inactive.\n"
+    "2: active (light exercise two to three days a week)\n"
+    "3: Moderately active (moderate exercise four to six days per week):\n";
+    cout<<"\nEnter 1-3 what you scale is: ";
 
 
 }
@@ -162,8 +215,10 @@ private:
 
 
     char gender;
-    int womenRate;
-    int menRate;
+    int womenCutRate;
+    int menCutRate;
+    int womenBulkRate;
+    int menBulkRate;
 };
 
 #endif

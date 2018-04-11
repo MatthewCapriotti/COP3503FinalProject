@@ -9,7 +9,7 @@ using namespace std;
 
 //*** TESTING PURPOSES ONLY**//
 
-/*
+
 int main(){
 int choice =0;
 char gender;
@@ -29,7 +29,7 @@ gender = toupper(gender);
 Calories c;
 c.setGender(gender);
 if(gender=='M' || gender =='F'){
-c.activeMenu();
+c.activeCutMenu();
 cin>>choice;
 }else{
 cout<< "....Wrong";
@@ -40,7 +40,11 @@ c.setWeight(weight);
 
 
 c.caloriesCut(choice,gender);
+c.activeBulkMenu();
+int choice2;
+cin>>choice2;
+c.calorieBulk(choice,gender);
 return 0;
 }
 
-*/
+

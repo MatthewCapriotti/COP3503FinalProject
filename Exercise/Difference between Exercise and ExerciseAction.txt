@@ -1,0 +1,7 @@
+"Exercise" is a type of exercise
+
+"ExerciseAction" is an instance of the user doing that exercise.
+
+For example, if a user does 3 sets of push-ups, the Exercise would be
+the type of exercise (push-up), and the ExerciseAction would contain how 
+many sets he or she did at that particular instance.

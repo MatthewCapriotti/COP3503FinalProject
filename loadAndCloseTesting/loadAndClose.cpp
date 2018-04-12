@@ -1,3 +1,9 @@
+#include "Declarations.h"
+#include "WorkoutHistory.h"
+#include "Workout.h"
+#include "Exercise.h"
+#include "ExerciseAction.h"
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -134,19 +140,14 @@ void loadUser(const string username, string password)
                     exercisesIsCardioMap[exerciseName] = isCardio;
                     exercisesMuscleMap[exerciseName] = muscleTargeted;
 
-
-                    // I'm assuming somewhere here there will be statements such as:
-                    //
-                    // Exercise *ex = new Exercise(exerciseName, isCardio, muscleTargeted);
-                    // exercisePtrVector.push_back(ex)
-                    //
-                    // and that these can be dereferenced outside of this method.
-                    // "exercisePtrVector" needs to be declared as public somewhere else in this case.
+                    Exercise *ex = new Exercise(exerciseName, muscleTargeted, isCardio);
+                    exercisePtrVector.push_back(ex);
 
                     inFS >> line; // File stream moved to next line
                 }
             }
 
+            /*
             // Begins checking workouts, line by line. ALL workout info will be placed into each item
             // in the vector, and will be parsed when the Exercise and Workout classes become available.
             if(line == "beginWorkouts")
@@ -195,29 +196,27 @@ void loadUser(const string username, string password)
                     bool endOfExercise = false;
                     bool endOfWorkout = false;
 
-                    // I'm assuming there will be statements such as:
-                    //
-                    // vector<ExerciseAction> exAVector;
-                    //
-                    // somewhere else that is publicly declared outside of this method.
+                    vector<ExerciseAction> exActionVector;
 
-                    // Iterates through the entire line
-                    // Put into a loop for organization, although it does not function as such
+
                     while(!endOfWorkout)
                     {
                         endOfExercise = false;
 
                         // Setting the date of the workout
-                        if(line.find('!',0) != string::npos)
+                        if(line.find('!',currIndex) != string::npos)
                             date = line.substr(0,line.find('!',0));
 
                         // Setting the total time of the workout (in minutes)
-                        if(line.find('?', 0) != string::npos)
+                        if(line.find('?', currIndex) != string::npos)
                             workoutTime = stoi(line.substr(currIndex,line.find('?',0)));
+
 
                         // Setting the beginning of the first exercise
                         if(line.find('?', currIndex) != string::npos)
                             currExerciseStartIndex = line.find('?', currIndex)+1;
+
+                        cout << currExerciseStartIndex << endl;
 
                         // Put into a loop for organization, although it does not function as such
                         while(!endOfExercise)
@@ -253,32 +252,26 @@ void loadUser(const string username, string password)
                             break;
                         }
 
+                        Exercise exType;
 
-
-                        // I'm assuming somewhere here there will be statements such as:
-                        //
-                        // Exercise exType;
-                        //
-                        // for(Exercise *exPtr : exercisePtrVector)
-                        // {
-                        //   if(exPtr->getName() == exerciseName)
-                        //       exType = *exPtr;
-                        // }
-                        // exAVector.push_back(exerciseName, exType, numSets, reps, exerciseTime);
+                        for(Exercise *exPtr : exercisePtrVector)
+                        {
+                            if(exPtr->getName() == exerciseName)
+                                exType = *exPtr;
+                        }
+                        exActionVector.push_back(ExerciseAction(exerciseName, exType, numSets, reps, exerciseTime));
 
                         // Determines if at the end of the line
                         if(currIndex == line.find('~',0)-1)
                             break;
                     }
 
-                    // I'm assuming somewhere here there will be statements such as:
-                    //
-                    // userHistory.push_back(new Workout(workoutDate, workoutTime, exAVector));
+                    userHistory.add(Workout(date, workoutTime, exActionVector));
 
                     inFS >> line;
                 }
             }
-
+            */
 
             // Moves stream forward
             inFS >> line;

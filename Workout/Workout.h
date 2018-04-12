@@ -17,7 +17,7 @@ class Workout
 private:
     string workoutDate;                         // When instantiated, this is parsed from a date in a different format (i.e. "09222017" would be the parameter and would be parsed to "September 22 2017")
     int workoutTime;                            // In minutes
-    vector<ExerciseAction> exActionVector;  // Vector of pointers to ExerciseAction objects
+    vector<ExerciseAction> exActionVector;      // Vector of ExerciseAction objects
 
 public:
     string convertDate(string dateToConvert);   // Converts date between formats as necessary (both ways)

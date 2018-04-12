@@ -32,3 +32,8 @@ void WorkoutHistory::add(Workout workout)
 {
     workoutVector.push_back(workout);
 }
+
+vector<Workout> WorkoutHistory::getVector()
+{
+    return workoutVector;
+}

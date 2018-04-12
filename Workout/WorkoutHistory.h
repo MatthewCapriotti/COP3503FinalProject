@@ -24,6 +24,7 @@ public:
     explicit WorkoutHistory(vector<Workout> workoutVector);
     Workout at(int index);
     int size();
+    vector<Workout> getVector();
     void add(Workout workout);
 };
 

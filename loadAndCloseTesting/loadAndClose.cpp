@@ -18,12 +18,21 @@ void loadUser(const string username, string password)
     ifstream inFS ("save.txt");             // Input stream
     string line;                            // Current line in the text document
     bool foundUser = false;                 // Becomes true if the username is found in the text document
+    bool isAuthenticated = false;           // Is true if the password and username match
     bool endOfUser = false;                 // Becomes false when at the end of a user's information
 
     // These declarations should not be necessary in the final program
-    int weight;
-    int height;
+    string name;
     int age;
+    int weight;     // In pounds
+    int height;     // In inches
+    char gender;
+    string email;
+    string phoneNum;
+    string city;
+    string state;
+    string zipcode;
+    bool isAdmin = false;
     string goal;                            // Set as a string for organization at this early stage
     vector<string> calorieIntake;
     vector<string> exercisesVector;         // Set as a string vector for organization at this early stage
@@ -53,11 +62,7 @@ void loadUser(const string username, string password)
                 foundUser = true;
                 inFS >> line;
                 if(line.substr(9) == password)
-                {
-                    // I'm assuming somewhere here there will be statements such as:
-                    //
-                    //User::isAuthenticated = true;
-                }
+                    isAuthenticated = true;
                 else
                     return void();
             }
@@ -69,25 +74,46 @@ void loadUser(const string username, string password)
     }
 
     // Iterates through user's information if found
-    if(foundUser)
+    if(foundUser && isAuthenticated)
     {
         while(line != "endOfUser" && !inFS.eof())
         {
+            // Checks if the user is an admin
+            if(line == "isAdmin")
+                isAdmin = true;
             // Checks for the user's saved weight
             if (line.substr(0, 7) == "weight:")
-            {
                 weight = stoi(line.substr(7));
-            }
             // Checks for the user's saved height
             if (line.substr(0, 7) == "height:")
-            {
                 height = stoi(line.substr(7));
-            }
             // Checks for the user's saved goal
             if (line.substr(0, 5) == "goal:")
-            {
                 goal = line.substr(5);
-            }
+            // Checks for the user's name
+            if(line.substr(0,5) == "name:")
+                name = line.substr(5);
+            // Checks for the user's age
+            if(line.substr(0,4) == "age:")
+                age = stoi(line.substr(4));
+            // Checks for the user's gender
+            if(line.substr(0,7) == "gender:")
+                gender = line.at(7);
+            // Checks for the user's email
+            if(line.substr(0,6) == "email:")
+                email = line.substr(6);
+            // Checks for the user's phone number
+            if(line.substr(0,6) == "phone:")
+                phoneNum = line.substr(6);
+            // Checks for the user's city
+            if(line.substr(0,5) == "city:")
+                city == line.substr(5);
+            // Check's for the user's state
+            if(line.substr(0,6) == "state:")
+                state == line.substr(6);
+            // Checks for the user's zip-code
+            if(line.substr(0,8) == "zipcode:")
+                zipcode = line.substr(8);
 
             // Begins checking intake values, line by line
             if(line == "beginIntake")
@@ -237,6 +263,15 @@ void loadUser(const string username, string password)
             }
         }
     }
+
+    if(foundUser && isAuthenticated)
+    {
+        if(!isAdmin)
+            member user = member(username, password, name, age, gender, email, city, state, zipcode);
+        else
+            admin userAdmin = admin(username, password, name, email, phoneNum);
+    }
+
 
     // Just for testing
     for(string str : exercisesVector)

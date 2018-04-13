@@ -1,9 +1,9 @@
 #include "User.h"
-#include "Declarations.h"
 #include "WorkoutHistory.h"
 #include "Workout.h"
 #include "Exercise.h"
 #include "ExerciseAction.h"
+#include "Info.h"
 
 #include <iostream>
 #include <string>
@@ -13,7 +13,11 @@
 
 using namespace std;
 
-void loadUser(const string username, string password)
+vector<Exercise*> Info::exercisePtrVector;
+WorkoutHistory Info::userHistory = WorkoutHistory();
+bool Info::isAdmin = false;
+
+void Info::loadUser(const string username, string password)
 {
     ifstream inFS ("save.txt");             // Input stream
     string line;                            // Current line in the text document
@@ -32,12 +36,13 @@ void loadUser(const string username, string password)
     string city;
     string state;
     string zipcode;
-    bool isAdmin = false;
-    string goal;                            // Set as a string for organization at this early stage
+    string goal;                                    // Set as a string for organization at this early stage
     vector<string> calorieIntake;
-    vector<string> exercisesVector;         // Set as a string vector for organization at this early stage
-    map<string,bool> exercisesIsCardioMap;  // Contains the "isCardio" bool with its associated exercise (by name at this stage)
-    map<string,string> exercisesMuscleMap;  // Contains the string for the muscle the associated exercise targets
+    vector<string> exercisesVector;                 // Set as a string vector for organization at this early stage
+    map<string,bool> exercisesIsCardioMap;          // Contains the "isCardio" bool with its associated exercise (by name at this stage)
+    map<string,string> exercisesMuscleMap;          // Contains the string for the muscle the associated exercise targets
+    WorkoutHistory userHistory = WorkoutHistory();  // Will contain all of the workouts performed by the user
+    vector<Exercise*> exercisePtrVector;          // Will contain all of the Exercise objects saved for the user
 
     string exerciseName;
     string muscleTargeted;
@@ -80,7 +85,7 @@ void loadUser(const string username, string password)
         {
             // Checks if the user is an admin
             if(line == "isAdmin")
-                isAdmin = true;
+                Info::isAdmin = true;
             // Checks for the user's saved weight
             if (line.substr(0, 7) == "weight:")
                 weight = stoi(line.substr(7));
@@ -258,27 +263,20 @@ void loadUser(const string username, string password)
             // If the line equals this statement, the loop will terminate as the user's
             // information will have fully been checked.
             if(line.substr(0,9) == "endOfUser")
-            {
                 break;
-            }
         }
     }
 
+    Info::userHistory = userHistory;      // Sets the user history
+    Info::exercisePtrVector = exercisePtrVector; // Sets the Exercise pointer vector
+
+    // Ensures that a user was both found and authenticated before creating an actor
     if(foundUser && isAuthenticated)
     {
-        if(!isAdmin)
+        if(!Info::isAdmin)    // If the user is not an admin, a member object will be created
             member user = member(username, password, name, age, gender, email, city, state, zipcode);
-        else
+        else            // If the user is an admin, an admin object will be created
             admin userAdmin = admin(username, password, name, email, phoneNum);
-    }
-
-
-    // Just for testing
-    for(string str : exercisesVector)
-    {
-        //cout << str << " ";
-        //cout << exercisesIsCardioMap[str] << " ";
-        //cout << exercisesMuscleMap[str] << endl;
     }
 
     inFS.close(); // File is closed
@@ -287,8 +285,8 @@ void loadUser(const string username, string password)
 int main()
 {
 
-    loadUser("test", "ps");
-
+    Info::loadUser("test", "ps");
 
     return 0;
 }
+

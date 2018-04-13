@@ -11,6 +11,7 @@ using namespace std;
 
 
 int main(){
+    /*
 int choice =0;
 char gender;
 int weight;
@@ -43,7 +44,10 @@ c.caloriesCut(choice,gender);
 c.activeBulkMenu();
 int choice2;
 cin>>choice2;
-c.calorieBulk(choice,gender);
+c.calorieBulk(choice,gender);*/
+char G = 'C';
+Calories c;
+c.recommendedFoods(G);
 return 0;
 }
 

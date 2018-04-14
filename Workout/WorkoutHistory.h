@@ -3,8 +3,8 @@
 
 #include "WorkoutHistory.h"
 #include "Workout.h"
-#include "Exercise.h"
-#include "ExerciseAction.h"
+#include "../Exercise/Exercise.h"
+#include "../Exercise/ExerciseAction.h"
 
 #include <iostream>
 #include <string>

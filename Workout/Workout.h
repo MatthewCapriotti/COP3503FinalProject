@@ -1,8 +1,8 @@
 #ifndef WIP_DO_NOT_PUSH_WORKOUT_H
 #define WIP_DO_NOT_PUSH_WORKOUT_H
 
-#include "Exercise.h"
-#include "ExerciseAction.h"
+#include "../Exercise/Exercise.h"
+#include "../Exercise/ExerciseAction.h"
 
 #include <iostream>
 #include <string>

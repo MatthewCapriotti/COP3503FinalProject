@@ -1,8 +1,8 @@
-#include "User.h"
-#include "WorkoutHistory.h"
-#include "Workout.h"
-#include "Exercise.h"
-#include "ExerciseAction.h"
+#include "../User.h"
+#include "../Workout/WorkoutHistory.h"
+#include "../Workout/Workout.h"
+#include "../Exercise/Exercise.h"
+#include "../Exercise/ExerciseAction.h"
 #include "Info.h"
 
 #include <iostream>

@@ -1,11 +1,11 @@
 #ifndef WIP_DO_NOT_PUSH_Info_H
 #define WIP_DO_NOT_PUSH_Info_H
 
-#include "User.h"
-#include "WorkoutHistory.h"
-#include "Workout.h"
-#include "Exercise.h"
-#include "ExerciseAction.h"
+#include "../User.h"
+#include "../Workout/WorkoutHistory.h"
+#include "../Workout/Workout.h"
+#include "../Exercise/Exercise.h"
+#include "../Exercise/ExerciseAction.h"
 
 #include <iostream>
 #include <string>

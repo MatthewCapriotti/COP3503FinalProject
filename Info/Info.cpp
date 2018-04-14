@@ -16,10 +16,12 @@ using namespace std;
 vector<Exercise*> Info::exercisePtrVector;
 WorkoutHistory Info::userHistory = WorkoutHistory();
 bool Info::isAdmin = false;
+member Info::userMember = member();
+admin Info::userAdmin = admin();
 
 void Info::loadUser(const string username, string password)
 {
-    ifstream inFS ("save.txt");             // Input stream
+    ifstream inFS ("Info/save.txt");             // Input stream
     string line;                            // Current line in the text document
     bool foundUser = false;                 // Becomes true if the username is found in the text document
     bool isAuthenticated = false;           // Is true if the password and username match
@@ -177,7 +179,6 @@ void Info::loadUser(const string username, string password)
                 }
             }
 
-
             // Begins checking workouts, line by line. ALL workout info will be placed into each item
             // in the vector, and will be parsed when the Exercise and Workout classes become available.
             if(line == "beginWorkouts")
@@ -274,9 +275,9 @@ void Info::loadUser(const string username, string password)
     if(foundUser && isAuthenticated)
     {
         if(!Info::isAdmin)    // If the user is not an admin, a member object will be created
-            member user = member(username, password, name, age, gender, email, city, state, zipcode);
+            Info::userMember = member(username, password, name, age, gender, email, city, state, zipcode);
         else            // If the user is an admin, an admin object will be created
-            admin userAdmin = admin(username, password, name, email, phoneNum);
+            Info::userAdmin = admin(username, password, name, email, phoneNum);
     }
 
     inFS.close(); // File is closed

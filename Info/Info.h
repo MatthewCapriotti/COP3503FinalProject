@@ -19,6 +19,8 @@ public:
     static vector<Exercise*> exercisePtrVector;                     // Vector of Exercise pointers
     static WorkoutHistory userHistory;                              // WorkoutHistory of all workouts the user has done
     static bool isAdmin;                                            // Is true if the user is an admin
+    static member userMember;                                        // To be used if the user is not an admin
+    static admin userAdmin;                                         // To be used if the user is an admin
     static void loadUser(const string username, string password);   // Loads the user's information
 
 };

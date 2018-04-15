@@ -2,6 +2,7 @@ username:BobD
 password:ps
 
 name:Bob Doe
+endName
 age:24
 gender:Male
 email:bob.doe@gmail.com
@@ -9,7 +10,8 @@ phone:1234567890
 city:Gainesville
 state:Florida
 zipcode:32607
-goal:goal
+goal:this is my goal
+endGoal
 
 
 beginIntake
@@ -32,7 +34,7 @@ beginWorkouts
 beginEs
 ex1
 3
-08,09,07
+08,09,07,
 20
 ex2
 4

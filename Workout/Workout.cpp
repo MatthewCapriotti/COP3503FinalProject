@@ -100,7 +100,11 @@ string Workout::convertDate(string dateToConvert)
         size_t firstSpaceIndex = dateToConvert.find(' ');
         size_t lastSpaceIndex = dateToConvert.rfind(' ');
 
-        day = dateToConvert.substr(firstSpaceIndex+1,2);
+        if((lastSpaceIndex-firstSpaceIndex) == 3)
+            day = "0" + dateToConvert.substr(firstSpaceIndex+1,1);
+        if((lastSpaceIndex-firstSpaceIndex) == 4)
+            day = dateToConvert.substr(firstSpaceIndex+1,2);
+
         year = dateToConvert.substr(lastSpaceIndex+1);
         return (month + day + year);
     }

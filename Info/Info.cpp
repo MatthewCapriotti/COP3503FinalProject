@@ -19,6 +19,7 @@ bool Info::isAdmin = false;
 bool Info::isAuthenticated = false;
 bool Info::userExists = false;
 bool Info::newUser = false;
+string Info::goal = "";
 member Info::userMember = member();
 admin Info::userAdmin = admin();
 
@@ -51,7 +52,6 @@ void Info::loadUser(const string username, string password)
     string city;
     string state;
     string zipcode;
-    string goal;                                    // Set as a string for organization at this early stage
     vector<string> calorieIntake;
     vector<string> exercisesVector;                 // Set as a string vector for organization at this early stage
     map<string,bool> exercisesIsCardioMap;          // Contains the "isCardio" bool with its associated exercise (by name at this stage)
@@ -115,16 +115,35 @@ void Info::loadUser(const string username, string password)
                 height = stoi(line.substr(7));
             // Checks for the user's saved goal
             if (line.substr(0, 5) == "goal:")
-                goal = line.substr(5);
+            {
+                string g = line.substr(5);  // Initially sets string g to the first word after "goal:"
+                g += " ";                   // Adds a space after the first word
+                inFS >> line;               // Moves file stream forward
+
+                // Iterates through every word until "endGoal" is reached
+                while(line != "endGoal")
+                {
+                    g+= line;               // Adds the next word
+                    g+= " ";                // Adds a space
+                    inFS >> line;           // Moves the file stream forward
+                }
+                Info::goal = g;             // Sets Info::goal
+            }
             // Checks for the user's name
             if(line.substr(0,5) == "name:")
             {
-                string n;
-                n += line.substr(5);
-                inFS >> line;
-                n += " ";
-                n += line;
-                name = n;
+                string n = line.substr(5);  // Initially sets string g to the first word after "name:"
+                n += " ";                   // Adds a space after the first part of the name
+                inFS >> line;               // Moves file stream forward
+
+                // Iterates through every word until "endGoal" is reached
+                while(line != "endName")
+                {
+                    n+= line;               // Adds the next part of the naem
+                    n+= " ";                // Adds a space
+                    inFS >> line;           // Moves the file stream forward
+                }
+                name = n;             // Sets Info::goal
             }
             // Checks for the user's age
             if(line.substr(0,4) == "age:")
@@ -140,10 +159,10 @@ void Info::loadUser(const string username, string password)
                 phoneNum = line.substr(6);
             // Checks for the user's city
             if(line.substr(0,5) == "city:")
-                city == line.substr(5);
+                city = line.substr(5);
             // Check's for the user's state
             if(line.substr(0,6) == "state:")
-                state == line.substr(6);
+                state = line.substr(6);
             // Checks for the user's zip-code
             if(line.substr(0,8) == "zipcode:")
                 zipcode = line.substr(8);
@@ -311,23 +330,27 @@ void Info::loadUser(const string username, string password)
 
 void Info::saveUser()
 {
+    // Basic declarations needed for printing to file
     ofstream outFS("Info/saves/test.txt");
     string line;
 
-    line = "username:" + Info::userMember.getUsername();
-    outFS << line << endl;
+    // Username and password
+    line = "username:" + Info::userMember.getUsername();    //
+    outFS << line << endl;                                  //  -- Output to file separated like this to prepare for later encryption method
     line = "password:" + Info::userMember.getPassword();
     outFS << line << endl;
 
+    // Prints following statement if the user is an admin
     if(Info::isAdmin)
     {
         line = "isAdmin";
         outFS << line << endl;
     }
 
-    cout << Info::userMember.getCity();
-
+    // Printing basic user info
     line = "name:" + Info::userMember.getName();
+    outFS << line << endl;
+    line = "endName";
     outFS << line << endl;
     line = "age:" + to_string(Info::userMember.getAge());
     outFS << line << endl;
@@ -343,11 +366,105 @@ void Info::saveUser()
     outFS << line << endl;
     line = "zipcode:" + Info::userMember.getZipCode();
     outFS << line << endl;
+    line = "goal:" + Info::goal;
+    outFS << line << endl;
+    line = "endGoal";
+    outFS << line << endl;
+
+    // Printing user intake section
+    line = "beginIntake";
+    outFS << line << endl;
+
+    /*
+     * Assuming there will be code here that will print calorie info
+     */
+
+    line = "endIntake";
+    outFS << line << endl;
+
+    // Printing saved Exercise object information
+    line = "beginExercises";
+    outFS << line << endl;
+
+    for(Exercise* e : Info::exercisePtrVector)
+    {
+        string b;
+        if(e->getCardio() == false)
+            b = "0";
+        else
+            b = "1";
+
+        line = e->getName() + "!" + b + "?" + e->getMuscle();
+        outFS << line << endl;
+    }
+
+    // Prints keyword that indicates end of Exercise objects
+    line = "endExercises";
+    outFS << line << endl;
+
+    // Printing user's WorkoutHistory
+    line = "beginWorkouts";
+    outFS << line << endl;
+
+    for(Workout w : Info::userHistory.getVector())
+    {
+        // Prints date of the workout
+        line = w.Workout::convertDate(w.getDate());
+        outFS << line << endl;
+
+        // Prints total time of the workout
+        line = to_string(w.getTime());
+        outFS << line << endl;
+
+        // Prints info from each ExerciseAction object
+        line = "beginEs";
+        outFS << line << endl;
+
+        for(ExerciseAction ea : w.getVector())
+        {
+            // Prints ExerciseAction name (same as Exercise object name)
+            line = ea.getName();
+            outFS << line << endl;
+
+            // Prints number of sets
+            line = to_string(ea.getNumSets());
+            outFS << line << endl;
+
+            // Prints list (with commas) of reps per set
+            for(int i : ea.getReps())
+            {
+                if(i < 10)
+                {
+                    line = "0" + to_string(i);
+                    outFS << line << ",";
+                }
+                else
+                {
+                    line = to_string(i);
+                    outFS << line << ",";
+                }
+            }
+            outFS << endl;
+
+            // Prints total time of exercise done
+            line = to_string(ea.getTime());
+            outFS << line << endl;
+        }
+
+        line = "endEs";
+        outFS << line << endl;
+    }
+
+    // Prints keyword that indicates end of the user's WorkoutHistory
+    line = "endWorkouts";
+    outFS << line << endl;
 }
 
 int main()
 {
     Info::loadUser("BobD", "ps");
+
+
 
     Info::saveUser();
 

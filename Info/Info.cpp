@@ -99,8 +99,45 @@ void Info::loadUser(const string username, string password)
             break;
     }
 
+    inFS >> line;   // Moves file stream forward to check if the user is an admin
+
+    if(line == "isAdmin")
+        Info::isAdmin = true;
+
+    // File parsing if the user is an admin
+    if(foundUser && Info::isAuthenticated && Info::isAdmin)
+    {
+        while(line != "endOfUser" && !inFS.eof())
+        {
+            // Checks for the user's name
+            if(line.substr(0,5) == "name:")
+            {
+                string n = line.substr(5);  // Initially sets string g to the first word after "name:"
+                n += " ";                   // Adds a space after the first part of the name
+                inFS >> line;               // Moves file stream forward
+
+                // Iterates through every word until "endGoal" is reached
+                while(line != "endName")
+                {
+                    n+= line;               // Adds the next part of the naem
+                    n+= " ";                // Adds a space
+                    inFS >> line;           // Moves the file stream forward
+                }
+                name = n;             // Sets Info::goal
+            }
+            // Checks for the user's email
+            if(line.substr(0,6) == "email:")
+                email = line.substr(6);
+            // Checks for the user's phone number
+            if(line.substr(0,6) == "phone:")
+                phoneNum = line.substr(6);
+
+            inFS >> line;   // Moves the file stream forward
+        }
+    }
+
     // Iterates through user's information if found
-    if(foundUser && Info::isAuthenticated)
+    if(foundUser && Info::isAuthenticated && !Info::isAdmin)
     {
         while(line != "endOfUser" && !inFS.eof())
         {
@@ -331,140 +368,170 @@ void Info::loadUser(const string username, string password)
 void Info::saveUser()
 {
     // Basic declarations needed for printing to file
-    ofstream outFS("Info/saves/test.txt");
+    string fileName;
+
+    if(!Info::isAdmin)
+        fileName = "Info/saves/" + userMember.getUsername() + ".txt";
+    else
+        fileName = "Info/saves/" + userAdmin.getUsername() + ".txt";
+
+    ofstream outFS(fileName);
+
     string line;
 
-    // Username and password
-    line = "username:" + Info::userMember.getUsername();    //
-    outFS << line << endl;                                  //  -- Output to file separated like this to prepare for later encryption method
-    line = "password:" + Info::userMember.getPassword();
-    outFS << line << endl;
-
     // Prints following statement if the user is an admin
-    if(Info::isAdmin)
+    if(!Info::isAdmin)
     {
-        line = "isAdmin";
-        outFS << line << endl;
-    }
-
-    // Printing basic user info
-    line = "name:" + Info::userMember.getName();
-    outFS << line << endl;
-    line = "endName";
-    outFS << line << endl;
-    line = "age:" + to_string(Info::userMember.getAge());
-    outFS << line << endl;
-    line = "gender:" + Info::userMember.getGender();
-    outFS << line << endl;
-    line = "email:" + Info::userMember.getEmail();
-    outFS << line << endl;
-    line = "phone:" + Info::userMember.getPhoneNum();
-    outFS << line << endl;
-    line = "city:" + Info::userMember.getCity();
-    outFS << line << endl;
-    line = "state:" + Info::userMember.getState();
-    outFS << line << endl;
-    line = "zipcode:" + Info::userMember.getZipCode();
-    outFS << line << endl;
-    line = "goal:" + Info::goal;
-    outFS << line << endl;
-    line = "endGoal";
-    outFS << line << endl;
-
-    // Printing user intake section
-    line = "beginIntake";
-    outFS << line << endl;
-
-    /*
-     * Assuming there will be code here that will print calorie info
-     */
-
-    line = "endIntake";
-    outFS << line << endl;
-
-    // Printing saved Exercise object information
-    line = "beginExercises";
-    outFS << line << endl;
-
-    for(Exercise* e : Info::exercisePtrVector)
-    {
-        string b;
-        if(e->getCardio() == false)
-            b = "0";
-        else
-            b = "1";
-
-        line = e->getName() + "!" + b + "?" + e->getMuscle();
-        outFS << line << endl;
-    }
-
-    // Prints keyword that indicates end of Exercise objects
-    line = "endExercises";
-    outFS << line << endl;
-
-    // Printing user's WorkoutHistory
-    line = "beginWorkouts";
-    outFS << line << endl;
-
-    for(Workout w : Info::userHistory.getVector())
-    {
-        // Prints date of the workout
-        line = w.Workout::convertDate(w.getDate());
+        // Username and password
+        line = "username:" + Info::userMember.getUsername();    //
+        outFS << line << endl;                                  //  -- Output to file separated like this to prepare for later encryption method
+        line = "password:" + Info::userMember.getPassword();
         outFS << line << endl;
 
-        // Prints total time of the workout
-        line = to_string(w.getTime());
+        // Printing basic user info
+        line = "notAdmin";
+        outFS << line << endl;
+        line = "name:" + Info::userMember.getName();
+        outFS << line << endl;
+        line = "endName";
+        outFS << line << endl;
+        line = "age:" + to_string(Info::userMember.getAge());
+        outFS << line << endl;
+        line = "gender:" + Info::userMember.getGender();
+        outFS << line << endl;
+        line = "email:" + Info::userMember.getEmail();
+        outFS << line << endl;
+        line = "phone:" + Info::userMember.getPhoneNum();
+        outFS << line << endl;
+        line = "city:" + Info::userMember.getCity();
+        outFS << line << endl;
+        line = "state:" + Info::userMember.getState();
+        outFS << line << endl;
+        line = "zipcode:" + Info::userMember.getZipCode();
+        outFS << line << endl;
+        line = "goal:" + Info::goal;
+        outFS << line << endl;
+        line = "endGoal";
         outFS << line << endl;
 
-        // Prints info from each ExerciseAction object
-        line = "beginEs";
+        // Printing user intake section
+        line = "beginIntake";
         outFS << line << endl;
 
-        for(ExerciseAction ea : w.getVector())
+        /*
+        * Assuming there will be code here that will print calorie info
+        */
+
+        line = "endIntake";
+        outFS << line << endl;
+
+        // Printing saved Exercise object information
+        line = "beginExercises";
+        outFS << line << endl;
+
+        for(Exercise* e : Info::exercisePtrVector)
         {
-            // Prints ExerciseAction name (same as Exercise object name)
-            line = ea.getName();
-            outFS << line << endl;
+            string b;
+            if(e->getCardio() == false)
+                b = "0";
+            else
+                b = "1";
 
-            // Prints number of sets
-            line = to_string(ea.getNumSets());
-            outFS << line << endl;
-
-            // Prints list (with commas) of reps per set
-            for(int i : ea.getReps())
-            {
-                if(i < 10)
-                {
-                    line = "0" + to_string(i);
-                    outFS << line << ",";
-                }
-                else
-                {
-                    line = to_string(i);
-                    outFS << line << ",";
-                }
-            }
-            outFS << endl;
-
-            // Prints total time of exercise done
-            line = to_string(ea.getTime());
+            line = e->getName() + "!" + b + "?" + e->getMuscle();
             outFS << line << endl;
         }
 
-        line = "endEs";
+        // Prints keyword that indicates end of Exercise objects
+        line = "endExercises";
+        outFS << line << endl;
+
+        // Printing user's WorkoutHistory
+        line = "beginWorkouts";
+        outFS << line << endl;
+
+        for(Workout w : Info::userHistory.getVector())
+        {
+            // Prints date of the workout
+            line = w.Workout::convertDate(w.getDate());
+            outFS << line << endl;
+
+            // Prints total time of the workout
+            line = to_string(w.getTime());
+            outFS << line << endl;
+
+            // Prints info from each ExerciseAction object
+            line = "beginEs";
+            outFS << line << endl;
+
+            for(ExerciseAction ea : w.getVector())
+            {
+                // Prints ExerciseAction name (same as Exercise object name)
+                line = ea.getName();
+                outFS << line << endl;
+
+                // Prints number of sets
+                line = to_string(ea.getNumSets());
+                outFS << line << endl;
+
+                // Prints list (with commas) of reps per set
+                for(int i : ea.getReps())
+                {
+                    if(i < 10)
+                    {
+                        line = "0" + to_string(i);
+                        outFS << line << ",";
+                    }
+                    else
+                    {
+                        line = to_string(i);
+                        outFS << line << ",";
+                    }
+                }
+                outFS << endl;
+
+                // Prints total time of exercise done
+                line = to_string(ea.getTime());
+                outFS << line << endl;
+            }
+
+            line = "endEs";
+            outFS << line << endl;
+        }
+
+        // Prints keyword that indicates end of the user's WorkoutHistory
+        line = "endWorkouts";
+        outFS << line << endl;
+        line = "endOfUser";
+        outFS << line << endl;
+        line = "endOfFile";
         outFS << line << endl;
     }
 
-    // Prints keyword that indicates end of the user's WorkoutHistory
-    line = "endWorkouts";
-    outFS << line << endl;
+    else
+    {
+        // Prints admin's user info
+        line = "username:" + userAdmin.getUsername();
+        outFS << line << endl;
+        line = "password:" + userAdmin.getPassword();
+        outFS << line << endl;
+        line = "isAdmin";
+        outFS << line << endl;
+        line = "name:" + userAdmin.getName();
+        outFS << line << endl;
+        line = "email:" + userAdmin.getEmail();
+        outFS << line << endl;
+        line = "phone:" + userAdmin.getPhoneNum();
+        outFS << line << endl;
+        line = "endOfUser";
+        outFS << line << endl;
+        line = "endOfFile";
+        outFS << line << endl;
+    }
 }
 
 int main()
 {
-    Info::loadUser("BobD", "ps");
-
-
+    Info::loadUser("testAdmin", "123");
 
     Info::saveUser();
 

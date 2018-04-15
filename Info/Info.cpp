@@ -16,15 +16,27 @@ using namespace std;
 vector<Exercise*> Info::exercisePtrVector;
 WorkoutHistory Info::userHistory = WorkoutHistory();
 bool Info::isAdmin = false;
+bool Info::isAuthenticated = false;
+bool Info::userExists = false;
 member Info::userMember = member();
 admin Info::userAdmin = admin();
 
+bool Info::checkUserExists(const string username)
+{
+    ifstream inFS("Info/saves/" + username + ".txt");
+    string line;
+    inFS >> line;
+    if(line == "username:" + username)
+        return true;
+    else
+        return false;
+}
+
 void Info::loadUser(const string username, string password)
 {
-    ifstream inFS ("Info/save.txt");             // Input stream
+    ifstream inFS ("Info/saves/" + username + ".txt");        // Input stream
     string line;                            // Current line in the text document
     bool foundUser = false;                 // Becomes true if the username is found in the text document
-    bool isAuthenticated = false;           // Is true if the password and username match
     bool endOfUser = false;                 // Becomes false when at the end of a user's information
 
     // These declarations should not be necessary in the final program
@@ -44,7 +56,7 @@ void Info::loadUser(const string username, string password)
     map<string,bool> exercisesIsCardioMap;          // Contains the "isCardio" bool with its associated exercise (by name at this stage)
     map<string,string> exercisesMuscleMap;          // Contains the string for the muscle the associated exercise targets
     WorkoutHistory userHistory = WorkoutHistory();  // Will contain all of the workouts performed by the user
-    vector<Exercise*> exercisePtrVector;          // Will contain all of the Exercise objects saved for the user
+    vector<Exercise*> exercisePtrVector;            // Will contain all of the Exercise objects saved for the user
 
     string exerciseName;
     string muscleTargeted;
@@ -60,6 +72,12 @@ void Info::loadUser(const string username, string password)
     {
         inFS >> line; // Moves file stream forward line by line
 
+        Info::userExists = Info::checkUserExists(username); // Sets Info::userExists to true if a user with this username exists
+
+        // If the user does not exist, the loadUser() function is exited
+        if(!Info::userExists)
+            return void();
+
         // Searches for this keyword that precedes the actual username
         if(line.substr(0,9) == "username:")
         {
@@ -69,7 +87,7 @@ void Info::loadUser(const string username, string password)
                 foundUser = true;
                 inFS >> line;
                 if(line.substr(9) == password)
-                    isAuthenticated = true;
+                    Info::isAuthenticated = true;
                 else
                     return void();
             }
@@ -81,7 +99,7 @@ void Info::loadUser(const string username, string password)
     }
 
     // Iterates through user's information if found
-    if(foundUser && isAuthenticated)
+    if(foundUser && Info::isAuthenticated)
     {
         while(line != "endOfUser" && !inFS.eof())
         {
@@ -272,7 +290,7 @@ void Info::loadUser(const string username, string password)
     Info::exercisePtrVector = exercisePtrVector; // Sets the Exercise pointer vector
 
     // Ensures that a user was both found and authenticated before creating an actor
-    if(foundUser && isAuthenticated)
+    if(foundUser && Info::isAuthenticated)
     {
         if(!Info::isAdmin)    // If the user is not an admin, a member object will be created
             Info::userMember = member(username, password, name, age, gender, email, city, state, zipcode);
@@ -283,10 +301,14 @@ void Info::loadUser(const string username, string password)
     inFS.close(); // File is closed
 }
 
+void Info::saveUser()
+{
+    bool newUser = false;       // Will be set to true if this is a new user
+}
+
 int main()
 {
-
-    Info::loadUser("test", "ps");
+    Info::loadUser("BobD", "ps");
 
     return 0;
 }

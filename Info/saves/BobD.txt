@@ -3,9 +3,9 @@ password:ps
 
 name:Bob Doe
 age:24
-gender:M
+gender:Male
 email:bob.doe@gmail.com
-phone:123-456-7890
+phone:1234567890
 city:Gainesville
 state:Florida
 zipcode:32607

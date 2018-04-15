@@ -15,16 +15,17 @@ member::member()
     zipcode = "EMPTY";
 }
 
-member::member(std::string username, std::string password, std::string name, 
-                int age, char gender, std::string email, 
-                std::string city, std::string state, std::string zipcode)
+member::member(std::string username, std::string password, std::string name,
+               int age, std::string gender, std::string email, std::string phoneNum,
+               std::string city, std::string state, std::string zipcode)
 {
-    this->username = "m" + username;
+    this->username = username;
     this->password = password;
     this->name = name;
     this->age = age;
     this->gender = gender;
     this->email = email;
+    this->phoneNum = phoneNum;
     this->city = city;
     this->state = state;
     this->zipcode = zipcode;
@@ -46,9 +47,9 @@ int member::getAge()
 {
     return age;
 }
-char member::getGender()
+std::string member::getGender()
 {
-    
+    return gender;
 }
 std::string member::getEmail()
 {
@@ -82,7 +83,7 @@ void member::setAge(int age)
 {
     this->age = age;
 }
-void member::setGender(char gender)
+void member::setGender(std::string gender)
 {
     this->gender = gender;
 }

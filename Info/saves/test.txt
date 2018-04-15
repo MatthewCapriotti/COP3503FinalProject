@@ -1,0 +1,10 @@
+username:BobD
+password:ps
+name:Bob Doe
+age:24
+gender:Male
+email:bob.doe@gmail.com
+phone:1234567890
+city:
+state:
+zipcode:32607

@@ -23,7 +23,7 @@ class member: public Actor
 private:
     std::string name;
     int age;
-    char gender;
+    std::string gender;
     std::string email;
     std::string phoneNum;
     std::string city;
@@ -32,7 +32,7 @@ private:
 
 public:
     member(std::string username, std::string password, std::string name,
-           int age, char gender, std::string email,
+           int age, std::string gender, std::string email, std::string phoneNum,
            std::string city, std::string state, std::string zipcode);
     member();
 
@@ -41,7 +41,7 @@ public:
     std::string getPassword();
     std::string getName();
     int getAge();
-    char getGender();
+    std::string getGender();
     std::string getEmail();
     std::string getPhoneNum();
     std::string getCity();
@@ -51,7 +51,7 @@ public:
     void setPassword(std::string newPassword);
     void setName(std::string name);
     void setAge(int age);
-    void setGender(char gender);
+    void setGender(std::string gender);
     void setUsername(std::string username);
     void setEmail(std::string newEmail);
     void setPhoneNum(std::string newPhoneNum);

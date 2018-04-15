@@ -21,6 +21,7 @@ public:
     static bool isAdmin;                                            // Is true if the user is an admin
     static bool isAuthenticated;                                    // Is true if the username and password match and are valid
     static bool userExists;                                         // Is true if a user with the specified username exists
+    static bool newUser;                                            // Is true if the current user is a new user
     static member userMember;                                       // To be used if the user is not an admin
     static admin userAdmin;                                         // To be used if the user is an admin
 

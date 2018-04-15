@@ -18,6 +18,7 @@ WorkoutHistory Info::userHistory = WorkoutHistory();
 bool Info::isAdmin = false;
 bool Info::isAuthenticated = false;
 bool Info::userExists = false;
+bool Info::newUser = false;
 member Info::userMember = member();
 admin Info::userAdmin = admin();
 
@@ -44,7 +45,7 @@ void Info::loadUser(const string username, string password)
     int age;
     int weight;     // In pounds
     int height;     // In inches
-    char gender;
+    string gender;
     string email;
     string phoneNum;
     string city;
@@ -117,13 +118,20 @@ void Info::loadUser(const string username, string password)
                 goal = line.substr(5);
             // Checks for the user's name
             if(line.substr(0,5) == "name:")
-                name = line.substr(5);
+            {
+                string n;
+                n += line.substr(5);
+                inFS >> line;
+                n += " ";
+                n += line;
+                name = n;
+            }
             // Checks for the user's age
             if(line.substr(0,4) == "age:")
                 age = stoi(line.substr(4));
             // Checks for the user's gender
             if(line.substr(0,7) == "gender:")
-                gender = line.at(7);
+                gender = line.substr(7);
             // Checks for the user's email
             if(line.substr(0,6) == "email:")
                 email = line.substr(6);
@@ -293,7 +301,7 @@ void Info::loadUser(const string username, string password)
     if(foundUser && Info::isAuthenticated)
     {
         if(!Info::isAdmin)    // If the user is not an admin, a member object will be created
-            Info::userMember = member(username, password, name, age, gender, email, city, state, zipcode);
+            Info::userMember = member(username, password, name, age, gender, email, phoneNum, city, state, zipcode);
         else            // If the user is an admin, an admin object will be created
             Info::userAdmin = admin(username, password, name, email, phoneNum);
     }
@@ -303,12 +311,45 @@ void Info::loadUser(const string username, string password)
 
 void Info::saveUser()
 {
-    bool newUser = false;       // Will be set to true if this is a new user
+    ofstream outFS("Info/saves/test.txt");
+    string line;
+
+    line = "username:" + Info::userMember.getUsername();
+    outFS << line << endl;
+    line = "password:" + Info::userMember.getPassword();
+    outFS << line << endl;
+
+    if(Info::isAdmin)
+    {
+        line = "isAdmin";
+        outFS << line << endl;
+    }
+
+    cout << Info::userMember.getCity();
+
+    line = "name:" + Info::userMember.getName();
+    outFS << line << endl;
+    line = "age:" + to_string(Info::userMember.getAge());
+    outFS << line << endl;
+    line = "gender:" + Info::userMember.getGender();
+    outFS << line << endl;
+    line = "email:" + Info::userMember.getEmail();
+    outFS << line << endl;
+    line = "phone:" + Info::userMember.getPhoneNum();
+    outFS << line << endl;
+    line = "city:" + Info::userMember.getCity();
+    outFS << line << endl;
+    line = "state:" + Info::userMember.getState();
+    outFS << line << endl;
+    line = "zipcode:" + Info::userMember.getZipCode();
+    outFS << line << endl;
 }
 
 int main()
 {
     Info::loadUser("BobD", "ps");
+
+    Info::saveUser();
 
     return 0;
 }

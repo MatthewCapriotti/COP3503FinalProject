@@ -23,14 +23,34 @@ string Info::goal = "";
 member Info::userMember = member();
 admin Info::userAdmin = admin();
 
+// Encrypts each line
 string Info::encrypt(string line)
 {
     string encryptedLine = line;
 
     for(int i = 0; i < line.size(); i++)
         encryptedLine[i] = line[i] ^ '`';
+    for(int i = 0; i < line.size(); i++)
+        encryptedLine[i] = encryptedLine[i] ^ '(';
+    for(int i = 0; i < line.size(); i++)
+        encryptedLine[i] = encryptedLine[i] ^ '~';
 
     return encryptedLine;
+}
+
+// Decrypts each line
+string Info::decrypt(string line)
+{
+    string decryptedLine = line;
+
+    for(int i = 0; i < line.size(); i++)
+        decryptedLine[i] = line[i] ^ '~';
+    for(int i = 0; i < line.size(); i++)
+        decryptedLine[i] = decryptedLine[i] ^ '(';
+    for(int i = 0; i < line.size(); i++)
+        decryptedLine[i] = decryptedLine[i] ^ '`';
+
+    return decryptedLine;
 }
 
 bool Info::checkUserExists(const string username)
@@ -547,7 +567,7 @@ int main()
 
     Info::saveUser();
 
-    cout << Info::encrypt("testline");
+
 
     return 0;
 }

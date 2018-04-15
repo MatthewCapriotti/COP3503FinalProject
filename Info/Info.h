@@ -26,6 +26,8 @@ public:
     static member userMember;                                       // To be used if the user is not an admin
     static admin userAdmin;                                         // To be used if the user is an admin
 
+    static string encrypt(string line);                        // Encrypts one line
+    static string decrypt(string line);                        // Decrypts one line
     static bool checkUserExists(const string username);
     static void loadUser(const string username, string password);   // Loads the user's information
     static void saveUser();                                         // Saves the user's information

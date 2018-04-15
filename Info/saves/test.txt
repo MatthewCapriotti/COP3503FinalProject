@@ -1,5 +1,6 @@
-username:BobD
+username:test
 password:ps
+notAdmin
 name:Bob Doe 
 endName
 age:24
@@ -41,3 +42,5 @@ ex3
 20
 endEs
 endWorkouts
+endOfUser
+endOfFile

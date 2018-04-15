@@ -23,6 +23,16 @@ string Info::goal = "";
 member Info::userMember = member();
 admin Info::userAdmin = admin();
 
+string Info::encrypt(string line)
+{
+    string encryptedLine = line;
+
+    for(int i = 0; i < line.size(); i++)
+        encryptedLine[i] = line[i] ^ '`';
+
+    return encryptedLine;
+}
+
 bool Info::checkUserExists(const string username)
 {
     ifstream inFS("Info/saves/" + username + ".txt");
@@ -518,6 +528,8 @@ void Info::saveUser()
         outFS << line << endl;
         line = "name:" + userAdmin.getName();
         outFS << line << endl;
+        line = "endName";
+        outFS << line << endl;
         line = "email:" + userAdmin.getEmail();
         outFS << line << endl;
         line = "phone:" + userAdmin.getPhoneNum();
@@ -534,6 +546,8 @@ int main()
     Info::loadUser("testAdmin", "123");
 
     Info::saveUser();
+
+    cout << Info::encrypt("testline");
 
     return 0;
 }

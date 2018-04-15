@@ -1,0 +1,9 @@
+username:testAdmin
+password:123
+isAdmin
+name:Jack Doe 
+endName
+email:jack.doe@gmail.com
+phone:1234567890
+endOfUser
+endOfFile

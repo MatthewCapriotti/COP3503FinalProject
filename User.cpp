@@ -138,9 +138,37 @@ std::string admin::getPassword()
 {
     return password;
 }
+std::string admin::getName()
+{
+    return name;
+}
+std::string admin::getEmail()
+{
+    return email;
+}
+std::string admin::getPhoneNum()
+{
+    return phoneNum;
+}
+void admin::setUsername(std::string newUsername)
+{
+    username = newUsername;
+}
 void admin::setPassword(std::string newPassword)
 {
-    this->password = newPassword;
+    password = newPassword;
+}
+void admin::setName(std::string newName)
+{
+    name = newName;
+}
+void admin::setEmail(std::string newEmail)
+{
+    email = newEmail;
+}
+void admin::setPhoneNum(std::string newPhoneNum)
+{
+    phoneNum = newPhoneNum;
 }
 // void admin::removeUser(std::string memberUsername)
 // {

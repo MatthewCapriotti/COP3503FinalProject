@@ -73,8 +73,15 @@ public:
     //bool isAuthenticated(std::string username, std::string password);
     std::string getUsername();
     std::string getPassword();
+    std::string getName();
+    std::string getEmail();
+    std::string getPhoneNum();
     bool isAuthenticated(std::string usernameAttempt, std::string passwordAttempt);
+    void setUsername(std::string newUsername);
     void setPassword(std::string newPassword);
+    void setName(std::string newName);
+    void setEmail(std::string newEmail);
+    void setPhoneNum(std::string newPhoneNum);
     //void removeUser(std::string memberUsername);
 };
 

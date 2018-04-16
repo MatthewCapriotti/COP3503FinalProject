@@ -29,11 +29,11 @@ string Info::encrypt(string line)
     string encryptedLine = line;
 
     for(int i = 0; i < line.size(); i++)
-        encryptedLine[i] = line[i] ^ '`';
-    for(int i = 0; i < line.size(); i++)
+        encryptedLine[i] = line[i] ^ ',';
+    /*for(int i = 0; i < line.size(); i++)
         encryptedLine[i] = encryptedLine[i] ^ '(';
     for(int i = 0; i < line.size(); i++)
-        encryptedLine[i] = encryptedLine[i] ^ '~';
+        encryptedLine[i] = encryptedLine[i] ^ '~';*/
 
     return encryptedLine;
 }
@@ -44,11 +44,11 @@ string Info::decrypt(string line)
     string decryptedLine = line;
 
     for(int i = 0; i < line.size(); i++)
-        decryptedLine[i] = line[i] ^ '~';
-    for(int i = 0; i < line.size(); i++)
+        decryptedLine[i] = line[i] ^ ',';
+    /*for(int i = 0; i < line.size(); i++)
         decryptedLine[i] = decryptedLine[i] ^ '(';
     for(int i = 0; i < line.size(); i++)
-        decryptedLine[i] = decryptedLine[i] ^ '`';
+        decryptedLine[i] = decryptedLine[i] ^ '`';*/
 
     return decryptedLine;
 }
@@ -57,7 +57,8 @@ bool Info::checkUserExists(const string username)
 {
     ifstream inFS("Info/saves/" + username + ".txt");
     string line;
-    inFS >> line;
+    getline(inFS,line);
+    //line = decrypt(line);
     if(line == "username:" + username)
         return true;
     else
@@ -66,7 +67,8 @@ bool Info::checkUserExists(const string username)
 
 void Info::loadUser(const string username, string password)
 {
-    ifstream inFS ("Info/saves/" + username + ".txt");        // Input stream
+    //ifstream inFS ("Info/saves/" + username + ".txt");        // Input stream
+    ifstream inFS("Info/saves/test.txt");
     string line;                            // Current line in the text document
     bool foundUser = false;                 // Becomes true if the username is found in the text document
     bool endOfUser = false;                 // Becomes false when at the end of a user's information
@@ -101,13 +103,14 @@ void Info::loadUser(const string username, string password)
     // Loop terminates when at the end of the document.
     while(!foundUser)
     {
-        inFS >> line; // Moves file stream forward line by line
+        getline(inFS,line); // Moves file stream forward line by line
+        //line = decrypt(line);
 
         Info::userExists = Info::checkUserExists(username); // Sets Info::userExists to true if a user with this username exists
 
         // If the user does not exist, the loadUser() function is exited
-        if(!Info::userExists)
-            return void();
+        //if(!Info::userExists)
+        //return void();
 
         // Searches for this keyword that precedes the actual username
         if(line.substr(0,9) == "username:")
@@ -116,7 +119,8 @@ void Info::loadUser(const string username, string password)
             if(line.substr(9) == username)
             {
                 foundUser = true;
-                inFS >> line;
+                getline(inFS,line);
+                //line = decrypt(line);
                 if(line.substr(9) == password)
                     Info::isAuthenticated = true;
                 else
@@ -129,7 +133,8 @@ void Info::loadUser(const string username, string password)
             break;
     }
 
-    inFS >> line;   // Moves file stream forward to check if the user is an admin
+    getline(inFS,line);   // Moves file stream forward to check if the user is an admin
+    //line = decrypt(line);
 
     if(line == "isAdmin")
         Info::isAdmin = true;
@@ -144,14 +149,16 @@ void Info::loadUser(const string username, string password)
             {
                 string n = line.substr(5);  // Initially sets string g to the first word after "name:"
                 n += " ";                   // Adds a space after the first part of the name
-                inFS >> line;               // Moves file stream forward
+                getline(inFS,line);               // Moves file stream forward
+                //line = decrypt(line);
 
                 // Iterates through every word until "endGoal" is reached
                 while(line != "endName")
                 {
                     n+= line;               // Adds the next part of the naem
                     n+= " ";                // Adds a space
-                    inFS >> line;           // Moves the file stream forward
+                    getline(inFS,line);           // Moves the file stream forward
+                    //line = decrypt(line);
                 }
                 name = n;             // Sets Info::goal
             }
@@ -162,7 +169,8 @@ void Info::loadUser(const string username, string password)
             if(line.substr(0,6) == "phone:")
                 phoneNum = line.substr(6);
 
-            inFS >> line;   // Moves the file stream forward
+            getline(inFS,line);   // Moves the file stream forward
+            //line = decrypt(line);
         }
     }
 
@@ -185,14 +193,16 @@ void Info::loadUser(const string username, string password)
             {
                 string g = line.substr(5);  // Initially sets string g to the first word after "goal:"
                 g += " ";                   // Adds a space after the first word
-                inFS >> line;               // Moves file stream forward
+                getline(inFS,line);               // Moves file stream forward
+                //line = decrypt(line);
 
                 // Iterates through every word until "endGoal" is reached
                 while(line != "endGoal")
                 {
                     g+= line;               // Adds the next word
                     g+= " ";                // Adds a space
-                    inFS >> line;           // Moves the file stream forward
+                    getline(inFS,line);           // Moves the file stream forward
+                    //line = decrypt(line);
                 }
                 Info::goal = g;             // Sets Info::goal
             }
@@ -201,14 +211,16 @@ void Info::loadUser(const string username, string password)
             {
                 string n = line.substr(5);  // Initially sets string g to the first word after "name:"
                 n += " ";                   // Adds a space after the first part of the name
-                inFS >> line;               // Moves file stream forward
+                getline(inFS,line);               // Moves file stream forward
+                //line = decrypt(line);
 
                 // Iterates through every word until "endGoal" is reached
                 while(line != "endName")
                 {
                     n+= line;               // Adds the next part of the naem
                     n+= " ";                // Adds a space
-                    inFS >> line;           // Moves the file stream forward
+                    getline(inFS,line);           // Moves the file stream forward
+                    //line = decrypt(line);
                 }
                 name = n;             // Sets Info::goal
             }
@@ -237,11 +249,13 @@ void Info::loadUser(const string username, string password)
             // Begins checking intake values, line by line
             if(line == "beginIntake")
             {
-                inFS >> line;
+                getline(inFS,line);
+                //line = decrypt(line);
                 while(line != "endIntake" && !inFS.eof())
                 {
                     calorieIntake.push_back(line);
-                    inFS >> line;
+                    getline(inFS,line);
+                    //line = decrypt(line);
                 }
             }
 
@@ -249,7 +263,8 @@ void Info::loadUser(const string username, string password)
             // item in the vector, and will be parsed when the Exercise class becomes available.
             if(line == "beginExercises")
             {
-                inFS >> line; // Moves to next line to prevent "beginExercises" from being processed as an exercise
+                getline(inFS,line); // Moves to next line to prevent "beginExercises" from being processed as an exercise
+                //line = decrypt(line);
                 while(line != "endExercises" && !inFS.eof())
                 {
                     // The scopes of the following declarations are limited to this loop for clarity
@@ -287,7 +302,8 @@ void Info::loadUser(const string username, string password)
                     Exercise *ex = new Exercise(exerciseName, muscleTargeted, isCardio);
                     exercisePtrVector.push_back(ex);
 
-                    inFS >> line; // File stream moved to next line
+                    getline(inFS,line); // File stream moved to next line
+                    //line = decrypt(line);
                 }
             }
 
@@ -301,7 +317,8 @@ void Info::loadUser(const string username, string password)
                 // Vector needed to create each workout and is reset
                 vector<ExerciseAction> exActionVector;
 
-                inFS >> line; // Moves file stream forward
+                getline(inFS,line); // Moves file stream forward
+                //line = decrypt(line);
 
                 // Will stop if the "endWorkouts" keyword is detected or if the last line in the file
                 while(line != "endWorkouts" && !inFS.eof())
@@ -309,9 +326,11 @@ void Info::loadUser(const string username, string password)
                     exActionVector.clear();                         // ExerciseAction vector cleared per workout
                     bool endOfExercises = false;                    // When a new workout is started, it is not possible for "endOfExercises" to be true
                     date = wInstance.Workout::convertDate(line);    // Date is parsed from "MMDDYYYY" format to "Month Day, Year" format
-                    inFS >> line;                                   // File stream moved forward
+                    getline(inFS,line);                                   // File stream moved forward
+                    //line = decrypt(line);
                     workoutTime = stoi(line);                       // Total workout time (in minutes) is parsed from the file
-                    inFS >> line;                                   // File stream moved forward
+                    getline(inFS,line);                                   // File stream moved forward
+                    //line = decrypt(line);
 
                     // Iterates through all exercises in one
                     while(!endOfExercises)
@@ -322,13 +341,18 @@ void Info::loadUser(const string username, string password)
 
                         // If this line is detected, the file stream is moved forward so the first name can be parsed
                         if(line == "beginEs")
-                            inFS >> line;
+                        {
+                            getline(inFS,line);
+                            //line = decrypt(line);
+                        }
 
 
                         exerciseName = line;    // This variable is reused from the section of this function parsing Exercise objects
-                        inFS >> line;           // File stream moved forward
+                        getline(inFS,line);           // File stream moved forward
+                        //line = decrypt(line);
                         numSets = stoi(line);   // Number of sets parsed from line
-                        inFS >> line;           // File stream moved forward
+                        getline(inFS,line);           // File stream moved forward
+                        //line = decrypt(line);
 
                         size_t currIndex = 0;   // Used to track position when parsing reps for the reps vector.
 
@@ -338,10 +362,12 @@ void Info::loadUser(const string username, string password)
                             reps.push_back(stoi(line.substr(currIndex,2))); // 2-digit-long substring parsed starting from currIndex, converted to integer, and stored in reps vector
                             currIndex += 3;                                 // CurrIndex increased by 3 per set, as per the format in save.txt
                         }
-                        inFS >> line;               // File stream moved forward
+                        getline(inFS,line);               // File stream moved forward
+                        //line = decrypt(line);
 
                         exerciseTime = stoi(line);  // Total time of exercise parsed from line
-                        inFS >> line;               // File stream moved forward
+                        getline(inFS,line);               // File stream moved forward
+                        //line = decrypt(line);
 
                         Exercise exType;            // Left undefined here, will be defined in following loop
 
@@ -367,11 +393,13 @@ void Info::loadUser(const string username, string password)
                     // New Workout object added to "userHistory" now that all of the necessary information has been parsed
                     userHistory.add(Workout(date, workoutTime, exActionVector));
 
-                    inFS >> line;   // File stream moved forward
+                    getline(inFS,line);   // File stream moved forward
+                    //line = decrypt(line);
                 }
             }
 
-            inFS >> line;   // File stream moved forward
+            getline(inFS,line);   // File stream moved forward
+            //line = decrypt(line);
 
             // If the line equals this statement, the loop will terminate as the user's
             // information will have fully been checked.
@@ -395,15 +423,19 @@ void Info::loadUser(const string username, string password)
     inFS.close(); // File is closed
 }
 
-void Info::saveUser()
+void Info::saveDecryptedUser()
 {
     // Basic declarations needed for printing to file
     string fileName;
 
+    /*
     if(!Info::isAdmin)
         fileName = "Info/saves/" + userMember.getUsername() + ".txt";
     else
         fileName = "Info/saves/" + userAdmin.getUsername() + ".txt";
+        */
+
+    fileName = "Info/saves/testEncrypt2.txt";
 
     ofstream outFS(fileName);
 
@@ -508,13 +540,13 @@ void Info::saveUser()
                 {
                     if(i < 10)
                     {
-                        line = "0" + to_string(i);
-                        outFS << line << ",";
+                        line = "0" + to_string(i) + ",";
+                        outFS << line;
                     }
                     else
                     {
-                        line = to_string(i);
-                        outFS << line << ",";
+                        line = to_string(i) + ",";
+                        outFS << line;
                     }
                 }
                 outFS << endl;
@@ -561,9 +593,179 @@ void Info::saveUser()
     }
 }
 
+void Info::saveUser()
+{
+    // Basic declarations needed for printing to file
+    string fileName;
+
+    /*
+    if(!Info::isAdmin)
+        fileName = "Info/saves/" + userMember.getUsername() + ".txt";
+    else
+        fileName = "Info/saves/" + userAdmin.getUsername() + ".txt";
+        */
+
+    fileName = "Info/saves/testEncrypt";
+
+    ofstream outFS(fileName);
+
+    string line;
+
+    // Prints following statement if the user is an admin
+    if(!Info::isAdmin)
+    {
+        // Username and password
+        line = "username:" + Info::userMember.getUsername();    //
+        outFS << encrypt(line) << endl;                                  //  -- Output to file separated like this to prepare for later encryption method
+        line = "password:" + Info::userMember.getPassword();
+        outFS << encrypt(line) << endl;
+
+        // Printing basic user info
+        line = "notAdmin";
+        outFS << encrypt(line) << endl;
+        line = "name:" + Info::userMember.getName();
+        outFS << encrypt(line) << endl;
+        line = "endName";
+        outFS << encrypt(line) << endl;
+        line = "age:" + to_string(Info::userMember.getAge());
+        outFS << encrypt(line) << endl;
+        line = "gender:" + Info::userMember.getGender();
+        outFS << encrypt(line) << endl;
+        line = "email:" + Info::userMember.getEmail();
+        outFS << encrypt(line) << endl;
+        line = "phone:" + Info::userMember.getPhoneNum();
+        outFS << encrypt(line) << endl;
+        line = "city:" + Info::userMember.getCity();
+        outFS << encrypt(line) << endl;
+        line = "state:" + Info::userMember.getState();
+        outFS << encrypt(line) << endl;
+        line = "zipcode:" + Info::userMember.getZipCode();
+        outFS << encrypt(line) << endl;
+        line = "goal:" + Info::goal;
+        outFS << encrypt(line) << endl;
+        line = "endGoal";
+        outFS << encrypt(line) << endl;
+
+        // Printing user intake section
+        line = "beginIntake";
+        outFS << encrypt(line) << endl;
+
+        /*
+        * Assuming there will be code here that will print calorie info
+        */
+
+        line = "endIntake";
+        outFS << encrypt(line) << endl;
+
+        // Printing saved Exercise object information
+        line = "beginExercises";
+        outFS << encrypt(line) << endl;
+
+        for(Exercise* e : Info::exercisePtrVector)
+        {
+            string b;
+            if(e->getCardio() == false)
+                b = "0";
+            else
+                b = "1";
+
+            line = e->getName() + "!" + b + "?" + e->getMuscle();
+            outFS << encrypt(line) << endl;
+        }
+
+        // Prints keyword that indicates end of Exercise objects
+        line = "endExercises";
+        outFS << encrypt(line) << endl;
+
+        // Printing user's WorkoutHistory
+        line = "beginWorkouts";
+        outFS << encrypt(line) << endl;
+
+        for(Workout w : Info::userHistory.getVector())
+        {
+            // Prints date of the workout
+            line = w.Workout::convertDate(w.getDate());
+            outFS << encrypt(line) << endl;
+
+            // Prints total time of the workout
+            line = to_string(w.getTime());
+            outFS << encrypt(line) << endl;
+
+            // Prints info from each ExerciseAction object
+            line = "beginEs";
+            outFS << encrypt(line) << endl;
+
+            for(ExerciseAction ea : w.getVector())
+            {
+                // Prints ExerciseAction name (same as Exercise object name)
+                line = ea.getName();
+                outFS << encrypt(line) << endl;
+
+                // Prints number of sets
+                line = to_string(ea.getNumSets());
+                outFS << encrypt(line) << endl;
+
+                // Prints list (with commas) of reps per set
+                for(int i : ea.getReps())
+                {
+                    if(i < 10)
+                    {
+                        line = "0" + to_string(i) + ",";
+                        outFS << encrypt(line);
+                    }
+                    else
+                    {
+                        line = to_string(i) + ",";
+                        outFS << encrypt(line);
+                    }
+                }
+                outFS << endl;
+
+                // Prints total time of exercise done
+                line = to_string(ea.getTime());
+                outFS << encrypt(line) << endl;
+            }
+
+            line = "endEs";
+            outFS << encrypt(line) << endl;
+        }
+
+        // Prints keyword that indicates end of the user's WorkoutHistory
+        line = "endWorkouts";
+        outFS << encrypt(line) << endl;
+        line = "endOfUser";
+        outFS << encrypt(line) << endl;
+        line = "endOfFile";
+        outFS << encrypt(line) << endl;
+    }
+
+    else
+    {
+        // Prints admin's user info
+        line = "username:" + userAdmin.getUsername();
+        outFS << encrypt(line) << endl;
+        line = "password:" + userAdmin.getPassword();
+        outFS << encrypt(line) << endl;
+        line = "isAdmin";
+        outFS << encrypt(line) << endl;
+        line = "name:" + userAdmin.getName();
+        outFS << encrypt(line) << endl;
+        line = "endName";
+        outFS << encrypt(line) << endl;
+        line = "email:" + userAdmin.getEmail();
+        outFS << encrypt(line) << endl;
+        line = "phone:" + userAdmin.getPhoneNum();
+        outFS << encrypt(line) << endl;
+        line = "endOfUser";
+        outFS << encrypt(line) << endl;
+        line = "endOfFile";
+        outFS << encrypt(line) << endl;
+    }
+}
+
 int main()
 {
-    Info::loadUser("testAdmin", "123");
+    Info::loadUser("test", "ps");
 
     Info::saveUser();
 

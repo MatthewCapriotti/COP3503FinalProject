@@ -26,14 +26,82 @@ admin Info::userAdmin = admin();
 // Encrypts each line
 string Info::encrypt(string line)
 {
+    // Defining key
+    map<char,char> EKey;
+    EKey.emplace('a', 'Q');
+    EKey.emplace('b', 'h');
+    EKey.emplace('c', 'm');
+    EKey.emplace('d', 'V');
+    EKey.emplace('e', '3');
+    EKey.emplace('f', 'd');
+    EKey.emplace('g', 'G');
+    EKey.emplace('h', 'A');
+    EKey.emplace('i', '1');
+    EKey.emplace('j', '.');
+    EKey.emplace('k', 'X');
+    EKey.emplace('l', '8');
+    EKey.emplace('m', 'r');
+    EKey.emplace('n', 'K');
+    EKey.emplace('o', 'B');
+    EKey.emplace('p', 'a');
+    EKey.emplace('q', '!');
+    EKey.emplace('r', 'u');
+    EKey.emplace('s', 'b');
+    EKey.emplace('t', 'M');
+    EKey.emplace('u', 'C');
+    EKey.emplace('v', 'z');
+    EKey.emplace('w', '2');
+    EKey.emplace('x', '0');
+    EKey.emplace('y', 'i');
+    EKey.emplace('z', 'R');
+    EKey.emplace('1', 'I');
+    EKey.emplace('2', 'l');
+    EKey.emplace('3', 'S');
+    EKey.emplace('4', 'E');
+    EKey.emplace('5', '4');
+    EKey.emplace('6', ':');
+    EKey.emplace('7', 'j');
+    EKey.emplace('8', 'g');
+    EKey.emplace('9', 'U');
+    EKey.emplace('0', 'T');
+    EKey.emplace(':', 'k');
+    EKey.emplace(',', '7');
+    EKey.emplace(' ', ' ');
+    EKey.emplace('!', ',');
+    EKey.emplace('?', 'e');
+    EKey.emplace('@', 'N');
+    EKey.emplace('.', 'D');
+    EKey.emplace('A', 'f');
+    EKey.emplace('B', 'c');
+    EKey.emplace('C', '9');
+    EKey.emplace('D', '6');
+    EKey.emplace('E', 'o');
+    EKey.emplace('F', 'Z');
+    EKey.emplace('G', 'F');
+    EKey.emplace('H', 'q');
+    EKey.emplace('I', 'w');
+    EKey.emplace('J', '5');
+    EKey.emplace('K', 'y');
+    EKey.emplace('L', 's');
+    EKey.emplace('M', 'W');
+    EKey.emplace('N', 'P');
+    EKey.emplace('O', 'H');
+    EKey.emplace('P', 'p');
+    EKey.emplace('Q', 'L');
+    EKey.emplace('R', '@');
+    EKey.emplace('S', 'v');
+    EKey.emplace('T', 'Y');
+    EKey.emplace('U', 'n');
+    EKey.emplace('V', 't');
+    EKey.emplace('W', 'J');
+    EKey.emplace('X', 'x');
+    EKey.emplace('Y', 'O');
+    EKey.emplace('Z', '?');
+
     string encryptedLine = line;
 
     for(int i = 0; i < line.size(); i++)
-        encryptedLine[i] = line[i] ^ ',';
-    /*for(int i = 0; i < line.size(); i++)
-        encryptedLine[i] = encryptedLine[i] ^ '(';
-    for(int i = 0; i < line.size(); i++)
-        encryptedLine[i] = encryptedLine[i] ^ '~';*/
+        encryptedLine[i] = EKey.at(line[i]);
 
     return encryptedLine;
 }
@@ -41,14 +109,82 @@ string Info::encrypt(string line)
 // Decrypts each line
 string Info::decrypt(string line)
 {
+    // Defining key
+    map<char,char> DKey;
+    DKey.emplace('Q', 'a');
+    DKey.emplace('h', 'b');
+    DKey.emplace('m', 'c');
+    DKey.emplace('V', 'd');
+    DKey.emplace('3', 'e');
+    DKey.emplace('d', 'f');
+    DKey.emplace('G', 'g');
+    DKey.emplace('A', 'h');
+    DKey.emplace('1', 'i');
+    DKey.emplace('.', 'j');
+    DKey.emplace('X', 'k');
+    DKey.emplace('8', 'l');
+    DKey.emplace('r', 'm');
+    DKey.emplace('K', 'n');
+    DKey.emplace('B', 'o');
+    DKey.emplace('a', 'p');
+    DKey.emplace('!', 'q');
+    DKey.emplace('u', 'r');
+    DKey.emplace('b', 's');
+    DKey.emplace('M', 't');
+    DKey.emplace('C', 'u');
+    DKey.emplace('z', 'v');
+    DKey.emplace('2', 'w');
+    DKey.emplace('0', 'x');
+    DKey.emplace('i', 'y');
+    DKey.emplace('R', 'z');
+    DKey.emplace('I', '1');
+    DKey.emplace('l', '2');
+    DKey.emplace('S', '3');
+    DKey.emplace('E', '4');
+    DKey.emplace('4', '5');
+    DKey.emplace(':', '6');
+    DKey.emplace('j', '7');
+    DKey.emplace('g', '8');
+    DKey.emplace('U', '9');
+    DKey.emplace('T', '0');
+    DKey.emplace('k', ':');
+    DKey.emplace('7', ',');
+    DKey.emplace(' ', ' ');
+    DKey.emplace(',', '!');
+    DKey.emplace('e', '?');
+    DKey.emplace('N', '@');
+    DKey.emplace('D', '.');
+    DKey.emplace('f', 'A');
+    DKey.emplace('c', 'B');
+    DKey.emplace('9', 'C');
+    DKey.emplace('6', 'D');
+    DKey.emplace('o', 'E');
+    DKey.emplace('Z', 'F');
+    DKey.emplace('F', 'G');
+    DKey.emplace('q', 'H');
+    DKey.emplace('w', 'I');
+    DKey.emplace('5', 'J');
+    DKey.emplace('y', 'K');
+    DKey.emplace('s', 'L');
+    DKey.emplace('W', 'M');
+    DKey.emplace('P', 'N');
+    DKey.emplace('H', 'O');
+    DKey.emplace('p', 'P');
+    DKey.emplace('L', 'Q');
+    DKey.emplace('@', 'R');
+    DKey.emplace('v', 'S');
+    DKey.emplace('Y', 'T');
+    DKey.emplace('n', 'U');
+    DKey.emplace('t', 'V');
+    DKey.emplace('J', 'W');
+    DKey.emplace('x', 'X');
+    DKey.emplace('O', 'Y');
+    DKey.emplace('?', 'Z');
+
     string decryptedLine = line;
 
     for(int i = 0; i < line.size(); i++)
-        decryptedLine[i] = line[i] ^ ',';
-    /*for(int i = 0; i < line.size(); i++)
-        decryptedLine[i] = decryptedLine[i] ^ '(';
-    for(int i = 0; i < line.size(); i++)
-        decryptedLine[i] = decryptedLine[i] ^ '`';*/
+        decryptedLine[i] = DKey.at(line[i]);
 
     return decryptedLine;
 }
@@ -58,7 +194,7 @@ bool Info::checkUserExists(const string username)
     ifstream inFS("Info/saves/" + username + ".txt");
     string line;
     getline(inFS,line);
-    //line = decrypt(line);
+    line = decrypt(line);
     if(line == "username:" + username)
         return true;
     else
@@ -67,8 +203,7 @@ bool Info::checkUserExists(const string username)
 
 void Info::loadUser(const string username, string password)
 {
-    //ifstream inFS ("Info/saves/" + username + ".txt");        // Input stream
-    ifstream inFS("Info/saves/test.txt");
+    ifstream inFS ("Info/saves/" + username + ".txt");        // Input stream
     string line;                            // Current line in the text document
     bool foundUser = false;                 // Becomes true if the username is found in the text document
     bool endOfUser = false;                 // Becomes false when at the end of a user's information
@@ -104,13 +239,13 @@ void Info::loadUser(const string username, string password)
     while(!foundUser)
     {
         getline(inFS,line); // Moves file stream forward line by line
-        //line = decrypt(line);
+        line = decrypt(line);
 
         Info::userExists = Info::checkUserExists(username); // Sets Info::userExists to true if a user with this username exists
 
         // If the user does not exist, the loadUser() function is exited
-        //if(!Info::userExists)
-        //return void();
+        if(!Info::userExists)
+            return void();
 
         // Searches for this keyword that precedes the actual username
         if(line.substr(0,9) == "username:")
@@ -120,7 +255,7 @@ void Info::loadUser(const string username, string password)
             {
                 foundUser = true;
                 getline(inFS,line);
-                //line = decrypt(line);
+                line = decrypt(line);
                 if(line.substr(9) == password)
                     Info::isAuthenticated = true;
                 else
@@ -134,7 +269,7 @@ void Info::loadUser(const string username, string password)
     }
 
     getline(inFS,line);   // Moves file stream forward to check if the user is an admin
-    //line = decrypt(line);
+    line = decrypt(line);
 
     if(line == "isAdmin")
         Info::isAdmin = true;
@@ -150,7 +285,7 @@ void Info::loadUser(const string username, string password)
                 string n = line.substr(5);  // Initially sets string g to the first word after "name:"
                 n += " ";                   // Adds a space after the first part of the name
                 getline(inFS,line);               // Moves file stream forward
-                //line = decrypt(line);
+                line = decrypt(line);
 
                 // Iterates through every word until "endGoal" is reached
                 while(line != "endName")
@@ -158,7 +293,7 @@ void Info::loadUser(const string username, string password)
                     n+= line;               // Adds the next part of the naem
                     n+= " ";                // Adds a space
                     getline(inFS,line);           // Moves the file stream forward
-                    //line = decrypt(line);
+                    line = decrypt(line);
                 }
                 name = n;             // Sets Info::goal
             }
@@ -170,7 +305,7 @@ void Info::loadUser(const string username, string password)
                 phoneNum = line.substr(6);
 
             getline(inFS,line);   // Moves the file stream forward
-            //line = decrypt(line);
+            line = decrypt(line);
         }
     }
 
@@ -194,7 +329,7 @@ void Info::loadUser(const string username, string password)
                 string g = line.substr(5);  // Initially sets string g to the first word after "goal:"
                 g += " ";                   // Adds a space after the first word
                 getline(inFS,line);               // Moves file stream forward
-                //line = decrypt(line);
+                line = decrypt(line);
 
                 // Iterates through every word until "endGoal" is reached
                 while(line != "endGoal")
@@ -202,7 +337,7 @@ void Info::loadUser(const string username, string password)
                     g+= line;               // Adds the next word
                     g+= " ";                // Adds a space
                     getline(inFS,line);           // Moves the file stream forward
-                    //line = decrypt(line);
+                    line = decrypt(line);
                 }
                 Info::goal = g;             // Sets Info::goal
             }
@@ -212,7 +347,7 @@ void Info::loadUser(const string username, string password)
                 string n = line.substr(5);  // Initially sets string g to the first word after "name:"
                 n += " ";                   // Adds a space after the first part of the name
                 getline(inFS,line);               // Moves file stream forward
-                //line = decrypt(line);
+                line = decrypt(line);
 
                 // Iterates through every word until "endGoal" is reached
                 while(line != "endName")
@@ -220,7 +355,7 @@ void Info::loadUser(const string username, string password)
                     n+= line;               // Adds the next part of the naem
                     n+= " ";                // Adds a space
                     getline(inFS,line);           // Moves the file stream forward
-                    //line = decrypt(line);
+                    line = decrypt(line);
                 }
                 name = n;             // Sets Info::goal
             }
@@ -250,12 +385,12 @@ void Info::loadUser(const string username, string password)
             if(line == "beginIntake")
             {
                 getline(inFS,line);
-                //line = decrypt(line);
+                line = decrypt(line);
                 while(line != "endIntake" && !inFS.eof())
                 {
                     calorieIntake.push_back(line);
                     getline(inFS,line);
-                    //line = decrypt(line);
+                    line = decrypt(line);
                 }
             }
 
@@ -264,7 +399,7 @@ void Info::loadUser(const string username, string password)
             if(line == "beginExercises")
             {
                 getline(inFS,line); // Moves to next line to prevent "beginExercises" from being processed as an exercise
-                //line = decrypt(line);
+                line = decrypt(line);
                 while(line != "endExercises" && !inFS.eof())
                 {
                     // The scopes of the following declarations are limited to this loop for clarity
@@ -303,7 +438,7 @@ void Info::loadUser(const string username, string password)
                     exercisePtrVector.push_back(ex);
 
                     getline(inFS,line); // File stream moved to next line
-                    //line = decrypt(line);
+                    line = decrypt(line);
                 }
             }
 
@@ -318,7 +453,7 @@ void Info::loadUser(const string username, string password)
                 vector<ExerciseAction> exActionVector;
 
                 getline(inFS,line); // Moves file stream forward
-                //line = decrypt(line);
+                line = decrypt(line);
 
                 // Will stop if the "endWorkouts" keyword is detected or if the last line in the file
                 while(line != "endWorkouts" && !inFS.eof())
@@ -327,10 +462,10 @@ void Info::loadUser(const string username, string password)
                     bool endOfExercises = false;                    // When a new workout is started, it is not possible for "endOfExercises" to be true
                     date = wInstance.Workout::convertDate(line);    // Date is parsed from "MMDDYYYY" format to "Month Day, Year" format
                     getline(inFS,line);                                   // File stream moved forward
-                    //line = decrypt(line);
+                    line = decrypt(line);
                     workoutTime = stoi(line);                       // Total workout time (in minutes) is parsed from the file
                     getline(inFS,line);                                   // File stream moved forward
-                    //line = decrypt(line);
+                    line = decrypt(line);
 
                     // Iterates through all exercises in one
                     while(!endOfExercises)
@@ -343,16 +478,16 @@ void Info::loadUser(const string username, string password)
                         if(line == "beginEs")
                         {
                             getline(inFS,line);
-                            //line = decrypt(line);
+                            line = decrypt(line);
                         }
 
 
                         exerciseName = line;    // This variable is reused from the section of this function parsing Exercise objects
                         getline(inFS,line);           // File stream moved forward
-                        //line = decrypt(line);
+                        line = decrypt(line);
                         numSets = stoi(line);   // Number of sets parsed from line
                         getline(inFS,line);           // File stream moved forward
-                        //line = decrypt(line);
+                        line = decrypt(line);
 
                         size_t currIndex = 0;   // Used to track position when parsing reps for the reps vector.
 
@@ -363,11 +498,11 @@ void Info::loadUser(const string username, string password)
                             currIndex += 3;                                 // CurrIndex increased by 3 per set, as per the format in save.txt
                         }
                         getline(inFS,line);               // File stream moved forward
-                        //line = decrypt(line);
+                        line = decrypt(line);
 
                         exerciseTime = stoi(line);  // Total time of exercise parsed from line
                         getline(inFS,line);               // File stream moved forward
-                        //line = decrypt(line);
+                        line = decrypt(line);
 
                         Exercise exType;            // Left undefined here, will be defined in following loop
 
@@ -394,12 +529,12 @@ void Info::loadUser(const string username, string password)
                     userHistory.add(Workout(date, workoutTime, exActionVector));
 
                     getline(inFS,line);   // File stream moved forward
-                    //line = decrypt(line);
+                    line = decrypt(line);
                 }
             }
 
             getline(inFS,line);   // File stream moved forward
-            //line = decrypt(line);
+            line = decrypt(line);
 
             // If the line equals this statement, the loop will terminate as the user's
             // information will have fully been checked.
@@ -598,14 +733,10 @@ void Info::saveUser()
     // Basic declarations needed for printing to file
     string fileName;
 
-    /*
     if(!Info::isAdmin)
         fileName = "Info/saves/" + userMember.getUsername() + ".txt";
     else
         fileName = "Info/saves/" + userAdmin.getUsername() + ".txt";
-        */
-
-    fileName = "Info/saves/testEncrypt";
 
     ofstream outFS(fileName);
 
@@ -615,8 +746,8 @@ void Info::saveUser()
     if(!Info::isAdmin)
     {
         // Username and password
-        line = "username:" + Info::userMember.getUsername();    //
-        outFS << encrypt(line) << endl;                                  //  -- Output to file separated like this to prepare for later encryption method
+        line = "username:" + Info::userMember.getUsername();
+        outFS << encrypt(line) << endl;
         line = "password:" + Info::userMember.getPassword();
         outFS << encrypt(line) << endl;
 
@@ -664,7 +795,7 @@ void Info::saveUser()
         for(Exercise* e : Info::exercisePtrVector)
         {
             string b;
-            if(e->getCardio() == false)
+            if(!e->getCardio())
                 b = "0";
             else
                 b = "1";

@@ -31,7 +31,7 @@ public:
     static bool checkUserExists(const string username);
     static void loadUser(const string username, string password);   // Loads the user's information
     static void saveUser();                                         // Saves the user's information
-    static void saveDecryptedUser();
+    static void saveDecryptedUser();                                // For testing: exports decrypted file of user info
 
 };
 

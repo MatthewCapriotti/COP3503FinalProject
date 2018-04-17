@@ -18,6 +18,8 @@ class Info
 public:
     static vector<Exercise*> exercisePtrVector;                     // Vector of Exercise pointers
     static WorkoutHistory userHistory;                              // WorkoutHistory of all workouts the user has done
+    static int weight;                                              // In pounds
+    static int height;                                              // In inches
     static bool isAdmin;                                            // Is true if the user is an admin
     static bool isAuthenticated;                                    // Is true if the username and password match and are valid
     static bool userExists;                                         // Is true if a user with the specified username exists

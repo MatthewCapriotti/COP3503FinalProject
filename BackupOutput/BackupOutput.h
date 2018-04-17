@@ -21,6 +21,7 @@ class BackupOutput
 {
 public:
     static void createNewUser();                    // Method for creating a new user
+    static void login();                            // Method for logging in a user
 };
 
 

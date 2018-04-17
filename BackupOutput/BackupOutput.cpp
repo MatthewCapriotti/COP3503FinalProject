@@ -390,8 +390,127 @@ void BackupOutput::createNewUser()
         validInput = true;
     }
 
+    validInput = false;
+
+    // Requests the user's current weight in pounds
+    while(!validInput)
+    {
+        bool isNotDigits = false;
+
+        cout << "Please enter your weight (in pounds, 50-999, digits only): ";
+        cin >> input;
+        cout << endl;
+
+        // Checks to make sure the weight is made up of numerical digits
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: The weight is not entirely made up of digits." << endl;
+            continue;
+        }
+        else if(stoi(input) < 50)
+        {
+            cout << "Error: The weight is too low." << endl;
+            continue;
+        }
+        else if(stoi(input) > 999)
+        {
+            cout << "Error: The weight is too high." << endl;
+            continue;
+        }
+
+        Info::weight = stoi(input);
+        validInput = true;
+    }
+
+    validInput = false;
+
+    // Requests the user's current height in pounds
+    while(!validInput)
+    {
+        bool isNotDigits = false;
+
+        cout << "Please enter your height (in inches, 36-99, digits only): ";
+        cin >> input;
+        cout << endl;
+
+        // Checks to make sure the height is made up of numerical digits
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: The height is not entirely made up of digits." << endl;
+            continue;
+        }
+        else if(stoi(input) < 36)
+        {
+            cout << "Error: The height is too low." << endl;
+            continue;
+        }
+        else if(stoi(input) > 99)
+        {
+            cout << "Error: The height is too high." << endl;
+            continue;
+        }
+
+        Info::height = stoi(input);
+        validInput = true;
+    }
+
     Info::userMember = member(username, password, name, age, gender, email, phoneNum, city, state, zipcode);
     Info::saveUser();
+}
+
+void BackupOutput::login()
+{
+    bool validInput = false;
+    string input;
+
+    while(!validInput)
+    {
+        Info::isAuthenticated = false;
+        string username = "";
+        string password = "";
+
+        cout << "Enter your username: ";
+        cin >> input;
+        cout << endl;
+
+        Info::userExists = Info::checkUserExists(input);
+
+        if(!Info::userExists)
+        {
+            cout << "Error: There is no user with that username." << endl;
+            continue;
+        }
+        else
+        {
+            username = input;
+
+            cout << "Enter your password: ";
+            cin >> input;
+            cout << endl;
+
+            password = input;
+
+            Info::loadUser(username, password);
+
+            if(!Info::isAuthenticated)
+            {
+                cout << "Error: The password is invalid." << endl;
+                continue;
+            }
+            else
+            {
+                validInput = true;
+            }
+        }
+    }
 }
 
 int main()
@@ -429,8 +548,15 @@ int main()
         }
     }
 
+    validInput = false;
+
+    // Decides whether to create a new user or login the existing user
     if(Info::newUser)
         BackupOutput::createNewUser();
+    else
+        BackupOutput::login();
+
+
 
     return 0;
 }

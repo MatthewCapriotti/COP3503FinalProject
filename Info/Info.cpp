@@ -15,6 +15,8 @@ using namespace std;
 
 vector<Exercise*> Info::exercisePtrVector;
 WorkoutHistory Info::userHistory = WorkoutHistory();
+int Info::weight = 0;
+int Info::height = 0;
 bool Info::isAdmin = false;
 bool Info::isAuthenticated = false;
 bool Info::userExists = false;
@@ -211,8 +213,6 @@ void Info::loadUser(const string username, string password)
     // These declarations should not be necessary in the final program
     string name;
     int age;
-    int weight;     // In pounds
-    int height;     // In inches
     string gender;
     string email;
     string phoneNum;
@@ -319,10 +319,10 @@ void Info::loadUser(const string username, string password)
                 Info::isAdmin = true;
             // Checks for the user's saved weight
             if (line.substr(0, 7) == "weight:")
-                weight = stoi(line.substr(7));
+                Info::weight = stoi(line.substr(7));
             // Checks for the user's saved height
             if (line.substr(0, 7) == "height:")
-                height = stoi(line.substr(7));
+                Info::height = stoi(line.substr(7));
             // Checks for the user's saved goal
             if (line.substr(0, 5) == "goal:")
             {
@@ -596,6 +596,10 @@ void Info::saveDecryptedUser()
         outFS << line << endl;
         line = "gender:" + Info::userMember.getGender();
         outFS << line << endl;
+        line = "weight:" + to_string(Info::weight);
+        outFS << line << endl;
+        line = "height:" + to_string(Info::height);
+        outFS << line << endl;
         line = "email:" + Info::userMember.getEmail();
         outFS << line << endl;
         line = "phone:" + Info::userMember.getPhoneNum();
@@ -762,6 +766,10 @@ void Info::saveUser()
         outFS << encrypt(line) << endl;
         line = "gender:" + Info::userMember.getGender();
         outFS << encrypt(line) << endl;
+        line = "weight:" + to_string(Info::weight);
+        outFS << encrypt(line) << endl;
+        line = "height:" + to_string(Info::height);
+        outFS << encrypt(line) << endl;
         line = "email:" + Info::userMember.getEmail();
         outFS << encrypt(line) << endl;
         line = "phone:" + Info::userMember.getPhoneNum();
@@ -892,16 +900,5 @@ void Info::saveUser()
         line = "endOfFile";
         outFS << encrypt(line) << endl;
     }
-}
-
-int main()
-{
-    Info::loadUser("test", "ps");
-
-    Info::saveUser();
-
-
-
-    return 0;
 }
 

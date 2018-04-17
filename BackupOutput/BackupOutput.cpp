@@ -513,6 +513,110 @@ void BackupOutput::login()
     }
 }
 
+void BackupOutput::addExercise()
+{
+    string input;
+    bool invalidForm = false;
+    bool validInput = false;
+
+    string exerciseName;
+    string muscleTargeted;
+    bool isCardio;
+
+    while(!validInput)
+    {
+        input = "";
+        invalidForm = false;
+        validInput = false;
+
+        exerciseName = "";
+        muscleTargeted = "";
+        isCardio = false;
+
+        cout << "Enter the exercise name (English letters only): ";
+        cin >> input;
+        cout << endl;
+
+        for(char c : input)
+            if(!isalpha(c))
+                invalidForm = true;
+
+        if(invalidForm)
+        {
+            cout << "Error: The exercise name is not entirely made up of English letters." << endl;
+            continue;
+        }
+
+        exerciseName = input;
+
+        input = "";
+
+        cout << "Is this a strength exercise or a cardio exercise? Enter \"Strength\" or \"Cardio\": ";
+        cin >> input;
+        cout << endl;
+
+        // Converts all characters to lowercase
+        for(int i = 0; i < input.size(); i++)
+            input[i] = tolower(input[i]);
+
+        if(input == "strength")
+            isCardio = false;
+        else if(input == "cardio")
+            isCardio = true;
+        else
+        {
+            cout << "Error: Invalid input! Please enter \"Strength\" or \"Cardio\"." << endl;
+            continue;
+        }
+
+        invalidForm = false;
+        input = "";
+
+        if(!isCardio)
+        {
+            cout << "Enter the muscle or area that the exercise targets (one word): ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+                if(!isalpha(c))
+                    invalidForm = true;
+
+            if(invalidForm)
+            {
+                cout << "Error: The targeted muscle or area name is not entirely made up of English letters." << endl;
+                continue;
+            }
+
+            muscleTargeted = input;
+        }
+        else
+            muscleTargeted = "NA";
+
+        validInput = true;
+    }
+
+    Info::exercisePtrVector.emplace_back(new Exercise(exerciseName, muscleTargeted, isCardio));
+}
+
+void BackupOutput::listExercises()
+{
+    int i = 0;
+
+    if(Info::exercisePtrVector.size() == 0)
+        cout << "Error: No exercises!" << endl;
+
+    for(Exercise* e : Info::exercisePtrVector)
+    {
+        i++;
+
+        if(e->getCardio())
+            cout << to_string(i) << ". " << e->getName() << " - Cardio" << endl;
+        else
+            cout << to_string(i) << ". " << e->getName() << " - Strength: " << e->getMuscle() << endl;
+    }
+}
+
 int main()
 {
     // Variable declarations and definitions needed for output
@@ -556,7 +660,44 @@ int main()
     else
         BackupOutput::login();
 
+    input = "";
 
+    // Menu for non-admins
+    while(input != "8" && !Info::isAdmin)
+    {
+        validInput = false; // Resets for each loop
+        input = "";         // Resets for each loop
+
+        // Main menu
+        cout << endl;
+        cout << "|----------------------------------|" << endl;
+        cout << "|            Gainzville            |" << endl;
+        cout << "|----------------------------------|" << endl;
+        cout << "|     Please choose an option.     |" << endl;
+        cout << "| 1. Add an exercise               |" << endl;
+        cout << "| 2. List exercises                |" << endl;
+        cout << "| 3. Add a workout                 |" << endl;
+        cout << "| 4. View workout history          |" << endl;
+        cout << "| 5. View intake recommendations   |" << endl;
+        cout << "| 6. Edit user info                |" << endl;
+        cout << "| 7. Help                          |" << endl;
+        cout << "| 8. Logout                        |" << endl;
+        cout << "|----------------------------------|" << endl << endl;
+        cout << "Enter your choice (1-8): ";
+        cin >> input;
+        cout << endl;
+
+        if(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "7" && input != "8")
+        {
+            cout << "Error: Invalid input! Please enter an integer from 1 to 8 (inclusive)." << endl;
+            continue;
+        }
+        else if(input == "1")
+            BackupOutput::addExercise();
+        else if(input == "2")
+            BackupOutput::listExercises();
+
+    }
 
     return 0;
 }

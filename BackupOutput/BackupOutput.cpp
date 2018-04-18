@@ -965,30 +965,506 @@ void BackupOutput::viewWorkoutHist()
 
 void BackupOutput::editInfo()
 {
+    string input;
+
     cout << endl;
     cout << "|----------------------------------|" << endl;
     cout << "|               Edit               |" << endl;
     cout << "|----------------------------------|" << endl;
     cout << "|     Please choose an option.     |" << endl;
-    cout << "| 1. First Name                    |" << endl;
-    cout << "| 2. Middle Name                   |" << endl;
-    cout << "| 3. Last Name                     |" << endl;
-    cout << "| 4. Age                           |" << endl;
-    cout << "| 5. Gender                        |" << endl;
-    cout << "| 6. Email                         |" << endl;
-    cout << "| 7. Phone Number                  |" << endl;
-    cout << "| 8. City                          |" << endl;
-    cout << "| 9. State / Province              |" << endl;
+    cout << "| 1.  Username                     |" << endl;
+    cout << "| 2.  Password                     |" << endl;
+    cout << "| 3.  Name                         |" << endl;
+    cout << "| 4.  Age                          |" << endl;
+    cout << "| 5.  Gender                       |" << endl;
+    cout << "| 6.  Email                        |" << endl;
+    cout << "| 7.  Phone Number                 |" << endl;
+    cout << "| 8.  City                         |" << endl;
+    cout << "| 9.  State / Province             |" << endl;
     cout << "| 10. Zip-code                     |" << endl;
     cout << "| 11. Weight                       |" << endl;
     cout << "| 12. Height                       |" << endl;
     cout << "|----------------------------------|" << endl << endl;
     cout << "Enter your choice (1-12): ";
+    cin >> input;
+    cout << endl;
+
+    if(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "7" && input != "8" && input != "9" && input != "10" && input != "11" && input != "12")
+    {
+        cout << "Error: Invalid input! Input must be an integer from 1 to 12 (inclusive)." << endl;
+        return void();
+    }
+    else if(input == "1")
+    {
+        bool invalidInput = false;
+
+        while(!invalidInput)
+        {
+            invalidInput = false;
+
+            cout << "Enter the username you would like to change to (alphanumeric characters only): ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+            {
+                if(!isalnum(c))
+                {
+                    cout << "Error: The username must be made up of alphanumeric characters." << endl;
+                    invalidInput = true;
+                }
+            }
+
+            if(invalidInput)
+                continue;
+
+            if(Info::checkUserExists(input))
+            {
+                cout << "Error: There is already a user that has that username." << endl;
+                continue;
+            }
+            string tempFileNameStr = "Info/saves/" + Info::userMember.getUsername() + ".txt";
+            const char* tempFileName = tempFileNameStr.c_str();
+
+            Info::userMember.setUsername(input);
+            Info::saveUser();
+            remove(tempFileName);
+            break;
+        }
+    }
+    else if(input == "2")
+    {
+        bool validInput = false;
+        string passwordFirst;
+        string passwordSecond;
+        string password;
+
+        // Requests desired password
+        while(!validInput)
+        {
+            bool notAlNumOrSymbol = false;
+
+            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+            {
+                if(!isalnum(c) && c != '!' && c != '?' && c != '@')
+                    notAlNumOrSymbol = true;
+            }
+
+            if(notAlNumOrSymbol)
+            {
+                cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+                continue;
+            }
+
+            // First occurrence of the password set to input
+            passwordFirst = input;
+
+            cout << "Confirm password: ";
+            cin >> input;
+            cout << endl;
+
+            passwordSecond = input;
+
+            if(passwordFirst != passwordSecond)
+            {
+                cout << "Error: Passwords don't match!" << endl;
+                continue;
+            }
+
+            password = passwordFirst;
+            validInput = true;
+            Info::userMember.setPassword(password);
+        }
+    }
+    else if(input == "3")
+    {
+        bool validInput = false;
+        string name;
+
+        while(!validInput)
+        {
+            name = "";
+            bool invalidName = false;
+            bool hasMiddle = false;
+            bool validChoice = false;
+
+            cout << "Please enter your first name (English letters only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the name is made up of valid characters
+            for(char c : input)
+                if(!isalpha(c))
+                    invalidName = true;
+
+            if(invalidName)
+            {
+                cout << "Error: The first name contains at least one invalid character." << endl;
+                continue;
+            }
+
+            // Adds first name to full name
+            name += input;
+
+            while(!validChoice)
+            {
+                cout << "Do you have a middle name? (Y/N): ";
+                cin >> input;
+                cout << endl;
+
+                if(input == "Y" || input == "y")
+                {
+                    cout << "Please enter your middle name (English letters only): ";
+                    cin >> input;
+                    cout << endl;
+
+                    // Checks to make sure the name is made up of valid characters
+                    for(char c : input)
+                        if(!isalpha(c))
+                            invalidName = true;
+
+                    if(invalidName)
+                    {
+                        cout << "Error: The middle name contains at least one invalid character." << endl;
+                        continue;
+                    }
+                    validChoice = true;
+
+                    // Adds optional middle name to full name
+                    name += " " + input;
+                }
+                else if(input == "N" || input == "n")
+                    validChoice = true;
+                else
+                {
+                    cout << "Invalid input! Please enter \"Y\" or \"N\"." << endl;
+                }
+            }
+
+            cout << "Please enter your last name (English letters only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the name is made up of valid characters
+            for(char c : input)
+                if(!isalpha(c))
+                    invalidName = true;
+
+            if(invalidName)
+            {
+                cout << "Error: The last name contains at least one invalid character." << endl;
+                continue;
+            }
+
+            // Adds last name to full name
+            name += " " + input;
+
+            validInput = true;
+            Info::userMember.setName(name);
+        }
+    }
+    else if(input == "4")
+    {
+        bool validInput = false;
+        int age;
+
+        // Requests the user's age
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your age (digits only, 5-100): ";
+            cin >> input;
+            cout << endl;
+
+            // Ensures that the age is made up of digits
+            for(char c: input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The age contains at least one non-digit." << endl;
+                continue;
+            }
+            else if(stoi(input) < 5)
+            {
+                cout << "Error: The age is too low." << endl;
+                continue;
+            }
+            else if(stoi(input) > 100)
+            {
+                cout << "Error: The age is too high." << endl;
+                continue;
+            }
+            else
+            {
+                validInput = true;
+                Info::userMember.setAge(stoi(input));
+            }
+        }
+    }
+    else if(input == "5")
+    {
+        bool validInput = false;
+        string gender;
+
+        // Requests the user's gender
+        while(!validInput)
+        {
+            cout << "Enter your gender (Male or Female): ";
+            cin >> input;
+            cout << endl;
+
+            // Converts all characters to lowercase
+            for(int i = 0; i < input.size(); i++)
+                input[i] = tolower(input[i]);
+
+            if(input == "male")
+                gender = "Male";
+            else if(input == "female")
+                gender = "Female";
+            else
+            {
+                cout << "Error: Please enter \"Male\" or \"Female\"." << endl;
+                continue;
+            }
+
+            validInput = true;
+            Info::userMember.setGender(gender);
+        }
+    }
+    else if(input == "6")
+    {
+        bool validInput = false;
+        string email;
+
+        // Requests the user's email
+        while(!validInput)
+        {
+            bool validEmail = false;
+
+            cout << "Enter your email address: ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+                if(c == '@')
+                    validEmail = true;
+
+            if(!validEmail)
+            {
+                cout << "Error: The email address is invalid." << endl;
+                continue;
+            }
+            else
+                email = input;
+
+            validInput = true;
+            Info::userMember.setEmail(email);
+        }
+    }
+    else if(input == "7")
+    {
+        bool validInput = false;
+
+        // Requests the user's phone number
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your phone number (no hyphens): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the phone number is made up of numerical digits
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The phone number is not entirely made up of digits." << endl;
+                continue;
+            }
+
+            Info::userMember.setPhoneNum(input);
+            validInput = true;
+        }
+    }
+    else if(input == "8")
+    {
+        bool validInput = false;
+
+        // Requests the user's city
+        while(!validInput)
+        {
+            bool isNotAlpha = false;
+
+            cout << "Enter the name of your city of residence (English letters only): ";
+            cin >> input;
+            cout << endl;
+
+            // Makes sure the city name is made up of English letters
+            for(char c : input)
+                if(!isalpha(c))
+                    isNotAlpha = true;
+
+            if(isNotAlpha)
+            {
+                cout << "The city name contains at least one invalid character." << endl;
+                continue;
+            }
+
+            Info::userMember.setCity(input);
+            validInput = true;
+        }
+    }
+    else if(input == "9")
+    {
+        bool validInput = false;
+
+        // Requests the user's zipcode
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your zip-code (digits only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the zip-code is made up of numerical digits
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The zip-code is not entirely made up of digits." << endl;
+                continue;
+            }
+
+            Info::userMember.setZipCode(input);
+            validInput = true;
+        }
+    }
+    else if(input == "10")
+    {
+        bool validInput = false;
+
+        // Requests the user's current weight in pounds
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your weight (in pounds, 50-999, digits only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the weight is made up of numerical digits
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The weight is not entirely made up of digits." << endl;
+                continue;
+            }
+            else if(stoi(input) < 50)
+            {
+                cout << "Error: The weight is too low." << endl;
+                continue;
+            }
+            else if(stoi(input) > 999)
+            {
+                cout << "Error: The weight is too high." << endl;
+                continue;
+            }
+
+            Info::weight = stoi(input);
+            validInput = true;
+        }
+    }
+    else if(input == "12")
+    {
+        bool validInput = false;
+
+        // Requests the user's current height in pounds
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your height (in inches, 36-99, digits only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the height is made up of numerical digits
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The height is not entirely made up of digits." << endl;
+                continue;
+            }
+            else if(stoi(input) < 36)
+            {
+                cout << "Error: The height is too low." << endl;
+                continue;
+            }
+            else if(stoi(input) > 99)
+            {
+                cout << "Error: The height is too high." << endl;
+                continue;
+            }
+
+            Info::height = stoi(input);
+            validInput = true;
+        }
+    }
+}
+
+void BackupOutput::displayInfo()
+{
+    cout << endl;
+    cout << "Username:         " << Info::userMember.getUsername() << endl;
+    cout << "Name:             " << Info::userMember.getName() << endl;
+    cout << "Age:              " << to_string(Info::userMember.getAge()) << endl;
+    cout << "Gender:           " << Info::userMember.getGender() << endl;
+    cout << "Email:            " << Info::userMember.getEmail() << endl;
+    cout << "Phone Number:     " << Info::userMember.getPhoneNum() << endl;
+    cout << "City:             " << Info::userMember.getCity() << endl;
+    cout << "State / Province: " << Info::userMember.getState() << endl;
+    cout << "Zip-code:         " << Info::userMember.getZipCode() << endl;
+    cout << endl;
+    cout << "Current weight:   " << to_string(Info::weight) << " pounds " << endl;
+    cout << "Current height:   " << to_string(Info::height) << " inches " << endl;
+    cout << endl;
+}
+
+void BackupOutput::help()
+{
+    cout << " \"Add an exercise\" chooses to create a new exercise and add it to your saved exercises." << endl;
+    cout << " \"List exercises\" displays a list of all saved exercises and their characteristics." << endl;
+    cout << " \"Add a workout\" chooses to create a new workout made up of exercises from your saved list of exercises." << endl;
+    cout << " \"View workout history\" displays a list of information from past workouts " << endl;
+    cout << " \"View intake recommendation\" displays your recommended calorie and macro intakes." << endl;
+    cout << " \"Edit user info\" displays a new menu that allows you to edit any user information." << endl;
+    cout << " \"Display user info\" displays all user information.                       " << endl;
+    cout << " \"Logout\" saves user information and logs the user out.                   " << endl << endl;
 }
 
 void BackupOutput::logoutUser()
 {
+    cout << "Logging out..." << endl;
     Info::saveUser();
+    cout << "Logged out." << endl;
 }
 
 int main()
@@ -1037,7 +1513,7 @@ int main()
     input = "";
 
     // Menu for non-admins
-    while(input != "8" && !Info::isAdmin)
+    while(input != "9" && !Info::isAdmin)
     {
         validInput = false; // Resets for each loop
         input = "";         // Resets for each loop
@@ -1054,14 +1530,15 @@ int main()
         cout << "| 4. View workout history          |" << endl;
         cout << "| 5. View intake recommendations   |" << endl;
         cout << "| 6. Edit user info                |" << endl;
-        cout << "| 7. Help                          |" << endl;
-        cout << "| 8. Logout                        |" << endl;
+        cout << "| 7. Display user info             |" << endl;
+        cout << "| 8. Help                          |" << endl;
+        cout << "| 9. Logout                        |" << endl;
         cout << "|----------------------------------|" << endl << endl;
-        cout << "Enter your choice (1-8): ";
+        cout << "Enter your choice (1-9): ";
         cin >> input;
         cout << endl;
 
-        if(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "7" && input != "8")
+        if(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "7" && input != "8" && input != "9")
         {
             cout << "Error: Invalid input! Please enter an integer from 1 to 8 (inclusive)." << endl;
             continue;
@@ -1078,6 +1555,12 @@ int main()
             //BackupOutput::provideIntake();
         else if(input == "6")
             BackupOutput::editInfo();
+        else if(input == "7")
+            BackupOutput::displayInfo();
+        else if(input == "8")
+            BackupOutput::help();
+        else if(input == "9")
+            BackupOutput::logoutUser();
 
     }
 

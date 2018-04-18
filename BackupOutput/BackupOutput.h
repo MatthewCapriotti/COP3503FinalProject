@@ -29,6 +29,7 @@ public:
     static void viewWorkoutHist();                  // Method for non-admin viewing userHistory
     static void provideIntake();                    // Method for non-admin viewing intake recommendations
     static void editInfo();                         // Method for non-admin editing user info
+    static void displayInfo();                      // Method for non-admin displaying user info
     static void help();                             // Method for non-admin help info
     static void logoutUser();                       // Method for non-admin logout
 };

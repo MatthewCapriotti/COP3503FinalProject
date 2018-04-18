@@ -549,6 +549,20 @@ void BackupOutput::addExercise()
 
         exerciseName = input;
 
+        bool repeat = false;
+
+        for(Exercise* e : Info::exercisePtrVector)
+        {
+            if(exerciseName == e->getName())
+                repeat = true;
+        }
+
+        if(repeat)
+        {
+            cout << "Error: An exercise with that name already exists." << endl;
+            continue;
+        }
+
         input = "";
 
         cout << "Is this a strength exercise or a cardio exercise? Enter \"Strength\" or \"Cardio\": ";
@@ -615,6 +629,366 @@ void BackupOutput::listExercises()
         else
             cout << to_string(i) << ". " << e->getName() << " - Strength: " << e->getMuscle() << endl;
     }
+}
+
+void BackupOutput::addWorkout()
+{
+    string input;
+    bool validInput = false;
+    int workoutTime;
+
+    string date;
+
+    while(!validInput)
+    {
+        bool isNotDigits = false;
+        date = "";
+
+        cout << "Enter the number of the month the workout was done (i.e. 2 for February): ";
+        cin >> input;
+        cout << endl;
+
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: Invalid input! Please enter a number for the month." << endl;
+            continue;
+        }
+        else if(stoi(input) < 1 || stoi(input) > 12)
+        {
+            cout << "Error: The number you entered does not correspond to a month" << endl;
+            continue;
+        }
+
+        switch(stoi(input))
+        {
+            case 1:
+                date += "January ";
+                break;
+            case 2:
+                date += "February ";
+                break;
+            case 3:
+                date += "March ";
+                break;
+            case 4:
+                date += "April ";
+                break;
+            case 5:
+                date += "May ";
+                break;
+            case 6:
+                date += "June ";
+                break;
+            case 7:
+                date += "July ";
+                break;
+            case 8:
+                date += "August ";
+                break;
+            case 9:
+                date += "September ";
+                break;
+            case 10:
+                date += "October ";
+                break;
+            case 11:
+                date += "November ";
+                break;
+            case 12:
+                date += "December ";
+                break;
+            default:
+                date += "Error ";
+        }
+
+        isNotDigits = false;
+
+        cout << "Enter the number of the day the workout was done (i.e. 18 for the 18th): ";
+        cin >> input;
+        cout << endl;
+
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: Invalid input! Please enter a number for the day." << endl;
+            continue;
+        }
+        else if(stoi(input) < 1 || stoi(input) > 31)
+        {
+            cout << "Error: The number you entered does not correspond to a day" << endl;
+            continue;
+        }
+
+        date += to_string(stoi(input)) + ", ";
+
+        isNotDigits = false;
+
+        cout << "Enter the year the workout was done: ";
+        cin >> input;
+        cout << endl;
+
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: Invalid input! Please enter a number for the year." << endl;
+            continue;
+        }
+        else if(stoi(input) < 2000 || stoi(input) > 9999)
+        {
+            cout << "Error: The number you entered does not correspond to a reasonable year" << endl;
+            continue;
+        }
+
+        date += input;
+        validInput = true;
+    }
+
+    validInput = false;
+
+    while(!validInput)
+    {
+        bool isNotDigits = false;
+
+        cout << "Enter the total time of the workout (in minutes, digits only): ";
+        cin >> input;
+        cout << endl;
+
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: Total time is not made up entirely of digits." << endl;
+            continue;
+        }
+
+        workoutTime = stoi(input);
+        validInput = true;
+    }
+
+    validInput = false;
+
+    int numExs = 0;
+
+    while(!validInput)
+    {
+        bool isNotDigits = false;
+
+        cout << "Enter the number of exercises done in the workout (digits only): ";
+        cin >> input;
+        cout << endl;
+
+        for(char c : input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: The number of exercises must be entirely made up of digits." << endl;
+            continue;
+        }
+
+        numExs = stoi(input);
+        validInput = true;
+    }
+
+    validInput = false;
+
+    vector<ExerciseAction> exAVector;
+
+    for(int i = 1; i < numExs+1; i++)
+    {
+        bool isNotDigits = false;
+        string exAName = "";
+        Exercise extype;
+
+        bool foundType = false;
+        bool validSets = false;
+        bool validReps = false;
+        bool validExTime = false;
+
+        int numSets = 0;
+        int exerciseTime = 0;
+        vector<int> reps;
+
+        cout << "Enter the name of exercise #" << to_string(i) << ": ";
+        cin >> input;
+        cout << endl;
+
+        for(Exercise* e : Info::exercisePtrVector)
+        {
+            if(e->getName() == input)
+            {
+                extype = *e;
+                foundType = true;
+            }
+        }
+
+        exAName = extype.getName();
+
+        if(!foundType)
+        {
+            cout << "Error: No saved exercise with the name \"" << input << "\" found." << endl;
+            i--;
+            continue;
+        }
+
+        while(!validSets && !extype.getCardio())
+        {
+            isNotDigits = false;
+            cout << "Enter the number of sets done: ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The number of sets must be entirely made up of digits." << endl;
+                continue;
+            }
+
+            numSets = stoi(input);
+            validSets = true;
+        }
+
+        for(int k = 1; k < numSets+1; k++)
+        {
+            if(extype.getCardio())
+                break;
+
+            isNotDigits = false;
+            cout << "Enter the number of reps done in set #" << to_string(k) << ": ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The number of reps must be entirely made up of digits." << endl;
+                k--;
+                continue;
+            }
+            else if(stoi(input) < 0 || stoi(input) > 99)
+            {
+                cout << "Error: The number of reps must be between 0 and 99." << endl;
+                k--;
+                continue;
+            }
+
+            reps.emplace_back(stoi(input));
+        }
+
+        while(!validExTime)
+        {
+            isNotDigits = false;
+            cout << "Enter the total time of the exercise (in minutes, digits only): ";
+            cin >> input;
+            cout << endl;
+
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The exercise time must be entirely made up of digits." << endl;
+                continue;
+            }
+
+            exerciseTime = stoi(input);
+            validExTime= true;
+        }
+
+        exAVector.emplace_back(ExerciseAction(exAName, extype, numSets, reps, exerciseTime));
+    }
+
+    Info::userHistory.add(Workout(date,workoutTime,exAVector));
+}
+
+void BackupOutput::viewWorkoutHist()
+{
+    for(Workout w : Info::userHistory.getVector())
+    {
+        cout << w.getDate() << endl;
+        cout << w.getTime() << " minutes total" << endl;
+
+        for(ExerciseAction ea : w.getVector())
+        {
+            if(!ea.getType().getCardio())
+            {
+                cout << "Exercise: " << ea.getName() << endl;
+                cout << "    Time: " << ea.getTime() << " minutes" << endl;
+                cout << "    Sets: " << ea.getNumSets() << endl;
+                cout << "    Reps: ";
+
+                for(int o : ea.getReps())
+                {
+                    if(o < 10)
+                    {
+                        cout << "0" + to_string(o) + ",";
+                    }
+                    else
+                    {
+                        cout << to_string(o) + ",";
+                    }
+                }
+                cout << endl;
+            }
+            else
+            {
+                cout << "Exercise: " << ea.getName() << endl;
+                cout << "    Time: " << ea.getTime() << " minutes" << endl;
+                cout << endl;
+            }
+        }
+
+        cout << endl << endl;
+    }
+}
+
+void BackupOutput::editInfo()
+{
+    cout << endl;
+    cout << "|----------------------------------|" << endl;
+    cout << "|               Edit               |" << endl;
+    cout << "|----------------------------------|" << endl;
+    cout << "|     Please choose an option.     |" << endl;
+    cout << "| 1. First Name                    |" << endl;
+    cout << "| 2. Middle Name                   |" << endl;
+    cout << "| 3. Last Name                     |" << endl;
+    cout << "| 4. Age                           |" << endl;
+    cout << "| 5. Gender                        |" << endl;
+    cout << "| 6. Email                         |" << endl;
+    cout << "| 7. Phone Number                  |" << endl;
+    cout << "| 8. City                          |" << endl;
+    cout << "| 9. State / Province              |" << endl;
+    cout << "| 10. Zip-code                     |" << endl;
+    cout << "| 11. Weight                       |" << endl;
+    cout << "| 12. Height                       |" << endl;
+    cout << "|----------------------------------|" << endl << endl;
+    cout << "Enter your choice (1-12): ";
+}
+
+void BackupOutput::logoutUser()
+{
+    Info::saveUser();
 }
 
 int main()
@@ -696,6 +1070,14 @@ int main()
             BackupOutput::addExercise();
         else if(input == "2")
             BackupOutput::listExercises();
+        else if(input == "3")
+            BackupOutput::addWorkout();
+        else if(input == "4")
+            BackupOutput::viewWorkoutHist();
+            //else if(input == "5")
+            //BackupOutput::provideIntake();
+        else if(input == "6")
+            BackupOutput::editInfo();
 
     }
 

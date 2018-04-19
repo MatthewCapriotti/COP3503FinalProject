@@ -2,10 +2,14 @@
 #include <string>
 
 #include <ctype.h>
-
+#include "Info/Info.cpp"
 #include "healthInfo.h"
 using namespace std;
-
+Calories::Calories(){
+int weight = Info::weight;
+int height = Info::height;
+ int age = member::getAge();
+}
 
 int Calories::womenBMR()
 {
@@ -19,7 +23,7 @@ int Calories:: menBMR()
 }
 
 //Calories Needed to lose weight based on active state
-void Calories:: caloriesCut(int choice, char gender){
+void Calories:: caloriesCut(int choice, string gender){
     //1: Sedentary tending to spend much time seated; somewhat inactive.
     //2: Lightly active (light exercise one to three days a week)
     //3: Moderately active (moderate exercise three to five days per week):
@@ -28,13 +32,13 @@ void Calories:: caloriesCut(int choice, char gender){
     //https://www.bodybuilding.com/fun/randy46.htm
     switch(choice){
 case 1:
-    if(gender == 'M'){
+    if(gender == "Male"){
        menCutRate = (menBMR() * 1.2);
        carbs = 1.5*weight;
        fat = 0.2 * weight;
        protein = 0.6 * weight;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenCutRate = womenBMR() * 1.2;
         carbs = 1.5*weight;
@@ -44,13 +48,13 @@ case 1:
 
     break;
 case 2:
-    if(gender == 'M'){
+    if(gender == "Male"){
         menCutRate = menBMR() * 1.375;
         carbs = 1.8*weight;
         fat = 0.3 * weight;
         protein = 0.9 * weight;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenCutRate = womenBMR() * 1.375;
            carbs = 1.8*weight;
@@ -59,13 +63,13 @@ case 2:
     }
     break;
 case 3:
-    if(gender == 'M'){
+    if(gender == "Male"){
         menCutRate = menBMR() * 1.55;
           carbs = 1.9*weight;
        fat = 0.3* weight;
        protein = 0.9 * weight;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenCutRate = womenBMR() * 1.55;
         carbs = 1.9*weight;
@@ -74,13 +78,13 @@ case 3:
     }
     break;
 case 4:
-    if(gender == 'M'){
+    if(gender == "Male"){
         menCutRate = menBMR() * 1.725;
           carbs = 2.5*weight;
        fat = 0.3 * weight;
        protein = 1 * weight;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
  womenCutRate = womenBMR() * 1.725;
    carbs = 2.5*weight;
@@ -89,13 +93,13 @@ case 4:
     }
     break;
 case 5:
-    if(gender == 'M'){
+    if(gender == "Male"){
         menCutRate = menBMR() * 1.9;
           carbs = 3.5*weight;
        fat = 0.3 * weight;
        protein =1 * weight;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenCutRate = womenBMR() * 1.9;
          carbs = 3.5*weight;
@@ -106,14 +110,14 @@ case 5:
 
 
     }
-    if(gender=='M'){
+    if(gender=="Male"){
         cout<< "Calories needed to cut is: "<< menCutRate<<endl;
-    }else if(gender=='F'){
+    }else if(gender=="Female"){
     cout<<" Calories needed to cut is : "<< womenCutRate<<endl;
     }
 }
 //Calorie Bulk
-void Calories:: caloriesBulk(int choice, char gender){
+void Calories:: caloriesBulk(int choice, string gender){
     //1: Sedentary tending to spend much time seated; somewhat inactive.
     //2: active (light exercise two to three days a week)
     //3: Moderately active (moderate exercise four to six days per week):
@@ -121,29 +125,29 @@ void Calories:: caloriesBulk(int choice, char gender){
     //http://www.shapeyourenergy.com/how-to-calculate-your-calories-formula/
     switch(choice){
 case 1:
-    if(gender == 'M'){
+    if(gender == "Male"){
        menBulkRate = (weight * 18);
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenBulkRate = weight * 16;
     }
     break;
 case 2:
-    if(gender == 'M'){
+    if(gender == "Male"){
         menBulkRate = weight*20;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenBulkRate = weight * 17;
 
     }
     break;
 case 3:
-    if(gender == 'M'){
+    if(gender == "Male"){
         menBulkRate = weight * 22;
     }
-    else if(gender == 'F')
+    else if(gender == "Female")
     {
         womenBulkRate = weight * 18;
     }
@@ -151,9 +155,9 @@ case 3:
 
 
     }
-   if(gender=='M'){
+   if(gender=="Male"){
         cout<< "Calories needed to Bulk is: "<< menBulkRate+500<<endl;
-    }else if(gender=='F'){
+    }else if(gender=="Female"){
     cout<<" Calories needed to Bulk is : "<< womenBulkRate+500<<endl;
     }
 }

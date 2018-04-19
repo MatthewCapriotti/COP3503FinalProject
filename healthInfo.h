@@ -1,7 +1,7 @@
 #ifndef healthInfo
 #define healthInfo
-#include "User.cpp"
-#include "Info/Info.cpp"
+#include "User.h"
+#include "Info/Info.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@ using namespace std;
 
 class Calories : member{
 public:
-Calories();
+    Calories();
 
 
 /*
@@ -58,13 +58,13 @@ void setBirthday()
 }
 */
 
-int womenBMR();
-int menBMR();
-void caloriesCut(int choice, string gender);
-void caloriesBulk(int choice,string gender);
-void activeCutMenu();
-void activeBulkMenu();
-void recommendedFoods(char gainType);
+    int womenBMR();
+    int menBMR();
+    void caloriesCut(int choice, string gender);
+    void caloriesBulk(int choice,string gender);
+    void activeCutMenu();
+    void activeBulkMenu();
+    void recommendedFoods(char gainType);
 
 private:
     int age;

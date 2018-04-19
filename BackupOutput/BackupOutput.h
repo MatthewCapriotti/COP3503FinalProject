@@ -8,6 +8,7 @@
 #include "../Exercise/Exercise.h"
 #include "../Exercise/ExerciseAction.h"
 #include "../Info/Info.h"
+//#include "../healthInfo.h"
 
 #include <iostream>
 #include <string>
@@ -31,7 +32,13 @@ public:
     static void editInfo();                         // Method for non-admin editing user info
     static void displayInfo();                      // Method for non-admin displaying user info
     static void help();                             // Method for non-admin help info
-    static void logoutUser();                       // Method for non-admin logout
+
+    static void logout();                           // Method for logging out
+
+    static void editAdminInfo();                    // Method for admin editing admin info
+    static void deleteUser();                       // Method for admin deleting a user
+    static void produceDecryptedFile();              // Method for the admin saving a decrypted file
+    static void promoteUser();
 };
 
 

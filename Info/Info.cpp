@@ -21,6 +21,7 @@ bool Info::isAdmin = false;
 bool Info::isAuthenticated = false;
 bool Info::userExists = false;
 bool Info::newUser = false;
+bool Info::adminOverride = false;
 string Info::goal = "";
 member Info::userMember = member();
 admin Info::userAdmin = admin();
@@ -206,6 +207,7 @@ bool Info::checkUserExists(const string username)
 
 void Info::loadUser(const string username, string password)
 {
+    Info::isAdmin = false;
     ifstream inFS ("Info/saves/" + username + ".txt");        // Input stream
     string line;                            // Current line in the text document
     bool foundUser = false;                 // Becomes true if the username is found in the text document
@@ -260,7 +262,15 @@ void Info::loadUser(const string username, string password)
                 if(line.substr(9) == password)
                     Info::isAuthenticated = true;
                 else
-                    return void();
+                {
+                    if(Info::adminOverride)
+                    {
+                        password = line.substr(9);
+                        Info::isAuthenticated = true;
+                    }
+                    else
+                        return void();
+                }
             }
         }
 
@@ -559,19 +569,16 @@ void Info::loadUser(const string username, string password)
     inFS.close(); // File is closed
 }
 
-void Info::saveDecryptedUser()
+void Info::saveDecryptedUser(const string username)
 {
     // Basic declarations needed for printing to file
     string fileName;
 
-    /*
     if(!Info::isAdmin)
-        fileName = "Info/saves/" + userMember.getUsername() + ".txt";
+        fileName = "Info/saves/" + userMember.getUsername() + "(decrypted).txt";
     else
-        fileName = "Info/saves/" + userAdmin.getUsername() + ".txt";
-        */
+        fileName = "Info/saves/" + userAdmin.getUsername() + "(decrypted).txt";
 
-    fileName = "Info/saves/testEncrypt2.txt";
 
     ofstream outFS(fileName);
 

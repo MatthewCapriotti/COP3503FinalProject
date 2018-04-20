@@ -1,7 +1,7 @@
 #ifndef healthInfo
 #define healthInfo
-#include "User.cpp"
-#include "Info/Info.cpp"
+#include "User.h"
+#include "Info/Info.h"
 #include <iostream>
 #include <string>
 #include <vector>

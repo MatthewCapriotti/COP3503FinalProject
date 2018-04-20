@@ -28,6 +28,7 @@ admin Info::userAdmin = admin();
 // Encrypts each line
 string Info::encrypt(string line)
 {
+
     // Defining key
     map<char,char> EKey;
     EKey.emplace('a', 'Q');

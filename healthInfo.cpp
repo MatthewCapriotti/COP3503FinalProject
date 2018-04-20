@@ -10,7 +10,119 @@ int weight = Info::weight;
 int height = Info::height;
  int age = member::getAge();
 }
+/*
+//Age
+Calories::int  getAge() const
+{
+    return();
+}
 
+void setAge(const int A)
+{
+    age = A;
+}
+*/
+//Height
+int  Calories::getHeight() const
+{
+    return(height);
+}
+void Calories::setHeight(const int H)
+{
+    this->height = H;
+}
+//Weight
+int  Calories::getWeight()
+{
+    return(age);
+}
+void Calories::setWeight(int W)
+{
+    this->weight = W;
+}
+//Gender
+string  Calories::getGender()
+{
+    return(gender);
+}
+void Calories::setGender( string G)
+{
+
+    this->gender = G;
+}
+//GainType
+string Calories::getGainType()
+{
+    return(gender);
+}
+void Calories::setGainType( string G)
+{
+
+    this->gainType = G;
+}
+//Carbs
+double Calories::getCarbs()
+{
+    return(carbs);
+}
+void Calories::setCarbs( double c)
+{
+
+    this->carbs = c;
+}
+// fat
+double Calories::getFat()
+{
+    return(fat);
+}
+void Calories::setFat( double f)
+{
+this->fat =f;
+}
+//WomenBulk Rate
+double Calories::getWomenBulkRate()
+{
+    return(womenBulkRate);
+}
+void Calories::setWomenBulkRate( double wB)
+{
+this->womenBulkRate = wB;
+}
+//Men Bulk Rate
+double Calories::getMenBulkRate()
+{
+    return(menBulkRate);
+}
+void Calories::setMenBulkRate( double M)
+{
+this->menBulkRate = M;
+}
+//Women Cut Rate
+double Calories::getWomenCutRate()
+{
+    return(womenCutRate);
+}
+void Calories::setWomenCutRate( double w)
+{
+    this->womenCutRate = w;
+}
+//Men Cut Rate
+double Calories::getMenCutRate()
+{
+    return(menCutRate);
+}
+void Calories::setMenCutRate( double mC)
+{
+    this->menCutRate = mC;
+}
+double Calories::getProtein()
+{
+    return(protein);
+}
+void Calories::setProtein( double p){
+this->protein = p;
+}
+//Calculate BMR
 int Calories::womenBMR()
 {
     return 655 + (4.35*weight)+(4.7*height)-(4.7*age);
@@ -115,6 +227,11 @@ case 5:
     }else if(gender=="Female"){
     cout<<" Calories needed to cut is : "<< womenCutRate<<endl;
     }
+    setFat(fat);
+    setCarbs(carbs);
+    setProtein(protein);
+    setWomenCutRate(womenCutRate);
+
 }
 //Calorie Bulk
 void Calories:: caloriesBulk(int choice, string gender){
@@ -157,8 +274,10 @@ case 3:
     }
    if(gender=="Male"){
         cout<< "Calories needed to Bulk is: "<< menBulkRate+500<<endl;
+        setMenBulkRate(menBulkRate+500);
     }else if(gender=="Female"){
     cout<<" Calories needed to Bulk is : "<< womenBulkRate+500<<endl;
+    setWomenBulkRate(womenBulkRate+500);
     }
 }
 void Calories:: activeCutMenu(){
@@ -181,13 +300,13 @@ void Calories:: activeBulkMenu(){
 
 
 }
-void Calories:: recommendedFoods(char gainType){
+void Calories:: recommendedFoods(string gainType){
 //https://www.bodybuilding.com/fun/hugo41.htm
 //https://www.mensjournal.com/food-drink/how-eat-bulk
 //Bulking
 //1.5 grams of protein per pound of bodyweight per day
 // fat intake at 0.3 grams per pound.
-if(gainType == 'B'){
+if(gainType == "Bulk"){
         const size_t N = 6;
 string a[N] = {"Chicken,", "Turkey,", "93% Lean Red Meats,", "Tuna,","Egg Whites,", "Salmon"};
 
@@ -197,7 +316,7 @@ string a[N] = {"Chicken,", "Turkey,", "93% Lean Red Meats,", "Tuna,","Egg Whites
     std::cout << bulkingFood[i] << '\n';
 }
 //Cutting
-if(gainType == 'C'){
+if(gainType == "Cut"){
           const size_t M = 12;
          string b[M]= {"chicken,", "pork tenderloin,", "lean cuts of beef,", "tuna,", "eggs,", "cottage cheese,", "greek yogurt,", "rice,", "potatoes,","sweet potatoes,", "pasta,", "1-2 fruits a day "};
           cout<<"Reccomended Foods for a cut: \n"<<endl;

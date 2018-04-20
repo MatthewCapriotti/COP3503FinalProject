@@ -13,45 +13,45 @@ public:
 Calories();
 
 
-/*
-int  getAge() const
-{
-    return(Info::age);
-}
-void setAge(const int A)
-{
-    age = A;
-}
-/*
-//Height // Inches
-int  getHeight() const
-{
-    return(height);
-}
-void setHeight(const int H)
-{
-    height = H;
-}
-//Weight //Pounds
-int  getWeight()
-{
-    return(age);
-}
-void setWeight(int W)
-{
-    weight = W;
-}
-//Gender
-char  getGender()
-{
-    return(gender);
-}
-void setGender( int G)
-{
 
-    gender = G;
-}
+int  getAge() const;
+void setAge(const int A);
+
+//Height // Inches
+int  getHeight() const;
+void setHeight(const int H);
+//Weight //Pounds
+int  getWeight();
+void setWeight(int W);
+//Gender
+string getGender();
+void setGender( string G);
+
+string getGainType();
+void setGainType( string G);
+
+double getCarbs();
+void setCarbs( double c);
+
+double getFat();
+void setFat( double f);
+
+double getWomenBulkRate();
+void setWomenBulkRate(double w);
+
+double getMenBulkRate();
+void setMenBulkRate(double w);
+
+double getWomenCutRate();
+void setWomenCutRate (double w);
+
+double getMenCutRate();
+void setMenCutRate (double w);
+
+double getProtein();
+void setProtein( double p);
 //Birthday
+/*
 void setBirthday()
 {
     ++age;
@@ -64,11 +64,11 @@ void caloriesCut(int choice, string gender);
 void caloriesBulk(int choice,string gender);
 void activeCutMenu();
 void activeBulkMenu();
-void recommendedFoods(char gainType);
+void recommendedFoods(string gainType);
 
 private:
     int age;
-    char gainType;
+    string gainType; // Changed to string and mad the criteria for the user to input Cut or Bulk
     int weight;
     int height;
     int choice;
@@ -77,12 +77,11 @@ private:
     double protein;
     double carbs;
     double fat;
-    char gender;
+    string gender;
     double womenCutRate;
     double menCutRate;
     double womenBulkRate;
-
-    int menBulkRate;
+    double menBulkRate;
 };
 
 #endif

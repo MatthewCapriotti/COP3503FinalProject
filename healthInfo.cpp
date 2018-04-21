@@ -6,9 +6,9 @@
 #include "healthInfo.h"
 using namespace std;
 Calories::Calories(){
-int weight = Info::weight;
-int height = Info::height;
- int age = member::getAge();
+weight = Info::weight ;
+height = Info::height;
+ int age = Info::userMember.getAge();
 }
 /*
 //Age

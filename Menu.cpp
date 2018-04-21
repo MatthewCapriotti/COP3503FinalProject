@@ -1,5 +1,5 @@
 #include "Menu.h"
-
+#include <iostream> //for testing
 
 //this first constructor is default from the tutorial
 /*Menu::Menu(int width, int height)
@@ -78,4 +78,58 @@ void Menu::moveDown()
 		menu[selectedItemIndex].setFillColor(sf::Color::Blue);
 	}
 
+}
+
+bool Menu::loginMenu()//needs to be able to check if valid user still
+{
+	sf::RenderWindow logWindow(sf::VideoMode(200, 200), "LOGIN");
+	sf::Event event;
+	sf::Font font; font.loadFromFile("arial.ttf"); //should have error handling if font cant load
+	sf::String userName;
+	sf::String passWord;
+	sf::Text nameText("", font, 20);
+	nameText.setPosition(sf::Vector2f(100, 75));
+	sf::Text passText("", font, 20); //will need to make this display ***** for privacy purposes
+	passText.setPosition(sf::Vector2f(100, 125));
+	while (logWindow.isOpen()) {
+		selectedItemIndex = 0;
+		while (logWindow.pollEvent(event)) {
+			if (event.type == sf::Event::KeyReleased) {
+				if (event.type == sf::Keyboard::Up)
+					moveUp();
+				else if (event.type == sf::Keyboard::Down)
+					moveDown();
+			}
+			else if (event.type == sf::Event::TextEntered) {
+				if (getPressedItem() == 0) {
+					if (event.text.unicode < 128) {//needs to have backspace functionality
+						std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
+						userName += static_cast<char>(event.text.unicode);
+						nameText.setString(userName);
+						std::string testOutput = userName;
+						std::cout << testOutput << std::endl;
+					}
+				}
+				else if (getPressedItem() == 1) {
+					if (event.text.unicode < 128) {
+						std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
+						passWord += static_cast<char>(event.text.unicode);
+						passText.setString(userName);
+						std::string testOutput = passWord;
+						std::cout << testOutput << std::endl;
+					}
+				}
+			}
+			else if (event.type == sf::Event::Closed)
+				logWindow.close();
+
+
+		}
+		logWindow.clear();
+		logWindow.draw(nameText);
+		logWindow.draw(passText);
+
+		logWindow.display();
+	}
+	return false;
 }

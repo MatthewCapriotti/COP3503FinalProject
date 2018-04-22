@@ -7,14 +7,14 @@
 #include <vector>
 using namespace std;
 
-class Calories : member{
+class Calories{
 public:
 Calories();
 
 
 
 int  getAge() const;
-void setAge(const int A);
+void setAge(const int A);//
 
 //Height // Inches
 int  getHeight() const;

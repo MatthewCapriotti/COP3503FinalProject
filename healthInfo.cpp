@@ -6,22 +6,24 @@
 #include "healthInfo.h"
 using namespace std;
 Calories::Calories(){
-weight = Info::weight ;
-height = Info::height;
- int age = Info::userMember.getAge();
-}
-/*
-//Age
-Calories::int  getAge() const
-{
-    return();
+//weight = Info::weight ;
+//height = Info::height;
+ //int age = Info::userMember.getAge();
+ weight = 0;
+ age = 0;
+ height =0;
 }
 
-void setAge(const int A)
+int Calories::getAge() const
 {
-    age = A;
+    return(age);
 }
-*/
+
+void Calories::setAge(const int A)
+{
+    this->age = A;
+}
+
 //Height
 int  Calories::getHeight() const
 {
@@ -146,7 +148,7 @@ void Calories:: caloriesCut(int choice, string gender){
 case 1:
     if(gender == "Male"){
 
-        setMenCutRate(menBMR() * 1.9);
+        setMenCutRate(menBMR() * 1.2);
          setCarbs( 1.5*weight);
        setFat( 0.2 * weight);
        setProtein(0.6 * weight);
@@ -194,7 +196,7 @@ case 3:
 case 4:
     if(gender == "Male"){
 
-        setWomenCutRate(womenBMR() * 1.725);
+        setMenCutRate(menBMR() * 1.725);
          setCarbs( 2.5*weight);
        setFat( 0.3 * weight);
        setProtein(1 * weight);
@@ -245,43 +247,47 @@ void Calories:: caloriesBulk(int choice, string gender){
 case 1:
     if(gender == "Male"){
        menBulkRate = (weight * 18);
+        setMenBulkRate(menBulkRate+500);
     }
     else if(gender == "Female")
     {
         womenBulkRate = weight * 16;
+         setWomenBulkRate(womenBulkRate+500);
     }
     break;
 case 2:
     if(gender == "Male"){
         menBulkRate = weight*20;
+         setMenBulkRate(menBulkRate+500);
     }
     else if(gender == "Female")
     {
         womenBulkRate = weight * 17;
+         setWomenBulkRate(womenBulkRate+500);
 
     }
     break;
 case 3:
     if(gender == "Male"){
         menBulkRate = weight * 22;
+        setMenBulkRate(menBulkRate);
     }
     else if(gender == "Female")
     {
         womenBulkRate = weight * 18;
+         setWomenBulkRate(womenBulkRate+500);
     }
     break;
 
 
     }
-   if(gender=="Male"){
-         setMenBulkRate(menBulkRate+500);
-        cout<< "Calories needed to Bulk is: "<< getMenBulkRate()<<endl;
-
+       if(gender=="Male"){
+        cout<< "Calories needed to bulk is: "<< getMenBulkRate()<<endl;
     }else if(gender=="Female"){
-    setWomenBulkRate(womenBulkRate+500);
-    cout<<" Calories needed to Bulk is : "<< getWomenBulkRate()<<endl;
-
+    cout<<" Calories needed to bulk is : "<< getWomenBulkRate()<<endl;
     }
+
+
 }
 void Calories:: activeCutMenu(){
     cout<<"How active are you?\n"<<endl;
@@ -337,7 +343,7 @@ if(gainType == "Cut"){
 int main(){
 
 int choice =0;
-char gender;
+string gender;
 int weight;
 int age;
 int height;
@@ -350,16 +356,16 @@ cin>> weight;
 cout<<"Enter the you height: ";
 cin>> height;
 
-gender = toupper(gender);
+gender[0] = toupper(gender[0]);
 Calories c;
 c.setGender(gender);
-if(gender=='M' || gender =='F'){
+if(gender=="Male" || gender =="Female"){
 c.activeCutMenu();
 cin>>choice;
 }else{
 cout<< "....Wrong";
 }
-c.setAge(age);
+//c.setAge(age);
 c.setHeight(height);
 c.setWeight(weight);
 
@@ -368,7 +374,9 @@ c.caloriesCut(choice,gender);
 c.activeBulkMenu();
 int choice2;
 cin>>choice2;
-c.calorieBulk(choice,gender);
+
+c.caloriesBulk(choice2,gender);
+
 
 return 0;
 }

@@ -2,7 +2,7 @@
 #include <string>
 
 #include <ctype.h>
-#include "Info/Info.cpp"
+#include "Info/Info.h"
 #include "healthInfo.h"
 using namespace std;
 Calories::Calories(){

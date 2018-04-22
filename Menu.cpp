@@ -255,11 +255,67 @@ int Menu::loginMenu()//needs to be able to check if valid user still
 
 int Menu::registerNewUser()
 {
-	std::string fields[10] = { "Username", "Password", "Name", "Age", "Gender", "Email",
-		"Phone", "City", "State","Zipcode" };
+	std::string fields[10] = { "Username:", "Password:", "Name:", "Age:", "Gender:", "Email:",
+		"Phone:", "City:", "State:","Zipcode:" };
 	bool fieldsFilled[10] = { false };
+	bool validInput = false;
+	sf::RenderWindow regWindow(sf::VideoMode(500, 400), "Register");
+	//sf::Event event;
+	sf::Font font; font.loadFromFile("arial.ttf");
+	sf::Text field("", font, 30); field.setPosition(sf::Vector2f(5, 75));
+	std::string input; 
+	sf::Text userIn("", font, 30); userIn.setPosition(sf::Vector2f(105, 75)); //may need to adjust positioning
+	sf::Text error("", font, 30); error.setPosition(sf::Vector2f(105, 5)); //generic error message
+	while (regWindow.isOpen()) {
+		sf::Event event;
+		while (!validInput) {//username
+			bool notAlNum = false;
+			Info::userExists = false;
+			field.setString(fields[0]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input)
+						{
+							if (!isalnum(c))
+								notAlNum = true;
+						}
+						Info::userExists = Info::checkUserExists(input);
+						if (!notAlNum || Info::userExists) {
+							error.setString("ERROR, try again.");
+						}
+						else
+							validInput = true; //break out of username display loop
+					}
+				}
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+
+
+		}
 
 
 
+
+
+
+
+	}
 	return 1;
 }

@@ -1426,6 +1426,44 @@ void BackupOutput::editInfo()
             validInput = true;
         }
     }
+    else if(input == "11")
+    {
+        bool validInput = false;
+
+        // Requests the user's current weight in pounds
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your weight (in pounds, 50-999, digits only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the weight is made up of numerical digits
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The weight is not entirely made up of digits." << endl;
+                continue;
+            }
+            else if(stoi(input) < 50)
+            {
+                cout << "Error: The weight is too low." << endl;
+                continue;
+            }
+            else if(stoi(input) > 999)
+            {
+                cout << "Error: The weight is too high." << endl;
+                continue;
+            }
+
+            Info::weight = stoi(input);
+            validInput = true;
+        }
+    }
     else if(input == "12")
     {
         bool validInput = false;

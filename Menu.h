@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include "Info\Info.h"
 #define MAX_NUMBER_OF_ITEMS 3
 
 class Menu
@@ -15,7 +16,7 @@ public:
 	int getPressedItem() { return selectedItemIndex; }
 	void setOptions(int opt) { this->numberOfOptions = opt; }
 	int getOptions() { return numberOfOptions; }
-	bool loginMenu();
+	int loginMenu();
 private:
 	int selectedItemIndex;
 	int numberOfOptions;

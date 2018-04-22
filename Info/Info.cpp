@@ -22,6 +22,7 @@ bool Info::isAuthenticated = false;
 bool Info::userExists = false;
 bool Info::newUser = false;
 bool Info::adminOverride = false;
+bool Info::usernameTooFar = false;
 string Info::goal = "";
 member Info::userMember = member();
 admin Info::userAdmin = admin();

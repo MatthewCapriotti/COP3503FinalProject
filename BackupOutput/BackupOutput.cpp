@@ -499,9 +499,16 @@ void BackupOutput::login()
 {
     bool validInput = false;
     string input;
+    int usernameCounter = 0;
 
     while(!validInput)
     {
+        if(usernameCounter == 5)
+        {
+            Info::usernameTooFar = true;
+            return void();
+        }
+
         Info::isAuthenticated = false;
         string username = "";
         string password = "";
@@ -515,6 +522,7 @@ void BackupOutput::login()
         if(!Info::userExists)
         {
             cout << "Error: There is no user with that username." << endl;
+            usernameCounter++;
             continue;
         }
         else
@@ -2027,42 +2035,52 @@ int main()
     string input;
     bool validInput = false;
 
-    // Requests user input
-    cout << "Are you a new user? (Y/N): ";
-    cin >> input;
-    cout << endl;
-
-    // Asking if the user is a new user:
-    while(!validInput)
+    while(true)
     {
-        // If yes, then Info::newUser is set to true and this loop is broken out of.
-        // If no, then Info::newUser is kept false (rewritten here for clarity) and
-        // this loop is broken out of. If invalid input, this loop repeats.
-        if(input == "Y" || input == "y")
+        Info::usernameTooFar = false;
+
+        // Requests user input
+        cout << "Are you a new user? (Y/N): ";
+        cin >> input;
+        cout << endl;
+
+        // Asking if the user is a new user:
+        while(!validInput)
         {
-            Info::newUser = true;
-            validInput = true;
+            // If yes, then Info::newUser is set to true and this loop is broken out of.
+            // If no, then Info::newUser is kept false (rewritten here for clarity) and
+            // this loop is broken out of. If invalid input, this loop repeats.
+            if(input == "Y" || input == "y")
+            {
+                Info::newUser = true;
+                validInput = true;
+            }
+            else if(input == "N" || input == "n")
+            {
+                Info::newUser = false;
+                validInput = true;
+            }
+            else
+            {
+                cout << "Invalid input! Please enter \"Y\" or \"N\": ";
+                cin >> input;
+                cout << endl;
+            }
         }
-        else if(input == "N" || input == "n")
-        {
-            Info::newUser = false;
-            validInput = true;
-        }
+
+        validInput = false;
+
+        // Decides whether to create a new user or login the existing user
+        if(Info::newUser)
+            BackupOutput::createNewUser();
         else
-        {
-            cout << "Invalid input! Please enter \"Y\" or \"N\": ";
-            cin >> input;
-            cout << endl;
-        }
+            BackupOutput::login();
+
+        if(Info::usernameTooFar)
+            continue;
+        else
+            break;
     }
-
-    validInput = false;
-
-    // Decides whether to create a new user or login the existing user
-    if(Info::newUser)
-        BackupOutput::createNewUser();
-    else
-        BackupOutput::login();
 
     input = "";
 

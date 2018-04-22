@@ -145,33 +145,34 @@ void Calories:: caloriesCut(int choice, string gender){
     switch(choice){
 case 1:
     if(gender == "Male"){
-       menCutRate = (menBMR() * 1.2);
-       carbs = 1.5*weight;
-       fat = 0.2 * weight;
-       protein = 0.6 * weight;
+
+        setMenCutRate(menBMR() * 1.9);
+         setCarbs( 1.5*weight);
+       setFat( 0.2 * weight);
+       setProtein(0.6 * weight);
     }
     else if(gender == "Female")
     {
-        womenCutRate = womenBMR() * 1.2;
-        carbs = 1.5*weight;
-       fat = 0.2 * weight;
-       protein = 0.6 * weight;
+        setWomenCutRate(womenBMR() * 1.2);
+         setCarbs( 1.5*weight);
+       setFat( 0.2 * weight);
+       setProtein(0.6 * weight);
     }
 
     break;
 case 2:
     if(gender == "Male"){
-        menCutRate = menBMR() * 1.375;
-        carbs = 1.8*weight;
-        fat = 0.3 * weight;
-        protein = 0.9 * weight;
+      setMenCutRate(menBMR() * 1.375);
+         setCarbs( 3.5*weight);
+       setFat( 0.3 * weight);
+       setProtein(1 * weight);
     }
     else if(gender == "Female")
     {
-        womenCutRate = womenBMR() * 1.375;
-           carbs = 1.8*weight;
-        fat = 0.3 * weight;
-        protein = 0.9 * weight;
+         setWomenCutRate(womenBMR() * 1.375);
+         setCarbs( 1.8*weight);
+       setFat( 0.3 * weight);
+       setProtein(0.9 * weight);
     }
     break;
 case 3:
@@ -183,54 +184,54 @@ case 3:
     }
     else if(gender == "Female")
     {
-        womenCutRate = womenBMR() * 1.55;
-        carbs = 1.9*weight;
-       fat = 0.3* weight;
-       protein = 0.9 * weight;
+
+        setWomenCutRate(womenBMR() * 1.55);
+         setCarbs( 1.9*weight);
+       setFat( 0.3 * weight);
+       setProtein(0.9 * weight);
     }
     break;
 case 4:
     if(gender == "Male"){
-        menCutRate = menBMR() * 1.725;
-          carbs = 2.5*weight;
-       fat = 0.3 * weight;
-       protein = 1 * weight;
+
+        setWomenCutRate(womenBMR() * 1.725);
+         setCarbs( 2.5*weight);
+       setFat( 0.3 * weight);
+       setProtein(1 * weight);
     }
     else if(gender == "Female")
     {
- womenCutRate = womenBMR() * 1.725;
-   carbs = 2.5*weight;
-       fat = 0.3 * weight;
-       protein = 1 * weight;
+        setWomenCutRate(womenBMR() * 1.725);
+         setCarbs( 2.5*weight);
+       setFat( 0.3 * weight);
+       setProtein(1 * weight);
     }
     break;
 case 5:
     if(gender == "Male"){
-        menCutRate = menBMR() * 1.9;
-          carbs = 3.5*weight;
-       fat = 0.3 * weight;
-       protein =1 * weight;
+       setMenCutRate(womenBMR() * 1.9);
+         setCarbs( 3.5*weight);
+       setFat( 0.3 * weight);
+       setProtein(1 * weight);
+
     }
     else if(gender == "Female")
     {
-        womenCutRate = womenBMR() * 1.9;
-         carbs = 3.5*weight;
-       fat = 0.3 * weight;
-       protein =1 * weight;
+       setWomenCutRate(womenBMR() * 1.9);
+         setCarbs( 3.5*weight);
+       setFat( 0.3 * weight);
+       setProtein(1 * weight);
     }
     break;
 
 
     }
     if(gender=="Male"){
-        cout<< "Calories needed to cut is: "<< menCutRate<<endl;
+        cout<< "Calories needed to cut is: "<< getMenCutRate()<<endl;
     }else if(gender=="Female"){
-    cout<<" Calories needed to cut is : "<< womenCutRate<<endl;
+    cout<<" Calories needed to cut is : "<< getWomenCutRate()<<endl;
     }
-    setFat(fat);
-    setCarbs(carbs);
-    setProtein(protein);
-    setWomenCutRate(womenCutRate);
+
 
 }
 //Calorie Bulk
@@ -273,11 +274,13 @@ case 3:
 
     }
    if(gender=="Male"){
-        cout<< "Calories needed to Bulk is: "<< menBulkRate+500<<endl;
-        setMenBulkRate(menBulkRate+500);
+         setMenBulkRate(menBulkRate+500);
+        cout<< "Calories needed to Bulk is: "<< getMenBulkRate()<<endl;
+
     }else if(gender=="Female"){
-    cout<<" Calories needed to Bulk is : "<< womenBulkRate+500<<endl;
     setWomenBulkRate(womenBulkRate+500);
+    cout<<" Calories needed to Bulk is : "<< getWomenBulkRate()<<endl;
+
     }
 }
 void Calories:: activeCutMenu(){
@@ -369,6 +372,4 @@ c.calorieBulk(choice,gender);
 
 return 0;
 }
-
-
 */

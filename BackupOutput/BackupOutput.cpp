@@ -41,7 +41,7 @@ void BackupOutput::createNewUser()
         bool notAlNum = false;
         Info::userExists = false;
 
-        cout << "Enter desired username (alphanumeric characters only): ";
+        cout << "Enter desired username (alphanumeric characters only, limit 16 characters): ";
         cin >> input;
         cout << endl;
 
@@ -56,6 +56,11 @@ void BackupOutput::createNewUser()
         if(notAlNum)
         {
             cout << "Error: The desired username is not entirely made up of alphanumeric characters." << endl;
+            continue;
+        }
+        else if(input.size() > 16)
+        {
+            cout << "Error: The desired username is too long." << endl;
             continue;
         }
 
@@ -80,7 +85,7 @@ void BackupOutput::createNewUser()
     {
         bool notAlNumOrSymbol = false;
 
-        cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+        cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@), limit 16 characters: ";
         cin >> input;
         cout << endl;
 
@@ -93,6 +98,11 @@ void BackupOutput::createNewUser()
         if(notAlNumOrSymbol)
         {
             cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+            continue;
+        }
+        else if(input.size() > 16)
+        {
+            cout << "Error: The desired password is too long." << endl;
             continue;
         }
 
@@ -1047,7 +1057,7 @@ void BackupOutput::editInfo()
         {
             invalidInput = false;
 
-            cout << "Enter the username you would like to change to (alphanumeric characters only): ";
+            cout << "Enter the username you would like to change to (alphanumeric characters only), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1058,6 +1068,11 @@ void BackupOutput::editInfo()
                     cout << "Error: The username must be made up of alphanumeric characters." << endl;
                     invalidInput = true;
                 }
+            }
+            if(input.size() > 16)
+            {
+                cout << "Error: The desired username is too long." << endl;
+                continue;
             }
 
             if(invalidInput)
@@ -1089,7 +1104,7 @@ void BackupOutput::editInfo()
         {
             bool notAlNumOrSymbol = false;
 
-            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1102,6 +1117,11 @@ void BackupOutput::editInfo()
             if(notAlNumOrSymbol)
             {
                 cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+                continue;
+            }
+            else if(input.size() > 16)
+            {
+                cout << "Error: The desired password is too long." << endl;
                 continue;
             }
 
@@ -1712,7 +1732,7 @@ void BackupOutput::editAdminInfo()
         {
             invalidInput = false;
 
-            cout << "Enter the username you would like to change to (alphanumeric characters only): ";
+            cout << "Enter the username you would like to change to (alphanumeric characters only), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1723,6 +1743,11 @@ void BackupOutput::editAdminInfo()
                     cout << "Error: The username must be made up of alphanumeric characters." << endl;
                     invalidInput = true;
                 }
+            }
+            if(input.size() > 16)
+            {
+                cout << "Error: The desired username is too long." << endl;
+                continue;
             }
 
             if(invalidInput)
@@ -1754,7 +1779,7 @@ void BackupOutput::editAdminInfo()
         {
             bool notAlNumOrSymbol = false;
 
-            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1767,6 +1792,11 @@ void BackupOutput::editAdminInfo()
             if(notAlNumOrSymbol)
             {
                 cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+                continue;
+            }
+            else if(input.size() > 16)
+            {
+                cout << "Error: The desired password is too long." << endl;
                 continue;
             }
 

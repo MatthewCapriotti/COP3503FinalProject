@@ -257,6 +257,17 @@ int Menu::registerNewUser()
 {
 	std::string fields[10] = { "Username:", "Password:", "Name:", "Age:", "Gender:", "Email:",
 		"Phone:", "City:", "State:","Zipcode:" };
+	std::string username;
+	std::string password;
+	std::string name;
+	std::string age;
+	std::string gender;
+	std::string email;
+	std::string phoneNum;
+	std::string city;
+	std::string state;
+	std::string zipcode;
+
 	bool fieldsFilled[10] = { false };
 	bool validInput = false;
 	sf::RenderWindow regWindow(sf::VideoMode(500, 400), "Register");
@@ -264,14 +275,15 @@ int Menu::registerNewUser()
 	sf::Font font; font.loadFromFile("arial.ttf");
 	sf::Text field("", font, 30); field.setPosition(sf::Vector2f(5, 75));
 	std::string input; 
-	sf::Text userIn("", font, 30); userIn.setPosition(sf::Vector2f(105, 75)); //may need to adjust positioning
+	sf::Text userIn("", font, 30); userIn.setPosition(sf::Vector2f(160, 75)); //may need to adjust positioning
 	sf::Text error("", font, 30); error.setPosition(sf::Vector2f(105, 5)); //generic error message
 	while (regWindow.isOpen()) {
 		sf::Event event;
-		while (!validInput) {//username
+		int i = 0;
+		while (!validInput && !fieldsFilled[i]) {//username
 			bool notAlNum = false;
 			Info::userExists = false;
-			field.setString(fields[0]);
+			field.setString(fields[i]);
 			while (regWindow.pollEvent(event)) {
 				if (event.type == sf::Event::TextEntered) {
 					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
@@ -293,29 +305,317 @@ int Menu::registerNewUser()
 								notAlNum = true;
 						}
 						Info::userExists = Info::checkUserExists(input);
-						if (!notAlNum || Info::userExists) {
+						if (notAlNum || Info::userExists) {
 							error.setString("ERROR, try again.");
 						}
-						else
-							validInput = true; //break out of username display loop
+						else {
+							username = input; //change for each field
+							input = "";//reset input
+							validInput = true;
+							fieldsFilled[i] = true;//break out of username display loop
+							userIn.setString(input);
+							break;
+						}
 					}
 				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
 			}
 			regWindow.clear();
 			regWindow.draw(field);
 			regWindow.draw(userIn);
 			regWindow.draw(error);
 			regWindow.display();
-
-
 		}
+		validInput = false;
+		i++;
+		while (!validInput && !fieldsFilled[i]) {//password
+			bool notAlNumOrSymbol = false;
+			
+			field.setString(fields[i]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input)
+						{
+							if (!isalnum(c) && c != '!' && c != '?' && c != '@')
+								notAlNumOrSymbol = true;
+						}
+
+						
+						if (notAlNumOrSymbol) {
+							error.setString("ERROR, try again.");
+						}
+						else {
+							password = input; //change for each field
+							input = "";//reset input
+							userIn.setString(input);
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
+		validInput = false; i++;
+		while (!validInput && !fieldsFilled[i]) {//irl name
+			bool invalidName = false;
+		
+			field.setString(fields[i]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input) {
+							if (!isalpha(c))
+								invalidName = true;
+						}
+						if (invalidName) {
+							error.setString("ERROR, try again.");
+						}
+						else {
+							name = input; //change for each field
+							input = "";//reset input
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							userIn.setString(input);
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
+		validInput = false; i++;
+		while (!validInput && !fieldsFilled[i]) {//name
+			bool notAlNumOrSymbol = false;
+
+			field.setString(fields[i]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input)
+						{
+							if (!isalnum(c) && c != '!' && c != '?' && c != '@')
+								notAlNumOrSymbol = true;
+						}
+						if (notAlNumOrSymbol) {
+							error.setString("ERROR, try again.");
+						}
+						else {
+							password = input; //change for each field
+							input = "";//reset input
+							userIn.setString(input);
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
+		validInput = false; i++;
+		while (!validInput && !fieldsFilled[i]) {//age
+			bool isNotDigits = false;
+
+			field.setString(fields[i]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input)
+							if (!isdigit(c))
+								isNotDigits = true;
+						if (isNotDigits || std::stoi(input) < 18 || std::stoi(input) > 100) {
+							error.setString("ERROR, try again.");
+						}
+
+						else {
+							age = stoi(input); //change for each field
+							input = "";//reset input
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							userIn.setString(input);
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
+		validInput = false; i++;
+
+		while (!validInput && !fieldsFilled[i]) {//sex
+			bool invalidName = false;
+
+			field.setString(fields[i]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input) {
+							if (!isalpha(c))
+								invalidName = true;
+						}
+						if (invalidName) {
+							error.setString("ERROR, try again.");
+						}
+						else {
+							name = input; //change for each field
+							input = "";//reset input
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							userIn.setString(input);
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
+		validInput = false; i++;
+		while (!validInput && !fieldsFilled[i]) {//password
+			bool notAlNumOrSymbol = false;
+
+			field.setString(fields[i]);
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input)
+						{
+							if (!isalnum(c) && c != '!' && c != '?' && c != '@')
+								notAlNumOrSymbol = true;
+						}
 
 
-
-
+						if (notAlNumOrSymbol) {
+							error.setString("ERROR, try again.");
+						}
+						else {
+							password = input; //change for each field
+							input = "";//reset input
+							userIn.setString(input);
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
 
 
 
 	}
 	return 1;
 }
+

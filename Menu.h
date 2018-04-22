@@ -15,7 +15,7 @@ public:
 	int getPressedItem() { return selectedItemIndex; }
 	void setOptions(int opt) { this->numberOfOptions = opt; }
 	int getOptions() { return numberOfOptions; }
-
+	bool loginMenu();
 private:
 	int selectedItemIndex;
 	int numberOfOptions;

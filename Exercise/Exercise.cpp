@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 
-Exercise::Exercise() = default;
+Exercise::Exercise() = default; //Default constructor for exercises
 
 Exercise::Exercise(string exerciseName, string muscleTargeted, bool isCardio)
 {

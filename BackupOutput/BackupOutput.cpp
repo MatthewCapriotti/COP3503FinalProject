@@ -540,6 +540,7 @@ void BackupOutput::login()
             if(!Info::isAuthenticated)
             {
                 cout << "Error: The password is invalid." << endl;
+                usernameCounter++;
                 continue;
             }
             else

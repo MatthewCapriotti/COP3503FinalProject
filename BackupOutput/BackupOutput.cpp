@@ -463,6 +463,34 @@ void BackupOutput::createNewUser()
         validInput = true;
     }
 
+    validInput = false;
+
+    // Requests the user's goal
+    while(!validInput)
+    {
+        cout << "Enter your goal (Bulk, Cut, or Maintain): ";
+        cin >> input;
+        cout << endl;
+
+        // Converts all characters to lowercase
+        for(int i = 0; i < input.size(); i++)
+            input[i] = tolower(input[i]);
+
+        if(input == "bulk")
+            Info::goal = "Bulk";
+        else if(input == "cut")
+            Info::goal = "Cut";
+        else if(input == "maintain")
+            Info::goal = "Maintain";
+        else
+        {
+            cout << "Error: Please enter \"Bulk\",\"Cut\", or \"Maintain\"." << endl;
+            continue;
+        }
+
+        validInput = true;
+    }
+
     Info::userMember = member(username, password, name, age, gender, email, phoneNum, city, state, zipcode);
     Info::saveUser();
 }
@@ -990,14 +1018,16 @@ void BackupOutput::editInfo()
     cout << "| 10. Zip-code                     |" << endl;
     cout << "| 11. Weight                       |" << endl;
     cout << "| 12. Height                       |" << endl;
+    cout << "| 13. Goal                         |" << endl;
+    cout << "| 14. Cancel                       |" << endl;
     cout << "|----------------------------------|" << endl << endl;
-    cout << "Enter your choice (1-12): ";
+    cout << "Enter your choice (1-14): ";
     cin >> input;
     cout << endl;
 
-    if(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "7" && input != "8" && input != "9" && input != "10" && input != "11" && input != "12")
+    if(input != "1" && input != "2" && input != "3" && input != "4" && input != "5" && input != "6" && input != "7" && input != "8" && input != "9" && input != "10" && input != "11" && input != "12" && input != "13" && input != "14")
     {
-        cout << "Error: Invalid input! Input must be an integer from 1 to 12 (inclusive)." << endl;
+        cout << "Error: Invalid input! Input must be an integer from 1 to 14 (inclusive)." << endl;
         return void();
     }
     else if(input == "1")
@@ -1434,6 +1464,142 @@ void BackupOutput::editInfo()
             validInput = true;
         }
     }
+    else if (input == "13")
+    {
+        bool validInput = false;
+
+        // Requests the user's goal
+        while(!validInput)
+        {
+            cout << "Enter your goal (Bulk, Cut, or Maintain): ";
+            cin >> input;
+            cout << endl;
+
+            // Converts all characters to lowercase
+            for(int i = 0; i < input.size(); i++)
+                input[i] = tolower(input[i]);
+
+            if(input == "bulk")
+                Info::goal = "Bulk";
+            else if(input == "cut")
+                Info::goal = "Cut";
+            else if(input == "maintain")
+                Info::goal = "Maintain";
+            else
+            {
+                cout << "Error: Please enter \"Bulk\",\"Cut\", or \"Maintain\"." << endl;
+                continue;
+            }
+
+            validInput = true;
+        }
+    }
+}
+
+void BackupOutput::provideIntake()
+{
+    bool validInput = false;
+    int choice;
+    string input;
+    bool isCut = (Info::goal.substr(0,3) == "Cut");
+    bool isBulk = (Info::goal.substr(0,4) == "Bulk");
+    bool isMaintain = (Info::goal.substr(0,8) == "Maintain");
+    bool isMale = (Info::userMember.getGender() == "Male");
+
+    if(isCut)
+        Info::calorieInstance.activeCutMenu();
+    if(isBulk)
+        Info::calorieInstance.activeBulkMenu();
+
+    // Requests the user's choice
+    while(!validInput && isCut)
+    {
+        bool isNotDigits = false;
+
+        cout << "Please enter your choice (digits only, 1-5): ";
+        cin >> input;
+        cout << endl;
+
+        // Ensures that the age is made up of digits
+        for(char c: input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: The choice contains at least one non-digit." << endl;
+            continue;
+        }
+        else if(stoi(input) < 1 && stoi(input) > 5)
+        {
+            cout << "Error: Invalid choice. Please enter a digit from 1 to 5 inclusive." << endl;
+            continue;
+        }
+        else
+        {
+            validInput = true;
+            choice = stoi(input);
+        }
+    }
+
+    while(!validInput && isBulk)
+    {
+        bool isNotDigits = false;
+
+        cout << "Please enter your choice (digits only, 1-3): ";
+        cin >> input;
+        cout << endl;
+
+        // Ensures that the age is made up of digits
+        for(char c: input)
+            if(!isdigit(c))
+                isNotDigits = true;
+
+        if(isNotDigits)
+        {
+            cout << "Error: The choice contains at least one non-digit." << endl;
+            continue;
+        }
+        else if(stoi(input) < 1 && stoi(input) > 3)
+        {
+            cout << "Error: Invalid choice. Please enter a digit from 1 to 3 inclusive." << endl;
+            continue;
+        }
+        else
+        {
+            validInput = true;
+            choice = stoi(input);
+        }
+    }
+
+    if(isCut)
+    {
+        Info::calorieInstance.setHeight(Info::height);
+        Info::calorieInstance.setWeight(Info::weight);
+
+        Info::calorieInstance.caloriesCut(choice, Info::userMember.getGender());
+
+        cout << "Recommended protein per day: " << Info::calorieInstance.getProtein() << " grams" << endl;
+        cout << "Recommended fat per day: " << Info::calorieInstance.getFat() << " grams"<< endl;
+        cout << "Recommended carbs per day: " << Info::calorieInstance.getCarbs() << " grams" << endl << endl;
+
+        Info::calorieInstance.recommendedFoods("Cut");
+    }
+    else if(isBulk)
+    {
+        Info::calorieInstance.setHeight(Info::height);
+        Info::calorieInstance.setWeight(Info::weight);
+
+        Info::calorieInstance.caloriesBulk(choice, Info::userMember.getGender());
+
+        cout << "Recommended protein per day: " << Info::calorieInstance.getProtein() << " grams" << endl;
+        cout << "Recommended fat per day: " << Info::calorieInstance.getFat() << " grams"<< endl;
+        cout << "Recommended carbs per day: " << Info::calorieInstance.getCarbs() << " grams" << endl << endl;
+
+        Info::calorieInstance.recommendedFoods("Bulk");
+    }
+    else if(isMaintain)
+        cout << "Error: This option does not apply to those wishing to maintain." << endl;
 }
 
 void BackupOutput::displayInfo()
@@ -1451,6 +1617,7 @@ void BackupOutput::displayInfo()
     cout << endl;
     cout << "  Current weight: " << to_string(Info::weight) << " pounds " << endl;
     cout << "  Current height: " << to_string(Info::height) << " inches " << endl;
+    cout << "            Goal: " << Info::goal << endl;
     cout << endl;
 }
 
@@ -1900,8 +2067,8 @@ int main()
             BackupOutput::addWorkout();
         else if(input == "4")
             BackupOutput::viewWorkoutHist();
-            //else if(input == "5")
-            //BackupOutput::provideIntake();
+        else if(input == "5")
+            BackupOutput::provideIntake();
         else if(input == "6")
             BackupOutput::editInfo();
         else if(input == "7")

@@ -25,11 +25,11 @@ bool Info::adminOverride = false;
 string Info::goal = "";
 member Info::userMember = member();
 admin Info::userAdmin = admin();
+Calories Info::calorieInstance = Calories();
 
 // Encrypts each line
 string Info::encrypt(string line)
 {
-
     // Defining key
     map<char,char> EKey;
     EKey.emplace('a', 'Q');

@@ -6,6 +6,7 @@
 #include "../Workout/Workout.h"
 #include "../Exercise/Exercise.h"
 #include "../Exercise/ExerciseAction.h"
+#include "../healthInfo.h"
 
 #include <iostream>
 #include <string>
@@ -28,6 +29,7 @@ public:
     static string goal;                                             // Contains the goal of the new user
     static member userMember;                                       // To be used if the user is not an admin
     static admin userAdmin;                                         // To be used if the user is an admin
+    static Calories calorieInstance;                                // Used as instance of Calories class
 
     static string encrypt(string line);                             // Encrypts one line
     static string decrypt(string line);                             // Decrypts one line

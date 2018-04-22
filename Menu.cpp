@@ -1,32 +1,47 @@
 #include "Menu.h"
 #include <iostream> //for testing
 
-//this first constructor is default from the tutorial
-/*Menu::Menu(int width, int height)
+Menu::Menu(int options, std::string str1, std::string str2, std::string str3, std::string str4, std::string str5) :options(options)//5 options
 {
-if(!font.loadFromFile("arial.ttf")){//handle error??
+
+	if (!font.loadFromFile("arial.ttf")) {}//need to add error handle
+	setOptions(options);
+	std::string strArr[5] = { str1, str2, str3, str4, str5 };
+
+	for (int i = 0; i < options; i++) {
+		menu[i].setFont(font);
+		menu[i].setFillColor(sf::Color::White);
+		if (i == 0)
+			menu[i].setFillColor(sf::Color::Blue);
+		menu[i].setString(strArr[i]);
+		menu[i].setPosition(sf::Vector2f(1300 / 2, 900 / (options + 1)* (i + 1)));
+		//not dynamic window sizing here, may need to fix, but all windows should be same size
+	}
+	selectedItemIndex = 0;
 }
 
-menu[0].setFont(font);
-menu[0].setFillColor(sf::Color::Blue);
-menu[0].setString("Login"); //dummy strings
-menu[0].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
-
-menu[1].setFont(font);
-menu[1].setFillColor(sf::Color::White);
-menu[1].setString("Options"); //dummy strings
-menu[1].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 2));
-
-menu[2].setFont(font);
-menu[2].setFillColor(sf::Color::White);
-menu[2].setString("Exit"); //dummy strings
-menu[2].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
-
-selectedItemIndex = 0;
-}*/
-//this constructor is my attempt at creating a generalized menu constructor for all possible menus
-Menu::Menu(int options, std::string str1, std::string str2, std::string str3)//3 options
+Menu::Menu(int options, std::string str1, std::string str2, std::string str3, std::string str4) :options(options)//4 options
 {
+
+	if (!font.loadFromFile("arial.ttf")) {}//need to add error handle
+	setOptions(options);
+	std::string strArr[4] = { str1, str2, str3, str4 };
+
+	for (int i = 0; i < options; i++) {
+		menu[i].setFont(font);
+		menu[i].setFillColor(sf::Color::White);
+		if (i == 0)
+			menu[i].setFillColor(sf::Color::Blue);
+		menu[i].setString(strArr[i]);
+		menu[i].setPosition(sf::Vector2f(1300 / 2, 900 / (options + 1)* (i + 1)));
+		//not dynamic window sizing here, may need to fix, but all windows should be same size
+	}
+	selectedItemIndex = 0;
+}
+
+Menu::Menu(int options, std::string str1, std::string str2, std::string str3) :options(options)//3 options
+{
+
 	if (!font.loadFromFile("arial.ttf")) {}//need to add error handle
 	setOptions(options);
 	std::string strArr[3] = { str1, str2, str3 };
@@ -37,12 +52,48 @@ Menu::Menu(int options, std::string str1, std::string str2, std::string str3)//3
 		if (i == 0)
 			menu[i].setFillColor(sf::Color::Blue);
 		menu[i].setString(strArr[i]);
-		menu[i].setPosition(sf::Vector2f(600 / 2, 600 / (MAX_NUMBER_OF_ITEMS + 1)* (i + 1)));
+		menu[i].setPosition(sf::Vector2f(1300 / 2, 900 / (options + 1)* (i + 1)));
 		//not dynamic window sizing here, may need to fix, but all windows should be same size
 	}
 	selectedItemIndex = 0;
+}
 
+Menu::Menu(int options, std::string str1, std::string str2) :options(options)//2 options
+{
 
+	if (!font.loadFromFile("arial.ttf")) {}//need to add error handle
+	setOptions(options);
+	std::string strArr[2] = { str1, str2 };
+
+	for (int i = 0; i < options; i++) {
+		menu[i].setFont(font);
+		menu[i].setFillColor(sf::Color::White);
+		if (i == 0)
+			menu[i].setFillColor(sf::Color::Blue);
+		menu[i].setString(strArr[i]);
+		menu[i].setPosition(sf::Vector2f(1300 / 2, 900 / (options + 1)* (i + 1)));
+		//not dynamic window sizing here, may need to fix, but all windows should be same size
+	}
+	selectedItemIndex = 0;
+}
+
+Menu::Menu(int options, std::string str1) :options(options)//1 option
+{
+
+	if (!font.loadFromFile("arial.ttf")) {}//need to add error handle
+	setOptions(options);
+	std::string strArr[1] = { str1 };
+
+	for (int i = 0; i < options; i++) {
+		menu[i].setFont(font);
+		menu[i].setFillColor(sf::Color::White);
+		if (i == 0)
+			menu[i].setFillColor(sf::Color::Blue);
+		menu[i].setString(strArr[i]);
+		menu[i].setPosition(sf::Vector2f(1300 / 2, 900 / (options + 1)* (i + 1)));
+		//not dynamic window sizing here, may need to fix, but all windows should be same size
+	}
+	selectedItemIndex = 0;
 }
 
 
@@ -78,6 +129,26 @@ void Menu::moveDown()
 		menu[selectedItemIndex].setFillColor(sf::Color::Blue);
 	}
 
+}
+
+void Menu::customPosition(bool shrink)
+{
+	if (shrink)
+	{
+		for (int i = 0; i < options; i++) {
+			menu[i].setPosition(sf::Vector2f(1300 / 2, (250 / (options + 1)* (i + 1)) + 580));
+			//not dynamic window sizing here, may need to fix, but all windows should be same size
+		}
+		selectedItemIndex = 0;
+	}
+	else
+	{
+		for (int i = 0; i < options; i++) {
+			menu[i].setPosition(sf::Vector2f(1300 / 2, (450 / (options + 1)* (i + 1)) + 470));
+			//not dynamic window sizing here, may need to fix, but all windows should be same size
+		}
+		selectedItemIndex = 0;
+	}
 }
 
 int Menu::loginMenu()//needs to be able to check if valid user still
@@ -180,4 +251,15 @@ int Menu::loginMenu()//needs to be able to check if valid user still
 		}
 	}
 	
+}
+
+int Menu::registerNewUser()
+{
+	std::string fields[10] = { "Username", "Password", "Name", "Age", "Gender", "Email",
+		"Phone", "City", "State","Zipcode" };
+	bool fieldsFilled[10] = { false };
+
+
+
+	return 1;
 }

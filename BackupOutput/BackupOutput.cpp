@@ -1643,6 +1643,7 @@ void BackupOutput::provideIntake()
     {
         Info::calorieInstance.setHeight(Info::height);
         Info::calorieInstance.setWeight(Info::weight);
+        Info::calorieInstance.setAge(Info::userMember.getAge());
 
         Info::calorieInstance.caloriesCut(choice, Info::userMember.getGender());
 
@@ -1656,6 +1657,7 @@ void BackupOutput::provideIntake()
     {
         Info::calorieInstance.setHeight(Info::height);
         Info::calorieInstance.setWeight(Info::weight);
+        Info::calorieInstance.setAge(Info::userMember.getAge());
 
         Info::calorieInstance.caloriesBulk(choice, Info::userMember.getGender());
 

@@ -1,16 +1,18 @@
 username:test
 password:ps
 notAdmin
-name:Bob Doe 
+name:Bob Doe          
 endName
 age:24
 gender:Male
+weight:160
+height:72
 email:bob.doe@gmail.com
 phone:1234567890
 city:Gainesville
 state:Florida
 zipcode:32607
-goal:this is my goal 
+goal:Bulk  
 endGoal
 beginIntake
 endIntake

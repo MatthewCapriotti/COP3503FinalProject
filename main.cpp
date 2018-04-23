@@ -15,7 +15,7 @@ void addExerciseToWorkout(sf::Sprite &logo)
 	sf::RenderWindow addWindow(sf::VideoMode(600, 600), "Add Exercise");
 	sf::String title = "View Intake Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -70,7 +70,7 @@ int viewIntake(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "View Intake Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -122,13 +122,13 @@ int viewIntake(sf::RenderWindow &window, sf::Sprite &logo)
 }
 
 // page number 16
-int nutrition(sf::RenderWindow &window, sf::Sprite &logo)
+int calculateNutrition(sf::RenderWindow &window, sf::Sprite &logo)
 {
 	Menu nutrition(2, "Calculate", "Back");
 
 	sf::String title = "Nutrition";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -184,7 +184,7 @@ int addWorkout(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Add Workout History Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -246,7 +246,7 @@ int viewWorkoutHistory(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "View Workout History Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -302,7 +302,7 @@ int UserInfo(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "User Info Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -393,7 +393,7 @@ int changeUserInfo(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Change User Info Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -452,7 +452,7 @@ int AdminInfo(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Admin Info Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -511,7 +511,7 @@ int changeAdminInfo(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Change Admin Info Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -570,7 +570,7 @@ int deleteUser(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Delete User Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -630,7 +630,7 @@ int promoteUser(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Promote User Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -678,15 +678,13 @@ int promoteUser(sf::RenderWindow &window, sf::Sprite &logo)
 	return -3;
 }
 
-
-
 // page number 4
 int viewExercise(sf::RenderWindow &window, sf::Sprite &logo)
 {
 	Menu viewExercise(1, "Back");
 	sf::String title = "View Exercises";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(600, 10);
@@ -769,7 +767,7 @@ int adminHome(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Admin Home Page";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -832,7 +830,7 @@ int exercise(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Exercises";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -895,7 +893,7 @@ int start(sf::RenderWindow &window, sf::Sprite &logo)
 
 	sf::String title = "Welcome to GainezVille";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
 	sf::Text text(title, font, 20);
 	//text.setColor(sf::Color::Green);
 	text.setPosition(650, 10);
@@ -947,67 +945,184 @@ int start(sf::RenderWindow &window, sf::Sprite &logo)
 		window.display();
 	}
 	return -3;
-}// page number 3
+}
+
+// intial attempt of add exercise
+/*
+// page number 3
 int addExercise(sf::RenderWindow &window, sf::Sprite &logo)
 {
-	Menu addExercise(2, "Add Exercise", "Back");
+Menu addExercise(1, "Back");
+addExercise.customPosition("true");
 
+sf::String title = "Add Exercises";
+sf::Font font;
+if (!font.loadFromFile("Lobster-Regular.ttf")) {}
+sf::Text text(title, font, 20);
+//text.setColor(sf::Color::Green);
+text.setPosition(650, 10);
+std::string exercise;
+sf::Text input("", font, 20);
+
+while (window.isOpen()) {
+//handle events
+
+sf::Event event;
+while (window.pollEvent(event))
+{
+switch (event.type)
+{
+case sf::Event::KeyReleased:
+switch (event.key.code)
+{
+case sf::Event::TextEntered:
+if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||
+event.text.unicode != 40)) {//needs to have backspace functionality
+if (event.text.unicode == 8 && exercise.length() > 0) {
+exercise.pop_back();
+input.setString(exercise);
+}
+else {
+exercise += static_cast<char>(event.text.unicode);
+input.setString(exercise);
+//std::string testOutput = userName;
+//std::cout << testOutput << std::endl;
+}
+}
+case sf::Keyboard::Up:
+addExercise.moveUp();
+break;
+case sf::Keyboard::Down:
+addExercise.moveDown();
+break;
+case sf::Keyboard::Return:
+switch (addExercise.getPressedItem()) //this says what menu item has been selected
+{
+case 0:
+return 2;
+}
+break;
+//implement more options
+}
+break;
+case sf::Event::Closed:
+window.close();
+break;
+}
+}
+window.clear();
+
+
+addExercise.draw(window);
+window.draw(logo);
+window.draw(text);
+//draw, implement stuff
+window.display();
+}
+return -3;
+}
+*/
+
+int addExercise(sf::RenderWindow &window, sf::Sprite &logo)
+{
+	// basic setup
 	sf::String title = "Add Exercises";
 	sf::Font font;
-	if (!font.loadFromFile("arial.ttf")) {}
-	sf::Text text(title, font, 20);
+	if (!font.loadFromFile("Lobster-Regular.ttf")) {}
+	sf::Text Title(title, font, 20);
 	//text.setColor(sf::Color::Green);
-	text.setPosition(650, 10);
+	Title.setPosition(650, 10);
 
+	// display
+	int selectedItemIndex = 0;
+	std::string exercise;
+	sf::Text exerciseName("Exercise Name: ", font, 30); exerciseName.setPosition(sf::Vector2f(5, 75));
+	sf::Text cardio("Cardio(Yes/No): ", font, 30); cardio.setPosition(sf::Vector2f(5, 150));
+	sf::Text muscle("Muscle Targeted: ", font, 30); muscle.setPosition(sf::Vector2f(5, 225));
 
+	// get information
+	sf::Text outputName("", font, 30);
+	sf::Text outputCardio("", font, 30);
+	sf::Text outputMuscle("", font, 30);
+	outputName.setPosition(sf::Vector2f(265, 75));
+	outputCardio.setPosition(sf::Vector2f(265, 150));
+	outputMuscle.setPosition(sf::Vector2f(265, 225));
+
+	std::string input;
 	while (window.isOpen()) {
-		//handle events
-
-
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			switch (event.type)
-			{
-			case sf::Event::KeyReleased:
-				switch (event.key.code)
-				{
-				case sf::Keyboard::Up:
-					addExercise.moveUp();
-					break;
-				case sf::Keyboard::Down:
-					addExercise.moveDown();
-					break;
-				case sf::Keyboard::Return:
-					switch (addExercise.getPressedItem()) //this says what menu item has been selected
-					{
-					case 0:
-						return 3;
-					case 1:
-						return 2;
-
-
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::TextEntered) {
+				switch (selectedItemIndex) {
+				case 0:
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							outputName.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							outputName.setString(input);
+							std::cout << input;
+						}
 					}
-					break;
-					//implement more options
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						selectedItemIndex = 1;
+					}
+				case 1:
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							outputName.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							outputName.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						selectedItemIndex = 2;
+					}
+				case 2:
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							outputName.setString(input);
+						}
+						else {
+							input += static_cast<char>(event.text.unicode);
+							outputName.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						selectedItemIndex = 3;
+					}
 				}
-				break;
-			case sf::Event::Closed:
-				window.close();
-				break;
 			}
+			else if (event.type == sf::Event::Closed)
+				//SAVE INFO AND LOGOUT 
+				window.close();
+		}
+		if (selectedItemIndex == 3) {
+			return 2;
 		}
 		window.clear();
-
-
-		addExercise.draw(window);
-		window.draw(logo);
-		window.draw(text);
-		//draw, implement stuff
+		window.draw(outputName);
+		window.draw(exerciseName);
+		window.draw(cardio);
+		window.draw(muscle);
+		window.draw(outputCardio);
+		window.draw(outputMuscle);
 		window.display();
 	}
 	return -3;
 }
+
 int loginMenu()//needs to be able to check if valid user still
 {
 	int selectedItemIndex = 0;
@@ -1046,6 +1161,10 @@ int loginMenu()//needs to be able to check if valid user still
 								userName.pop_back();
 								nameText.setString(userName);
 							}
+							else if (event.text.unicode == 8)
+								continue;
+							else if (userName.length() > 15)
+								continue;
 							else {
 								userName += static_cast<char>(event.text.unicode);
 								nameText.setString(userName);
@@ -1065,6 +1184,10 @@ int loginMenu()//needs to be able to check if valid user still
 								passWord.pop_back();
 								passText.setString(passWord);
 							}
+							else if (event.text.unicode == 8)
+								continue;
+							else if (passWord.length() > 15)
+								continue;
 							else {
 								passWord += static_cast<char>(event.text.unicode);
 								passText.setString(passWord);
@@ -1110,21 +1233,20 @@ int loginMenu()//needs to be able to check if valid user still
 
 }
 
-
 int registerNewUser()
 {
-	std::string fields[10] = { "Username:", "Password:", "Name:", "Age:", "Gender:", "Email:",
+	std::string fields[10] = { "Username:", "Password:", "Name:", "Age:", "Sex:", "Email:",
 		"Phone:", "City:", "State:","Zipcode:" };
 	std::string username;
 	std::string password;
 	std::string name;
-	std::string age;
+	int age;
 	std::string gender;
-	std::string email;
-	std::string phoneNum;
-	std::string city;
-	std::string state;
-	std::string zipcode;
+	std::string email = "";
+	std::string phoneNum = "";
+	std::string city = "";
+	std::string state = "";
+	std::string zipcode = "";
 
 	bool fieldsFilled[10] = { false };
 	bool validInput = false;
@@ -1133,11 +1255,12 @@ int registerNewUser()
 	sf::Font font; font.loadFromFile("arial.ttf");
 	sf::Text field("", font, 30); field.setPosition(sf::Vector2f(5, 75));
 	std::string input;
-	sf::Text userIn("", font, 30); userIn.setPosition(sf::Vector2f(160, 75)); //may need to adjust positioning
+	sf::Text userIn("", font, 30); userIn.setPosition(sf::Vector2f(160, 125)); //may need to adjust positioning
 	sf::Text error("", font, 30); error.setPosition(sf::Vector2f(105, 5)); //generic error message
 	while (regWindow.isOpen()) {
 		sf::Event event;
 		int i = 0;
+		//username
 		while (!validInput && !fieldsFilled[i]) {//username
 			bool notAlNum = false;
 			Info::userExists = false;
@@ -1150,6 +1273,10 @@ int registerNewUser()
 							input.pop_back();
 							userIn.setString(input);
 						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 15)
+							continue;
 						else {
 							input += static_cast<char>(event.text.unicode);
 							userIn.setString(input);
@@ -1163,7 +1290,7 @@ int registerNewUser()
 								notAlNum = true;
 						}
 						Info::userExists = Info::checkUserExists(input);
-						if (notAlNum || Info::userExists) {
+						if (notAlNum || Info::userExists || input == "") {
 							error.setString("ERROR, try again.");
 						}
 						else {
@@ -1187,6 +1314,7 @@ int registerNewUser()
 		}
 		validInput = false;
 		i++;
+		//password
 		while (!validInput && !fieldsFilled[i]) {//password
 			bool notAlNumOrSymbol = false;
 
@@ -1199,6 +1327,10 @@ int registerNewUser()
 							input.pop_back();
 							userIn.setString(input);
 						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 15)
+							continue;
 						else {
 							input += static_cast<char>(event.text.unicode);
 							userIn.setString(input);
@@ -1213,7 +1345,7 @@ int registerNewUser()
 						}
 
 
-						if (notAlNumOrSymbol) {
+						if (notAlNumOrSymbol || input == "") {
 							error.setString("ERROR, try again.");
 						}
 						else {
@@ -1236,6 +1368,7 @@ int registerNewUser()
 			regWindow.display();
 		}
 		validInput = false; i++;
+		//real name
 		while (!validInput && !fieldsFilled[i]) {//irl name
 			bool invalidName = false;
 
@@ -1248,6 +1381,10 @@ int registerNewUser()
 							input.pop_back();
 							userIn.setString(input);
 						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 15)
+							continue;
 						else {
 							input += static_cast<char>(event.text.unicode);
 							userIn.setString(input);
@@ -1259,7 +1396,7 @@ int registerNewUser()
 							if (!isalpha(c))
 								invalidName = true;
 						}
-						if (invalidName) {
+						if (invalidName || input == "") {
 							error.setString("ERROR, try again.");
 						}
 						else {
@@ -1282,53 +1419,7 @@ int registerNewUser()
 			regWindow.display();
 		}
 		validInput = false; i++;
-		while (!validInput && !fieldsFilled[i]) {//name
-			bool notAlNumOrSymbol = false;
-
-			field.setString(fields[i]);
-			while (regWindow.pollEvent(event)) {
-				if (event.type == sf::Event::TextEntered) {
-					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
-						event.text.unicode != 40)) {
-						if (event.text.unicode == 8 && input.length() > 0) {
-							input.pop_back();
-							userIn.setString(input);
-						}
-						else {
-							input += static_cast<char>(event.text.unicode);
-							userIn.setString(input);
-							std::cout << input;
-						}
-					}
-					else if (event.text.unicode == 13) {//enter key: check if input is good
-						for (char c : input)
-						{
-							if (!isalnum(c) && c != '!' && c != '?' && c != '@')
-								notAlNumOrSymbol = true;
-						}
-						if (notAlNumOrSymbol) {
-							error.setString("ERROR, try again.");
-						}
-						else {
-							password = input; //change for each field
-							input = "";//reset input
-							userIn.setString(input);
-							fieldsFilled[i] = true;
-							validInput = true; //break out of username display loop
-							break;
-						}
-					}
-				}
-				else if (event.type == sf::Event::Closed)
-					regWindow.close();
-			}
-			regWindow.clear();
-			regWindow.draw(field);
-			regWindow.draw(userIn);
-			regWindow.draw(error);
-			regWindow.display();
-		}
-		validInput = false; i++;
+		//age
 		while (!validInput && !fieldsFilled[i]) {//age
 			bool isNotDigits = false;
 
@@ -1341,6 +1432,10 @@ int registerNewUser()
 							input.pop_back();
 							userIn.setString(input);
 						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 3)
+							continue;
 						else {
 							input += static_cast<char>(event.text.unicode);
 							userIn.setString(input);
@@ -1351,7 +1446,7 @@ int registerNewUser()
 						for (char c : input)
 							if (!isdigit(c))
 								isNotDigits = true;
-						if (isNotDigits || std::stoi(input) < 18 || std::stoi(input) > 100) {
+						if (isNotDigits || std::stoi(input) < 18 || std::stoi(input) > 100 || input == "") {
 							error.setString("ERROR, try again.");
 						}
 
@@ -1375,9 +1470,9 @@ int registerNewUser()
 			regWindow.display();
 		}
 		validInput = false; i++;
-
+		//sex
 		while (!validInput && !fieldsFilled[i]) {//sex
-			bool invalidName = false;
+			bool invalidSex = false;
 
 			field.setString(fields[i]);
 			while (regWindow.pollEvent(event)) {
@@ -1388,6 +1483,10 @@ int registerNewUser()
 							input.pop_back();
 							userIn.setString(input);
 						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 1)
+							continue;
 						else {
 							input += static_cast<char>(event.text.unicode);
 							userIn.setString(input);
@@ -1395,21 +1494,32 @@ int registerNewUser()
 						}
 					}
 					else if (event.text.unicode == 13) {//enter key: check if input is good
-						for (char c : input) {
-							if (!isalpha(c))
-								invalidName = true;
+						for (int i = 0; i < input.size(); i++)
+							input[i] = tolower(input[i]);
+						/*if (input != "m" || input != "f")
+						invalidSex = true;
+						if (invalidSex) {
+						error.setString("ERROR, try again.");
 						}
-						if (invalidName) {
-							error.setString("ERROR, try again.");
-						}
-						else {
-							name = input; //change for each field
+						else {*/
+						if (input == "m") {
+							gender = "male"; //change for each field
 							input = "";//reset input
 							fieldsFilled[i] = true;
 							validInput = true; //break out of username display loop
 							userIn.setString(input);
 							break;
 						}
+						else if (input == "f") {
+							gender = "female"; //change for each field
+							input = "";//reset input
+							fieldsFilled[i] = true;
+							validInput = true; //break out of username display loop
+							userIn.setString(input);
+							break;
+						}
+						else
+							error.setString("ERROR, try again");
 					}
 				}
 				else if (event.type == sf::Event::Closed)
@@ -1422,10 +1532,11 @@ int registerNewUser()
 			regWindow.display();
 		}
 		validInput = false; i++;
-		while (!validInput && !fieldsFilled[i]) {//password
-			bool notAlNumOrSymbol = false;
+		//weight
+		while (!validInput) {
+			bool isNotDigits = false;
 
-			field.setString(fields[i]);
+			field.setString("Enter weight in pounds:");
 			while (regWindow.pollEvent(event)) {
 				if (event.type == sf::Event::TextEntered) {
 					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
@@ -1434,6 +1545,10 @@ int registerNewUser()
 							input.pop_back();
 							userIn.setString(input);
 						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 3)
+							continue;
 						else {
 							input += static_cast<char>(event.text.unicode);
 							userIn.setString(input);
@@ -1442,20 +1557,18 @@ int registerNewUser()
 					}
 					else if (event.text.unicode == 13) {//enter key: check if input is good
 						for (char c : input)
-						{
-							if (!isalnum(c) && c != '!' && c != '?' && c != '@')
-								notAlNumOrSymbol = true;
-						}
+							if (!isdigit(c))
+								isNotDigits = true;
 
 
-						if (notAlNumOrSymbol) {
+						if (isNotDigits || input == "") {
 							error.setString("ERROR, try again.");
 						}
 						else {
-							password = input; //change for each field
+							int uWeight = stoi(input);
+							Info::weight = uWeight; //change for each field
 							input = "";//reset input
 							userIn.setString(input);
-							fieldsFilled[i] = true;
 							validInput = true; //break out of username display loop
 							break;
 						}
@@ -1470,12 +1583,117 @@ int registerNewUser()
 			regWindow.draw(error);
 			regWindow.display();
 		}
+		validInput = false;
+		//height
+		while (!validInput) {
+			bool isNotDigits = false;
 
+			field.setString("Enter Height in inches:");
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 3)
+							continue;
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (char c : input)
+							if (!isdigit(c))
+								isNotDigits = true;
+
+
+						if (isNotDigits || std::stoi(input) < 36 || std::stoi(input) > 96 || input == "") {
+							error.setString("ERROR, try again.");
+						}
+						else {
+							Info::height = stoi(input); //change for each field
+							input = "";//reset input
+							userIn.setString(input);
+							validInput = true; //break out of username display loop
+							break;
+						}
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}
+		validInput = false;
+		//goals
+		while (!validInput) {
+
+			field.setString("Enter your goal: Cut, Bulk, or Maintain:");
+			while (regWindow.pollEvent(event)) {
+				if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode < 128 && event.text.unicode != 13 && (event.text.unicode != 38 ||//takes in typing to window
+						event.text.unicode != 40)) {
+						if (event.text.unicode == 8 && input.length() > 0) {
+							input.pop_back();
+							userIn.setString(input);
+						}
+						else if (event.text.unicode == 8)
+							continue;
+						else if (input.length() > 8)
+							continue;
+						else {
+							input += static_cast<char>(event.text.unicode);
+							userIn.setString(input);
+							std::cout << input;
+						}
+					}
+					else if (event.text.unicode == 13) {//enter key: check if input is good
+						for (int i = 0; i < input.size(); i++)
+							input[i] = tolower(input[i]);
+						if (input == "bulk")
+							Info::goal = "Bulk";
+						else if (input == "cut")
+							Info::goal = "Cut";
+						else if (input == "maintain")
+							Info::goal = "Maintain";
+						else
+						{
+							error.setString("ERROR, try again.");
+							continue;
+						}
+						input = "";//reset input
+						validInput = true; //break out of username display loop
+						userIn.setString(input);
+						break;
+
+					}
+				}
+				else if (event.type == sf::Event::Closed)
+					regWindow.close();
+			}
+			regWindow.clear();
+			regWindow.draw(field);
+			regWindow.draw(userIn);
+			regWindow.draw(error);
+			regWindow.display();
+		}validInput = false;
+		regWindow.close();
 	}
+	Info::userMember = member(username, password, name, age, gender, email, phoneNum, city, state, zipcode);
+	Info::saveUser();
 	return 1;
+	//return 2;
 }
-
-
 
 //page number 1
 int home(sf::RenderWindow &window, sf::Sprite &logo, sf::CircleShape &background)
@@ -1550,6 +1768,7 @@ int main()
 	if (!logoTexture.loadFromFile("Gainezville.png"))
 		std::cout << "\nError, failed to load image\n";
 	logoSprite.setTexture(logoTexture);
+	logoSprite.setPosition(15.0f, 0.0f);
 
 	int screen = 0;
 	sf::RenderWindow window(sf::VideoMode(1400, 900), "GAINESVILLE");
@@ -1591,7 +1810,7 @@ int main()
 		//if (screen == 15)
 		//	screen = filePage(window, logoSprite);
 		if (screen == 16)
-			screen = nutrition(window, logoSprite);
+			screen = calculateNutrition(window, logoSprite);
 		if (screen == 17)
 			screen = viewIntake(window, logoSprite);
 	}

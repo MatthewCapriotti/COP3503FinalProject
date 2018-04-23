@@ -41,7 +41,7 @@ void BackupOutput::createNewUser()
         bool notAlNum = false;
         Info::userExists = false;
 
-        cout << "Enter desired username (alphanumeric characters only): ";
+        cout << "Enter desired username (alphanumeric characters only, limit 16 characters): ";
         cin >> input;
         cout << endl;
 
@@ -56,6 +56,11 @@ void BackupOutput::createNewUser()
         if(notAlNum)
         {
             cout << "Error: The desired username is not entirely made up of alphanumeric characters." << endl;
+            continue;
+        }
+        else if(input.size() > 16)
+        {
+            cout << "Error: The desired username is too long." << endl;
             continue;
         }
 
@@ -80,7 +85,7 @@ void BackupOutput::createNewUser()
     {
         bool notAlNumOrSymbol = false;
 
-        cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+        cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@), limit 16 characters: ";
         cin >> input;
         cout << endl;
 
@@ -93,6 +98,11 @@ void BackupOutput::createNewUser()
         if(notAlNumOrSymbol)
         {
             cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+            continue;
+        }
+        else if(input.size() > 16)
+        {
+            cout << "Error: The desired password is too long." << endl;
             continue;
         }
 
@@ -499,9 +509,16 @@ void BackupOutput::login()
 {
     bool validInput = false;
     string input;
+    int usernameCounter = 0;
 
     while(!validInput)
     {
+        if(usernameCounter == 5)
+        {
+            Info::usernameTooFar = true;
+            return void();
+        }
+
         Info::isAuthenticated = false;
         string username = "";
         string password = "";
@@ -515,6 +532,7 @@ void BackupOutput::login()
         if(!Info::userExists)
         {
             cout << "Error: There is no user with that username." << endl;
+            usernameCounter++;
             continue;
         }
         else
@@ -532,6 +550,7 @@ void BackupOutput::login()
             if(!Info::isAuthenticated)
             {
                 cout << "Error: The password is invalid." << endl;
+                usernameCounter++;
                 continue;
             }
             else
@@ -1038,7 +1057,7 @@ void BackupOutput::editInfo()
         {
             invalidInput = false;
 
-            cout << "Enter the username you would like to change to (alphanumeric characters only): ";
+            cout << "Enter the username you would like to change to (alphanumeric characters only), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1049,6 +1068,11 @@ void BackupOutput::editInfo()
                     cout << "Error: The username must be made up of alphanumeric characters." << endl;
                     invalidInput = true;
                 }
+            }
+            if(input.size() > 16)
+            {
+                cout << "Error: The desired username is too long." << endl;
+                continue;
             }
 
             if(invalidInput)
@@ -1080,7 +1104,7 @@ void BackupOutput::editInfo()
         {
             bool notAlNumOrSymbol = false;
 
-            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1093,6 +1117,11 @@ void BackupOutput::editInfo()
             if(notAlNumOrSymbol)
             {
                 cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+                continue;
+            }
+            else if(input.size() > 16)
+            {
+                cout << "Error: The desired password is too long." << endl;
                 continue;
             }
 
@@ -1426,6 +1455,44 @@ void BackupOutput::editInfo()
             validInput = true;
         }
     }
+    else if(input == "11")
+    {
+        bool validInput = false;
+
+        // Requests the user's current weight in pounds
+        while(!validInput)
+        {
+            bool isNotDigits = false;
+
+            cout << "Please enter your weight (in pounds, 50-999, digits only): ";
+            cin >> input;
+            cout << endl;
+
+            // Checks to make sure the weight is made up of numerical digits
+            for(char c : input)
+                if(!isdigit(c))
+                    isNotDigits = true;
+
+            if(isNotDigits)
+            {
+                cout << "Error: The weight is not entirely made up of digits." << endl;
+                continue;
+            }
+            else if(stoi(input) < 50)
+            {
+                cout << "Error: The weight is too low." << endl;
+                continue;
+            }
+            else if(stoi(input) > 999)
+            {
+                cout << "Error: The weight is too high." << endl;
+                continue;
+            }
+
+            Info::weight = stoi(input);
+            validInput = true;
+        }
+    }
     else if(input == "12")
     {
         bool validInput = false;
@@ -1576,6 +1643,7 @@ void BackupOutput::provideIntake()
     {
         Info::calorieInstance.setHeight(Info::height);
         Info::calorieInstance.setWeight(Info::weight);
+        Info::calorieInstance.setAge(Info::userMember.getAge());
 
         Info::calorieInstance.caloriesCut(choice, Info::userMember.getGender());
 
@@ -1589,6 +1657,7 @@ void BackupOutput::provideIntake()
     {
         Info::calorieInstance.setHeight(Info::height);
         Info::calorieInstance.setWeight(Info::weight);
+        Info::calorieInstance.setAge(Info::userMember.getAge());
 
         Info::calorieInstance.caloriesBulk(choice, Info::userMember.getGender());
 
@@ -1665,7 +1734,7 @@ void BackupOutput::editAdminInfo()
         {
             invalidInput = false;
 
-            cout << "Enter the username you would like to change to (alphanumeric characters only): ";
+            cout << "Enter the username you would like to change to (alphanumeric characters only), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1676,6 +1745,11 @@ void BackupOutput::editAdminInfo()
                     cout << "Error: The username must be made up of alphanumeric characters." << endl;
                     invalidInput = true;
                 }
+            }
+            if(input.size() > 16)
+            {
+                cout << "Error: The desired username is too long." << endl;
+                continue;
             }
 
             if(invalidInput)
@@ -1707,7 +1781,7 @@ void BackupOutput::editAdminInfo()
         {
             bool notAlNumOrSymbol = false;
 
-            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@): ";
+            cout << "Enter desired password (alphanumeric characters or the symbols: !,?,@), limit 16 characters: ";
             cin >> input;
             cout << endl;
 
@@ -1720,6 +1794,11 @@ void BackupOutput::editAdminInfo()
             if(notAlNumOrSymbol)
             {
                 cout << "Error: The desired password is not entirely made up of alphanumeric characters or the specified symbols." << endl;
+                continue;
+            }
+            else if(input.size() > 16)
+            {
+                cout << "Error: The desired password is too long." << endl;
                 continue;
             }
 
@@ -1989,42 +2068,52 @@ int main()
     string input;
     bool validInput = false;
 
-    // Requests user input
-    cout << "Are you a new user? (Y/N): ";
-    cin >> input;
-    cout << endl;
-
-    // Asking if the user is a new user:
-    while(!validInput)
+    while(true)
     {
-        // If yes, then Info::newUser is set to true and this loop is broken out of.
-        // If no, then Info::newUser is kept false (rewritten here for clarity) and
-        // this loop is broken out of. If invalid input, this loop repeats.
-        if(input == "Y" || input == "y")
+        Info::usernameTooFar = false;
+
+        // Requests user input
+        cout << "Are you a new user? (Y/N): ";
+        cin >> input;
+        cout << endl;
+
+        // Asking if the user is a new user:
+        while(!validInput)
         {
-            Info::newUser = true;
-            validInput = true;
+            // If yes, then Info::newUser is set to true and this loop is broken out of.
+            // If no, then Info::newUser is kept false (rewritten here for clarity) and
+            // this loop is broken out of. If invalid input, this loop repeats.
+            if(input == "Y" || input == "y")
+            {
+                Info::newUser = true;
+                validInput = true;
+            }
+            else if(input == "N" || input == "n")
+            {
+                Info::newUser = false;
+                validInput = true;
+            }
+            else
+            {
+                cout << "Invalid input! Please enter \"Y\" or \"N\": ";
+                cin >> input;
+                cout << endl;
+            }
         }
-        else if(input == "N" || input == "n")
-        {
-            Info::newUser = false;
-            validInput = true;
-        }
+
+        validInput = false;
+
+        // Decides whether to create a new user or login the existing user
+        if(Info::newUser)
+            BackupOutput::createNewUser();
         else
-        {
-            cout << "Invalid input! Please enter \"Y\" or \"N\": ";
-            cin >> input;
-            cout << endl;
-        }
+            BackupOutput::login();
+
+        if(Info::usernameTooFar)
+            continue;
+        else
+            break;
     }
-
-    validInput = false;
-
-    // Decides whether to create a new user or login the existing user
-    if(Info::newUser)
-        BackupOutput::createNewUser();
-    else
-        BackupOutput::login();
 
     input = "";
 

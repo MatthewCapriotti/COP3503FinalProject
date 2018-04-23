@@ -149,80 +149,81 @@ case 1:
     if(gender == "Male"){
 
         setMenCutRate(menBMR() * 1.2);
-         setCarbs( 1.5*weight);
-       setFat( 0.2 * weight);
-       setProtein(0.6 * weight);
+        setCarbs( (0.25 *(getMenCutRate()))/4);
+        setFat((0.35 * (getMenCutRate()))/9);
+        setProtein((0.4 * (getMenCutRate()))/4);
     }
     else if(gender == "Female")
     {
         setWomenCutRate(womenBMR() * 1.2);
-         setCarbs( 1.5*weight);
-       setFat( 0.2 * weight);
-       setProtein(0.6 * weight);
+        setCarbs( (0.25 *(getWomenCutRate()))/4);
+        setFat( (0.35 * (getWomenCutRate()))/9);
+        setProtein((0.4 * (getWomenCutRate()))/4);
     }
 
     break;
 case 2:
     if(gender == "Male"){
-      setMenCutRate(menBMR() * 1.375);
-         setCarbs( 3.5*weight);
-       setFat( 0.3 * weight);
-       setProtein(1 * weight);
+      setMenCutRate(menBMR() * 0.85);
+        setCarbs( (0.3 *(getMenCutRate()))/4);
+        setFat( (0.3 * (getMenCutRate()))/9);
+        setProtein((0.4 * (getMenCutRate()))/4);
     }
     else if(gender == "Female")
     {
-         setWomenCutRate(womenBMR() * 1.375);
-         setCarbs( 1.8*weight);
-       setFat( 0.3 * weight);
-       setProtein(0.9 * weight);
+        setWomenCutRate(womenBMR() * 1.0);
+        setCarbs( (0.3 *(getWomenCutRate()))/4);
+        setFat( (0.3 * (getWomenCutRate()))/9);
+        setProtein((0.4 * (getWomenCutRate()))/4);
     }
     break;
 case 3:
     if(gender == "Male"){
-        menCutRate = menBMR() * 1.55;
-          carbs = 1.9*weight;
-       fat = 0.3* weight;
-       protein = 0.9 * weight;
+        setMenCutRate( menBMR() * 1.0);
+        setCarbs( (0.35 *(getMenCutRate()))/4);
+        setFat( (0.2 * (getMenCutRate()))/9);
+        setProtein((0.45 * (getMenCutRate()))/4);
     }
     else if(gender == "Female")
     {
 
-        setWomenCutRate(womenBMR() * 1.55);
-         setCarbs( 1.9*weight);
-       setFat( 0.3 * weight);
-       setProtein(0.9 * weight);
+        setWomenCutRate(womenBMR() * 1.05);
+        setCarbs( (0.35 *(getWomenCutRate()))/4);
+        setFat( (0.2 * (getWomenCutRate()))/9);
+        setProtein((0.45 * (getWomenCutRate()))/4);
     }
     break;
 case 4:
     if(gender == "Male"){
 
-        setMenCutRate(menBMR() * 1.725);
-         setCarbs( 2.5*weight);
-       setFat( 0.3 * weight);
-       setProtein(1 * weight);
+        setMenCutRate(menBMR() * 1.15);
+        setCarbs( (0.35 *(getMenCutRate()))/4);
+        setFat( (0.15 * (getMenCutRate()))/9);
+        setProtein((0.5 * (getMenCutRate()))/4);
     }
     else if(gender == "Female")
     {
-        setWomenCutRate(womenBMR() * 1.725);
-         setCarbs( 2.5*weight);
-       setFat( 0.3 * weight);
-       setProtein(1 * weight);
+        setWomenCutRate(womenBMR() * 1.2);
+        setCarbs( (0.35 *(getWomenCutRate()))/4);
+        setFat( (0.15 * (getWomenCutRate()))/9);
+        setProtein((0.5 * (getWomenCutRate()))/4);
     }
     break;
 case 5:
+
     if(gender == "Male"){
-       setMenCutRate(womenBMR() * 1.9);
-         setCarbs( 3.5*weight);
-       setFat( 0.3 * weight);
-       setProtein(1 * weight);
+       setMenCutRate(menBMR() * 1.35);
+        setCarbs( (0.2 *(getMenCutRate()))/4);
+        setFat( (0.25 * (getMenCutRate()))/9);
+        setProtein((0.55 * (getMenCutRate()))/4);
 
     }
     else if(gender == "Female")
     {
-       setWomenCutRate(womenBMR() * 1.9);
-         setCarbs( 3.5*weight);
-       setFat( 0.3 * weight);
-       setProtein(1 * weight);
+       setWomenCutRate(womenBMR() * 1.4);
+        setCarbs( (0.2 *(getWomenCutRate()))/4);
+        setFat( (0.25 * (getWomenCutRate()))/9);
+        setProtein((0.55 * (getWomenCutRate()))/4);
     }
     break;
 
@@ -236,46 +237,71 @@ case 5:
 
 
 }
-//Calorie Bulk
+
+//Calories needed to gain weight based on active state and gender
 void Calories:: caloriesBulk(int choice, string gender){
+    //Calories choice options:
     //1: Sedentary tending to spend much time seated; somewhat inactive.
-    //2: active (light exercise two to three days a week)
+    //2: Lightly active (light exercise two to three days a week)
     //3: Moderately active (moderate exercise four to six days per week):
+    //Calculation for calories from the following resources:
     //http://www.healthylivingheavylifting.com/how-to-calculate-macros-for-bulking/
     //http://www.shapeyourenergy.com/how-to-calculate-your-calories-formula/
+
     switch(choice){
 case 1:
     if(gender == "Male"){
-       menBulkRate = (weight * 18);
-        setMenBulkRate(menBulkRate+500);
+        setMenBulkRate((menBMR() * 1.0) + 500);
+
+        setCarbs( (0.4 *(getMenBulkRate()))/4);
+        setFat( (0.2 * (getMenBulkRate()))/9);
+        setProtein((0.4 * (getMenBulkRate()))/4);
     }
     else if(gender == "Female")
     {
-        womenBulkRate = weight * 16;
-         setWomenBulkRate(womenBulkRate+500);
+
+        setWomenBulkRate((womenBMR() * 1.05) + 500);
+
+        setCarbs( (0.4 *(getWomenBulkRate()))/4);
+        setFat( (0.2 * (getWomenBulkRate()))/9);
+        setProtein((0.4 * (getWomenBulkRate()))/4);
     }
     break;
+
 case 2:
     if(gender == "Male"){
-        menBulkRate = weight*20;
-         setMenBulkRate(menBulkRate+500);
+
+        setMenBulkRate((menBMR() * 1.1) + 500);
+
+        setCarbs( (0.35 *(getMenBulkRate()))/4);
+        setFat( (0.15 * (getMenBulkRate()))/9);
+        setProtein((0.5 * (getMenBulkRate()))/4);
     }
     else if(gender == "Female")
     {
-        womenBulkRate = weight * 17;
-         setWomenBulkRate(womenBulkRate+500);
+        setWomenBulkRate((womenBMR() * 1.15) + 500);
+
+        setCarbs( (0.35 *(getWomenBulkRate()))/4);
+        setFat( (0.15 * (getWomenBulkRate()))/9);
+        setProtein((0.5 * (getWomenBulkRate()))/4);
 
     }
     break;
 case 3:
     if(gender == "Male"){
-        menBulkRate = weight * 22;
-        setMenBulkRate(menBulkRate);
+
+        setMenBulkRate((menBMR() * 1.25) + 500);
+        setCarbs( (0.25 *(getMenBulkRate()))/4);
+        setFat( (0.15 * (getMenBulkRate()))/9);
+        setProtein((0.6 * (getMenBulkRate()))/4);
+
     }
     else if(gender == "Female")
     {
-        womenBulkRate = weight * 18;
-         setWomenBulkRate(womenBulkRate+500);
+        setWomenBulkRate((womenBMR() * 1.3) + 500);
+        setCarbs( (0.25 *(getWomenBulkRate()))/4);
+        setFat( (0.15 * (getWomenBulkRate()))/9);
+        setProtein((0.6 * (getWomenBulkRate()))/4);
     }
     break;
 
